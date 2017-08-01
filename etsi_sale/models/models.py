@@ -2,7 +2,7 @@
 
 from odoo import models, fields, api
 
-#Lawrence sobrang cute
+#Deb
 class etsi_sale(models.Model):
     _name = 'etsi_sale.etsi_sale'
 
@@ -14,3 +14,4 @@ class etsi_sale(models.Model):
     @api.depends('value')
     def _value_pc(self):
         self.value2 = float(self.value) / 100
+
