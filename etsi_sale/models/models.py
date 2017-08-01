@@ -4,6 +4,7 @@ from odoo import models, fields, api
 
 #Lawrence sobrang cute
 #test
+#wag babasahin, ang kulet binabasa mo pa din eh
 class etsi_sale(models.Model):
     _name = 'etsi_sale.etsi_sale'
 
