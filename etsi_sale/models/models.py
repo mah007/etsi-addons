@@ -7,7 +7,7 @@ class etsi_sale(models.Model):
 
     name = fields.Char()
     value = fields.Integer()
-    value2 = fields.Float(compute="_value_pc", store=True)
+    value2 = fields.Float(compute="_value_pc", store=False)
     description = fields.Text()
 
     @api.depends('value')
