@@ -3,7 +3,8 @@
 from odoo import models, fields, api
 
 #Lawrence sobrang cute
-#wag babasahin, ang kulet binabasa mo pa din eh
+#test
+#testulet
 class etsi_sale(models.Model):
     _name = 'etsi_sale.etsi_sale'
 
