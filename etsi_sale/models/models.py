@@ -2,7 +2,7 @@
 
 from odoo import models, fields, api
 
-#Lawrence-Chu-Chu
+#Lawrence sobrang cute
 class etsi_sale(models.Model):
     _name = 'etsi_sale.etsi_sale'
 
