@@ -5,7 +5,6 @@ from odoo import models, fields, api
 class etsi_sale(models.Model):
     _name = 'etsi_sale.etsi_sale'
 
-    asd = fields.Char()
     name = fields.Char()
     value = fields.Integer()
     value2 = fields.Float(compute="_value_pc", store=False)
