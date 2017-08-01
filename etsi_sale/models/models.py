@@ -2,7 +2,7 @@
 
 from odoo import models, fields, api
 
-#Modify --Elishah Garcia
+#Modify --Elishah Garcia --08-01-17
 class etsi_sale(models.Model):
     _name = 'etsi_sale.etsi_sale'
 
