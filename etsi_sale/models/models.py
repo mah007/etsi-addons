@@ -2,8 +2,6 @@
 
 from odoo import models, fields, api
 
-#Lawrence-Cute
-#Jmevic Pogi
 class etsi_sale(models.Model):
     _name = 'etsi_sale.etsi_sale'
 
