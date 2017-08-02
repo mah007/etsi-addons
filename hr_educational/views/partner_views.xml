@@ -1,16 +1,19 @@
 <odoo>
     <data>
+
+
         <record id="custom_sales_partner_form_view" model="ir.ui.view">
             <field name="name">custom.sales_partner.form.view</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
 
+
                 <field name="lang" position="after">
                     <field name="is_institution" invisible="1"/>
                 </field>
                 <field name="company_type" position="attributes">
-                       <attribute name="invisible">True</attribute>
+                    <attributes name="attrs">{'invisible':[('is_institution','=',True)]}</attributes>
                 </field>
             </field>
         </record>
