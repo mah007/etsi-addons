@@ -1,0 +1,127 @@
+<odoo>
+    <data>
+
+ <!--Contract- Seaman       -->
+        <record id="vessel_seaman_contract_tree_view" model="ir.ui.view">
+            <field name="name">vessel.seaman.contract.tree_view</field>
+            <field name="model">hr.contract</field>
+            <field name="arch" type="xml">
+                <tree string="Contract">
+                    <field name="name"/>
+                    <field name="employee_id" string="Seaman"/>
+                    <field name="type_id"/>
+                    <field name="job_id" string="Rank"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="months"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="vessel_contract_form_view" model="ir.ui.view">
+          <field name="name">vessel.contract.form.vew</field>
+          <field name="model">hr.contract</field>
+          <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+          <field name="arch" type="xml">
+              <field name="partner_id" position="after">
+                <field name="vessel_id"  attrs="{'invisible' : [('seaman', '!=', True)]}" string="Assigned to(Vessel)"/>
+                  <field name="seaman" invisible="1"/>
+                  <field name="in_house" invisible="1"/>
+              </field>
+              <field name="partner_id" position="attributes">
+                  <attribute name="attrs">{'invisible': [('in_house','!=',True)]}</attribute>
+              </field>
+              <field name="policy_id" position="attributes">
+                  <attribute name="attrs">{'invisible': [('in_house','!=',True)]}</attribute>
+              </field>
+              <field name="working_hours" position="attributes">
+                  <attribute name="attrs">{'invisible': [('in_house','!=',True)]}</attribute>
+              </field>
+              <xpath expr="//page[2]" position="attributes">
+                  <attribute name="attrs">{'invisible': [('in_house','!=',True)]}</attribute>
+              </xpath>
+              <field name="type_id" position="after">
+                <field name="sign_on" attrs="{'invisible' : [('seaman', '!=', True)]}"/>
+              </field>
+              <field name="employee_id" position="replace">
+                  <label for="employee_id" string="Employee" attrs="{'invisible' : [('in_house', '!=', True)]}"/>
+                  <span/>
+                  <label for="employee_id" string="Seaman" attrs="{'invisible' : [('seaman', '!=', True)]}"/>
+                  <div>
+                    <field name="employee_id" nolabel="1"/>
+                  </div>
+              </field>
+              <field name="job_id" position="replace">
+                  <label for="job_id" string="Job Title" attrs="{'invisible' : [('in_house', '!=', True)]}"/>
+                  <span/>
+                  <label for="job_id" string="Rank" attrs="{'invisible' : [('seaman', '!=', True)]}"/>
+                  <div>
+                    <field name="job_id" nolabel="1"/>
+                  </div>
+              </field>
+              <xpath expr="//group[@name='duration_group']/div" position="after">
+                  <field name="months" attrs="{'invisible' : [('seaman', '!=', True)]}"/>
+              </xpath>
+              <field name="wage" position="after">
+                <field name="currency_id" attrs="{'invisible' : [('seaman', '!=', True)]}"/>
+              </field>
+          </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="seaman_contract_action">
+            <field name="name">Contract</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">search,tree,form,</field>
+            <field name="context">{"emp_type":'seaman'}</field>
+            <field name="domain">[('seaman','=',True)]</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="seaman_contract_tree_action">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="vessel_seaman_contract_tree_view"/>
+            <field name="act_window_id" ref="seaman_contract_action"/>
+        </record>
+
+
+
+        <menuitem
+            id="seaman_contract_menu"
+            name="Seaman"
+            action="seaman_contract_action"
+            parent="hr_contract.hr_menu_contract"
+            />
+
+
+ <!--Contract- Regular       -->
+         <record model="ir.actions.act_window" id="regular_contract_action">
+            <field name="name">Contract</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">search,tree,form,</field>
+            <field name="context">{"emp_type":'in_house'}</field>
+             <field name="domain">[('in_house','=',True)]</field>
+        </record>
+
+        <!--<record model="ir.actions.act_window.view" id="regular_contract_form_action">-->
+            <!--<field name="sequence" eval="1"/>-->
+            <!--<field name="view_mode">form</field>-->
+            <!--<field name="act_window_id" ref="regular_contract_action"/>-->
+        <!--</record>-->
+
+
+
+        <menuitem
+            id="regular_contract_menu"
+            name="In-House"
+            action="regular_contract_action"
+            parent="hr_contract.hr_menu_contract"
+            />
+
+    </data>
+</odoo>

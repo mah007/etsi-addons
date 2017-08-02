@@ -1,0 +1,191 @@
+<odoo>
+    <data>
+
+<!--Employee- Seaman       -->
+         <record id="seaman_employee_tree_view" model="ir.ui.view">
+          <field name="name">seaman.employee.tree.vew</field>
+          <field name="model">hr.employee</field>
+          <field name="inherit_id" ref="hr.view_employee_tree"/>
+          <field name="arch" type="xml">
+              <field name="parent_id" position="after">
+                  <field name="seaman" invisible="1"/>
+                  <field name="status" attrs="{'invisible' : [('seaman', '!=', True)]}"/>
+              </field>
+              <field name="work_email" position="attributes">
+				<attribute name="invisible">True</attribute>
+              </field>
+               <field name="parent_id" position="attributes">
+				<attribute name="invisible">True</attribute>
+              </field>
+               <field name="job_id" position="attributes">
+				<attribute name="string">Rank</attribute>
+              </field>
+               <field name="name" position="replace">
+				    <field name="last_name"/>
+                    <field name="first_name"/>
+                    <field name="middle_name"/>
+              </field>
+
+          </field>
+        </record>
+
+        <record id="seaman_employee_form_view" model="ir.ui.view">
+          <field name="name">seaman.employee.form.vew</field>
+          <field name="model">hr.employee</field>
+          <field name="inherit_id" ref="etsi_hrms.etsi_hr_employee_form_view"/>
+          <field name="arch" type="xml">
+              <field name="first_name" position="before">
+                  <field name="seaman" invisible="1"/>
+                  <field name="in_house" invisible="1"/>
+              </field>
+              <field name="calendar_id" position="attributes">
+                  <attribute name="attrs">{'invisible': [('in_house','!=',True)]}</attribute>
+              </field>
+              <field name="parent_id" position="after">
+                <field name="status" attrs="{'invisible' : [('seaman', '!=', True)]}"/>
+              </field>
+
+              <field name="job_id" position="replace">
+                  <label for="job_id" string="Job Title" attrs="{'invisible' : [('in_house', '!=', True)]}"/>
+                  <span/>
+                  <label for="job_id" string="Rank" attrs="{'invisible' : [('seaman', '!=', True)]}"/>
+                  <div>
+                    <field name="job_id" nolabel="1"/>
+                  </div>
+              </field>
+
+              <xpath expr="//div[@class='oe_button_box']" position="inside">
+                <button name="act_sign_off" type="object" groups="hr.group_hr_user"
+                        class="oe_stat_button" icon="fa-archive"  string="Sign Off" attrs="{'invisible' : [('status', '==', 'offboard')]}" confirm="Are you sure you want Seaman to be signed off?"/>
+                 <button name="act_sign_on" type="object" groups="hr.group_hr_user"
+                        class="oe_stat_button" icon="fa-archive"  string="Sign On" attrs="{'invisible' : [('status', '==', 'onboard')]}"/>
+              </xpath>
+
+              <field name="parent_id" position="attributes">
+				<attribute name="invisible">True</attribute>
+              </field>
+
+               <field name="job_id" position="attributes">
+				<attribute name="string">Rank</attribute>
+              </field>
+              <xpath expr="//page[2]" position="after">
+                   <page string="Allottee Payees" groups="base.group_user" attrs="{'invisible' : [('seaman', '!=', True)]}">
+                    <field name="allottee_ids"/>
+                </page>
+              </xpath>
+          </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="seaman_employee_action">
+            <field name="name">Seaman</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">search,tree,form,</field>
+            <field name="context">{"emp_type":'seaman'}</field>
+            <field name="domain">[('seaman','=',True)]</field>
+        </record>
+
+        <!--<record model="ir.actions.act_window.view" id="seaman_employee_form_action">-->
+            <!--<field name="sequence" eval="1"/>-->
+            <!--<field name="view_mode">form</field>-->
+            <!--<field name="act_window_id" ref="seaman_employee_action"/>-->
+        <!--</record>-->
+
+         <record model="ir.actions.act_window.view" id="seaman_employee_tree_action">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="seaman_employee_tree_view"/>
+            <field name="act_window_id" ref="seaman_employee_action"/>
+        </record>
+
+
+
+        <menuitem
+            id="seaman_employee_menu"
+            name="Seaman"
+            action="seaman_employee_action"
+            parent="hr.menu_open_view_employee_list_my"
+            />
+
+        <record model="ir.actions.act_window" id="in_house_employee_action">
+            <field name="name">In-House</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">search,tree,form,</field>
+            <field name="context">{"emp_type":'in_house'}</field>
+            <field name="domain">[('in_house','=',True)]</field>
+        </record>
+
+        <record id="inhouse_employee_tree_view" model="ir.ui.view">
+          <field name="name">inhouse.employee.tree.vew</field>
+          <field name="model">hr.employee</field>
+          <field name="inherit_id" ref=""/>
+            <field name="arch" type="xml">
+              <tree string="In House">
+                <field name="name"/>
+                <field name="work_phone"/>
+                <field name="work_email"/>
+                <field name="department_id"/>
+                <field name="job_id" string="Job Title"/>
+                <!--<field name="manager_id"/>-->
+              </tree>
+          </field>
+        </record>
+
+         <record model="ir.actions.act_window.view" id="in_house_employee_tree_action">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+             <field name="view_id" ref="inhouse_employee_tree_view"/>
+            <field name="act_window_id" ref="in_house_employee_action"/>
+        </record>
+
+
+        <menuitem
+            id="in_house_employee_menu"
+            name="In House"
+            action="in_house_employee_action"
+            parent="hr.menu_open_view_employee_list_my"
+            />
+
+
+ <!--HR Contract - Employee       -->
+        <record id="vessel_hr_contract_employee_form_view" model="ir.ui.view">
+            <field name="name">vessel.hr.contract.employee.form_view</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr_contract.hr_hr_employee_view_form2"/>
+            <field name="arch" type="xml">
+               <xpath expr="//field[@name='bank_account_id']" position="replace">
+                    <field name="bank_account_id" context="{'display_partner':True}" attrs="{'invisible' : [('in_house', '!=', True),('seaman', '=', True)]}"/>
+               </xpath>
+            </field >
+        </record>
+
+
+<!--HR Holidays - Employee        -->
+         <record id="hr_holiday_employee_form_view" model="ir.ui.view">
+            <field name="name">hr.holiday.employee.form_view</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr_holidays.view_employee_form_leave_inherit"/>
+            <field name="arch" type="xml">
+               <xpath expr="//button[@name='320']" position="attributes">
+                   <attribute name="invisible">True</attribute>
+               </xpath>
+            </field >
+        </record>
+
+<!--HR Timesheet - Employee        -->
+         <!--<record id="hr_timesheet_employee_form_view" model="ir.ui.view">-->
+            <!--<field name="name">hr.timesheet.employee.form_view</field>-->
+            <!--<field name="model">hr.employee</field>-->
+            <!--<field name="inherit_id" ref="hr_timesheet_sheet.hr_timesheet_sheet_employee_extd_form"/>-->
+            <!--<field name="arch" type="xml">-->
+               <!--<xpath expr="//button[@name='389']" position="attributes">-->
+                   <!--<attribute name="invisible">True</attribute>-->
+               <!--</xpath>-->
+            <!--</field >-->
+        <!--</record>-->
+
+    </data>
+</odoo>

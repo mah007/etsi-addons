@@ -1,0 +1,62 @@
+id,name,country_id:id
+port_embarkation_cn_1,Port of Shanghai,base.cn
+port_embarkation_cn_2,Port of Yangshan,base.cn
+port_embarkation_cn_3,Port of Ningbo-Zhoushan,base.cn
+port_embarkation_cn_4,Port of Suzhou,base.cn
+port_embarkation_cn_5,Port of Guangzhou,base.cn
+port_embarkation_cn_6,Port of Shenzhen,base.cn
+port_embarkation_cn_7,Port of Zhuhai,base.cn
+port_embarkation_cn_8,Port of Tianjin,base.cn
+port_embarkation_cn_9,Port of Qinhuangdao,base.cn
+port_embarkation_cn_10,Port of Huanghua,base.cn
+port_embarkation_cn_11,Port of Tangshan,base.cn
+port_embarkation_cn_12,Port of Qingdao,base.cn
+port_embarkation_cn_13,Port of Yantai,base.cn
+port_embarkation_cn_14,Port of Rizhao,base.cn
+port_embarkation_cn_15,Port of Dalian,base.cn
+port_embarkation_cn_16,Port of Yingkou,base.cn
+port_embarkation_cn_17,Port of Jinzhou,base.cn
+port_embarkation_cn_18,Port of Xiamen,base.cn
+port_embarkation_cn_19,Port of Fuzhou,base.cn
+port_embarkation_cn_20,Port of Quanzhou,base.cn
+port_embarkation_hk_1,Port of Hong Kong,base.hk
+port_embarkation_sg_1,Port of Singapore,base.sg
+port_embarkation_kr_1,Port of Busan,base.kr
+port_embarkation_kr_2,Port of Ulsan,base.kr
+port_embarkation_kr_3,Port of Pohang,base.kr
+port_embarkation_my_1,Port of Tanjung Pelepas,base.my
+port_embarkation_my_2,Johor Port,base.my
+port_embarkation_jp_1,Port of Chiba,base.jp
+port_embarkation_jp_2,Port of Yokohama,base.jp
+port_embarkation_jp_3,Port of Kawasaki,base.jp
+port_embarkation_jp_4,Port of Tokyo,base.jp
+port_embarkation_jp_5,Port of Yokosuka,base.jp
+port_embarkation_jp_6,Port of Kobe,base.jp
+port_embarkation_jp_7,Port of Osaka,base.jp
+port_embarkation_jp_8,Port of Sakai-Senboku,base.jp
+port_embarkation_jp_9,Port of Wakayama-Shimotsu,base.jp
+port_embarkation_jp_10,Port of Himeji,base.jp
+port_embarkation_jp_11,Port of Nishinomiya,base.jp
+port_embarkation_jp_12,Port of Hannan,base.jp
+port_embarkation_nl_1,Port of Rotterdam,base.nl
+port_embarkation_nl_2,Port of Amsterdam,base.nl
+port_embarkation_nl_3,Ports of Zeeland,base.nl
+port_embarkation_be_1,Port of Antwerp,base.be
+port_embarkation_be_2,Port of Ghent,base.be
+port_embarkation_us_1,Port of Houston,base.us
+port_embarkation_us_2,Port of Beaumont,base.us
+port_embarkation_us_3,Port of Texas City,base.us
+port_embarkation_us_4,Freeport,base.us
+port_embarkation_us_5,Port Arthur,base.us
+port_embarkation_us_6,Port of Galveston,base.us
+port_embarkation_us_7,Port of South Louisiana,base.us
+port_embarkation_us_8,Port of New Orleans,base.us
+port_embarkation_us_9,Port of Plaquemines,base.us
+port_embarkation_us_10,Port of Baton Rouge,base.us
+port_embarkation_us_11,Port of Long Beach,base.us
+port_embarkation_us_12,Port of Los Angeles,base.us
+port_embarkation_us_13,Port of San Diego,base.us
+port_embarkation_us_14,Port Hueneme,base.us
+port_embarkation_de_1,Port of Hamburg,base.de
+port_embarkation_de_2,Port of Bremerhaven,base.de
+port_embarkation_de_3,Port of Wilhelmshaven,base.de

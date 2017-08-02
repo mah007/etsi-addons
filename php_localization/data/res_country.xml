@@ -1,0 +1,8 @@
+<odoo>
+    <data>
+
+        <record id="base.ph" model="res.country">
+            <field eval="'%(complete_address)s\n%(brgy_name)s %(city_name)s %(province_name)s'" name="address_format" />
+        </record>
+    </data>
+</odoo>

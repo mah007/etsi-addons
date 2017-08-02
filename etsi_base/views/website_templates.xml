@@ -1,0 +1,46 @@
+<odoo>
+    <data>
+
+        <template id="aboutuscustom" inherit_id="website.aboutus">
+             <xpath expr="//h3[@class='text-muted text-center']" position="replace">
+                <h3 class="text-muted text-center">"To Think only the best, To Work only for the best and To Expect for the best"</h3>
+             </xpath>
+            <xpath expr="//div[@class='col-md-6 mt32']" position="replace">
+                <div class="col-md-6 mt32">
+                    <img src="/etsi_base/static/src/img/wsi_about_us.jpg" class="img img-responsive shadow" alt="Our Team"/>
+                    <br/>
+                    <h5 style="font-weight:bold;">Who we are?</h5>
+                    <p align="justify">Organizations, like individuals, are often judged by the company they keep. Here at WeSupport,
+                        we firmly believe that organizations of integrity and substance should seek to align themselves
+                        with other organizations that share the same values and commitments. In today’s environment of corporate
+                        uncertainty, coupled with an ever increasing demand for ethical accountability, WeSupport Incorporated
+                        is an ideal partner for business industry in the Philippines.
+                    </p>
+
+                    <h5 style="font-weight:bold;">History</h5>
+                    <p align="justify">WeSupport Inc. (WSI) is a Filipino-owned company established in 2006. Initially, the company ventured to staff
+                        augmentation and general services only. Throughout the years, WSI continues to excel in the providing the best
+                        human resource which focuses on IT professional contracts provider, managed services and staff augmentation to different industries.
+                        Today, WeSupport is the premier provider of IT services in the country’s top telecommunications company.
+                    </p>
+                    <div class="col-md-6 mt32">
+                        <h5 style="font-weight:bold">Our Mission</h5>
+                        <p align="justify">To support and promote the Philippine business community in achieving world-class IT related services through multi-skilled,
+                            well-trained, and very disciplined people.
+                        </p>
+                    </div>
+                     <div class="col-md-6 mt32">
+                        <h5 style="font-weight:bold">Our Vision</h5>
+                        <p align="justify">Relying on a strong local foundation, WeSupport, Incorporated envisions to being the major player in providing IT Support Services.
+                        </p>
+                    </div>
+
+
+                </div>
+
+             </xpath>
+
+        </template>
+
+    </data>
+</odoo>
