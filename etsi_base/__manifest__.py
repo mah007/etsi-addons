@@ -27,6 +27,7 @@
         # 'security/ir.model.access.csv',
         'views/bank_info_views.xml',
         'views/website_templates.xml',
+        'views/partner_views.xml',
         'data/ir_mail_server.xml',
         'views/partner_views.xml',
     ],

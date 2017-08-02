@@ -1,21 +1,4 @@
-# -*- coding: utf-8 -*-
-
 from odoo import models, fields, api
-
-# class git/etsi-addons/etsi_base(models.Model):
-#     _name = 'git/etsi-addons/etsi_base.git/etsi-addons/etsi_base'
-
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         self.value2 = float(self.value) / 100
-
-# -*- coding: utf-8 -*-
-
 
 class Partner(models.Model):
     _inherit ='res.partner'
@@ -37,6 +20,10 @@ class Partner(models.Model):
                                ('iv', 'IV'),
                                ('v', 'V'),],
                               string="Suffix")
+    address_type = fields.Selection([('1', 'Current'),
+                                     ('2', 'Permanent'),
+                                     ('3', 'Office'),
+                                     ('4', 'Mailing')], string="Address Type")
 
     @api.multi
     def get_emp_name(self, values, fnct_type):
