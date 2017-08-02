@@ -1,5 +1,66 @@
 <odoo>
   <data>
+
+    <record id="educational_courses_tree_view" model="ir.ui.view">
+      <field name="name">educational.courses.tree.view</field>
+      <field name="model">educational.courses</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="field_of_study"/>
+          <field name="major"/>
+        </tree>
+      </field>
+    </record>
+
+    <!--educational_courses_form_view-->
+    <record id="educational_courses_form_view" model="ir.ui.view">
+      <field name="name">educational.courses.form.view</field>
+      <field name="model">educational.courses</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group string="Courses">
+              <group>
+                <field name="field_of_study"/>
+                <field name="major"/>
+              </group>
+              <group></group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="educational_courses_search_view" model="ir.ui.view">
+      <field name="name">educational.courses.search.view</field>
+      <field name="model">educational.courses</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="field_of_study"/>
+          <field name="major"/>
+        </search>
+      </field>
+    </record>
+
+    <!--Educational action -->
+        <record  id="courses_action" model="ir.actions.act_window">
+            <field name="name">Courses</field>
+            <field name="res_model">educational.courses</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,search</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create the first course!</p>
+            </field>
+        </record>
+
+        <menuitem
+                id="courses_menu"
+                name="Courses"
+                parent="hr.menu_human_resources_configuration"
+                action="courses_action"/>
+
+
+
     <record id = "educ_fields_study_form_view" model = "ir.ui.view">
       <field name = "name">educ.fields.study.form.view</field>
       <field name = "model">educ.fields.study</field>
