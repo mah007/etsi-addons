@@ -28,6 +28,7 @@
         'views/bank_info_views.xml',
         'views/website_templates.xml',
         'data/ir_mail_server.xml',
+        'views/partner_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
