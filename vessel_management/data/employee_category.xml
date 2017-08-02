@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+         <record id="seaman_categ_employee" model="hr.employee.category">
+            <field name="name">Seaman</field>
+            <field name="color" eval="5"/>
+        </record>
+
+    </data>
+</odoo>

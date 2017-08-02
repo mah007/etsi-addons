@@ -1,0 +1,92 @@
+<odoo>
+    <data>
+
+        <!--<record id="sea_services_tree_view" model="ir.ui.view">-->
+            <!--<field name="name">vsea.services.tree.view</field>-->
+            <!--<field name="model">sea.services</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree string="Sea Services" editable="top">-->
+                  <!--<field name="vessel_id"/>-->
+                  <!--<field name="type_id"/>-->
+                  <!--<field name="gross_weight"/>-->
+                  <!--<field name="dead_weight"/>-->
+                  <!--<field name="engine_id"/>-->
+                  <!--<field name="year_built"/>-->
+                  <!--<field name="sign_on"/>-->
+                  <!--<field name="sign_off"/>-->
+                  <!--<field name="months"/>-->
+                  <!--<field name="fleet_mngr" widget="many2many_tags"/>-->
+                  <!--<field name="manning_agency" widget="many2many_tags"/>-->
+                <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <record model="ir.ui.view" id="vessel_employee_form_inherit">
+        <field name="name">hr.experience.employee.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[2]" position="after">
+                <page string="Sea Services" groups="base.group_user" attrs="{'invisible' : [('seaman', '!=', True)]}">
+                    <field name="sea_services_ids" readonly="1">
+                        <tree>
+                          <field name="vessel_id"/>
+                          <field name="type_id"/>
+                          <field name="gross_weight"/>
+                          <field name="dead_weight"/>
+                          <field name="engine_id"/>
+                          <field name="year_built"/>
+                          <field name="sign_on"/>
+                          <field name="sign_off"/>
+                          <field name="duration"/>
+                          <field name="fleet_mngr"/>
+                          <field name="manning_agency"/>
+                        </tree>
+                        <form>
+                            <sheet>
+                                <group>
+                                    <group>
+                                        <field name="name"/>
+                                        <field name="vessel_id"/>
+                                        <field name="type_id"/>
+                                        <field name="gross_weight"/>
+                                        <field name="dead_weight"/>
+                                        <field name="engine_id"/>
+                                    </group>
+                                    <group>
+                                        <field name="sign_on"/>
+                                        <field name="sign_off"/>
+                                        <field name="duration"/>
+                                        <field name="fleet_mngr"/>
+                                        <field name="manning_agency"/>
+                                    </group>
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+                </page>
+
+            </xpath>
+        </field>
+        </record>
+
+
+        <!--<record model="ir.actions.act_window" id="sea_services_action">-->
+            <!--<field name="name">Sea Services</field>-->
+            <!--<field name="type">ir.actions.act_window</field>-->
+            <!--<field name="res_model">sea.services</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+        <!--</record>-->
+
+        <!--<menuitem id="sea_services_menu"-->
+                  <!--name="Sea Services"-->
+                  <!--action="sea_services_action"-->
+                  <!--parent="vessel_main_menu"/>-->
+
+
+
+
+
+    </data>
+</odoo>

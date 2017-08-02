@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+         <record id="ir_mail_server_gmail_outgoing" model="ir.mail_server">
+            <field name="name">Gmail-Outgoing</field>
+            <field name="smtp_host">smtp.gmail.com</field>
+             <field name="smtp_encryption">ssl</field>
+            <field eval="465" name="smtp_port"/>
+            <field eval="1" name="sequence"/>
+        </record>
+
+        <!--<record id="fetchmail_server_gmail_incoming" model="fetchmail_server">-->
+            <!--<field name="name">Gmail-Incoming</field>-->
+            <!--<field name="type">pop</field>-->
+            <!--<field name="server">pop.gmail.com</field>-->
+            <!--<field eval="True" name="is_ssl"/>-->
+            <!--<field eval="995" name="port"/>-->
+        <!--</record>-->
+    </data>
+</odoo>

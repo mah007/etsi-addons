@@ -1,0 +1,191 @@
+<odoo>
+  <data>
+    <record id="vessel_mngt_tree_view" model="ir.ui.view">
+      <field name="name">vessel.mngt.tree.view</field>
+      <field name="model">vessel.management</field>
+      <field name="arch" type="xml">
+        <tree string="Vessel Management">
+            <field name="name"/>
+            <field name="code"/>
+            <field name="type_id"/>
+            <field name="registry_id"/>
+            <field name="gross_weight"/>
+            <field name="dead_weight"/>
+            <field name="year_built"/>
+            <field name="year_registration"/>
+            <field name="route_id"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="vessel_mngt_form_view" model="ir.ui.view">
+      <field name="name">vessel.mngt.form.vew</field>
+      <field name="model">vessel.management</field>
+      <field name="arch" type="xml">
+        <form string="Vessel Management">
+          <sheet>
+            <div class="oe_button_box" name="button_box">
+                <button name="toggle_active" type="object" groups="hr.group_hr_user"
+                        class="oe_stat_button" icon="fa-archive">
+                    <field name="active" widget="boolean_button"
+                        options='{"terminology": "archive"}'/>
+                </button>
+                <button name="generate_crew_on_board" type="object" groups="hr.group_hr_user"
+                        class="oe_stat_button" icon="fa-archive"  string="Crew on Board"/>
+            </div>
+            <field name="image" widget='image' class="oe_avatar" options='{"preview_image":"image_medium"}'/>
+            <div class="oe_title">
+                <label for="name" class="oe_edit_only"/>
+                <h1>
+                    <field name="name" placeholder="Vessel's Name"/>
+                </h1>
+            </div>
+            <group>
+              <group>
+                <field name="code"/>
+                <field name="type_id" options="{'no_create':True,'no_open':True}"/>
+                <field name="registry_id" options="{'no_create':True,'no_open':True}"/>
+                <field name="gross_weight"/>
+                <field name="dead_weight"/>
+              </group>
+              <group>
+                <field name="year_built"/>
+                <field name="year_registration"/>
+                <field name="route_id" options="{'no_create':True,'no_open':True}"/>
+                <field name="fleet_mngr" domain="[('is_fleet_mngr','=',True)]" options="{'no_create':True,'no_open':True}"/>
+                <field name="manning_agency" domain="[('is_manning_agncy','=',True)]" options="{'no_create':True,'no_open':True}"/>
+              </group>
+            </group>
+        </sheet>
+         <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+            <field name="message_ids" widget="mail_thread"/>
+          </div>
+        </form>
+      </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="vessel_mngt_action">
+            <field name="name">Vessel Management</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vessel.management</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="vessel_main_menu"
+              name="Vessel"/>
+
+    <menuitem id="vessel_management_menu"
+              name="Vessel Management"
+              action="vessel_mngt_action"
+              parent="vessel_main_menu"/>
+
+      <menuitem id="vessel_config_menu"
+                  name="Configuration"
+                  sequence="30"
+                  parent="vessel_main_menu"/>
+
+
+        <record model="ir.actions.act_window" id="manning_mngt_action">
+            <field name="name">Manning Agency</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"is_manning_agncy": True}</field>
+            <field name="domain">[('is_manning_agncy','=',True)]</field>
+        </record>
+
+        <menuitem id="manning_management_menu"
+                  name="Manning Agency"
+                  action="manning_mngt_action"
+                  parent="vessel_config_menu"/>
+
+        <record model="ir.actions.act_window" id="fleet_action">
+            <field name="name">Fleet Managers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"is_fleet_mngr": True}</field>
+            <field name="domain">[('is_fleet_mngr','=',True)]</field>
+        </record>
+
+        <menuitem id="fleet_manager_menu"
+                  name="Fleet Managers"
+                  action="fleet_action"
+                  parent="vessel_config_menu"/>
+
+        <record model="ir.actions.act_window" id="ship_owner_action">
+            <field name="name">Ship Owner</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"is_ship_owner": True}</field>
+            <field name="domain">[('is_ship_owner','=',True)]</field>
+        </record>
+
+        <menuitem id="ship_owner_menu"
+                  name="Ship Owner"
+                  action="ship_owner_action"
+                  parent="vessel_config_menu"/>
+
+
+
+<!--Crew On Board-->
+
+
+    <record id="crew_onboard_form_view" model="ir.ui.view">
+        <field name="name">crew.onboard.form.view</field>
+        <field name="model">crew.onboard</field>
+        <field name="arch" type="xml">
+            <form string="Crew On Board" create="false" edit="false" delete="false">
+                <sheet>
+                    <button name="act_sign_off" string ="Sign off"
+                                    type="object" class="oe_highlight"/>
+                    <group>
+                        <group>
+
+                            <field name="first_name"/>
+                            <field name="middle_name"/>
+                            <field name="last_name"/>
+                        </group>
+                        <group>
+                            <field name="contract_name"/>
+                            <field name="sign_on"/>
+                            <field name="port_embark"/>
+                        </group>
+                    </group>
+                    <!--<group string="Contract">-->
+                        <!--<field name="contract" widget="html" nolabel="1"/>-->
+                    <!--</group>-->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <record id="crew_onboard_tree_view" model="ir.ui.view">
+        <field name="name">crew.onboard.tree.view</field>
+        <field name="model">crew.onboard</field>
+        <field name="arch" type="xml">
+            <tree string="Crew On Board" create="false" edit="false" delete="false">
+                <field name="first_name"/>
+                <field name="middle_name"/>
+                <field name="last_name"/>
+                <field name="contract_name"/>
+                <field name="sign_on"/>
+                <field name="port_embark"/>
+            </tree>
+        </field>
+    </record>
+
+
+
+
+  </data>
+</odoo>

@@ -1,0 +1,21 @@
+id,name,short_name,is_foreign
+res_bank_BDO,Banco De Oro,BDO,FALSE
+res_bank_MetroBank,MetroBank,MetroBank,FALSE
+res_bank_LBP,LandBank of the Philippines,LBP,FALSE
+res_bank_BPI,Bank of the Philippine Island,BPI,FALSE
+res_bank_SecurityBank,Security Bank,SecurityBank,FALSE
+res_bank_PNB,Philippine National Bank,PNB,FALSE
+res_bank_DBP,Development Bank of the Philippines,DBP,FALSE
+res_bank_ChinaBank,China Bank,ChinaBank,FALSE
+res_bank_RCBC,Rizal Commercial Banking Corporation,RCBC,FALSE
+res_bank_UnionBank,UnionBank,UnionBank,FALSE
+res_bank_BOC,Bank of China,BOC,TRUE
+res_bank_JPM,JPMorgan Chase & Co.,JPM,TRUE
+res_bank_BAC,Bank of America,BAC,TRUE
+res_bank_BNY,Bank of New York,BNY,TRUE
+res_bank_HSBC,HSBC Holdings,HSBC,TRUE
+res_bank_BOT,The Bank of Tokyo,BOT,TRUE
+res_bank_LBPUK,"Lloyds Bank Plc, UK",LBPUK,TRUE
+res_bank_RBS,"The Royal Bank of Scotland plc, UK",RBS,TRUE
+res_bank_RBC,"Royal Bank of Canada, Canada",RBC,TRUE
+res_bank_TDB,The Toronto-Dominion Bank,TDB,TRUE

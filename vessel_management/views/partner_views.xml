@@ -1,0 +1,202 @@
+<odoo>
+    <data>
+		<!--<record model="ir.ui.view" id="view_partner_tree">-->
+			<!--<field name="name">partner.tree</field>-->
+			<!--<field name="model">res.partner</field>-->
+			<!--<field name="inherit_id" ref="base.view_partner_tree"/>-->
+			<!--<field name="arch" type="xml">-->
+				<!--&lt;!&ndash;<field name="phone" position="replace">&ndash;&gt;-->
+					<!--&lt;!&ndash;<field name="phone" invisible="1"/>&ndash;&gt;-->
+				<!--&lt;!&ndash;</field>&ndash;&gt;-->
+				<!--<field name="phone" position="attributes">-->
+					<!--<attribute name="attrs">{'invisible': [('is_allottee','!=',True)]}</attribute>-->
+				<!--</field>-->
+
+				<!--<field name="email" position="replace">-->
+					<!--<field name="email" invisible="1"/>-->
+				<!--</field>-->
+
+
+				<!--<field name="display_name" position="replace">-->
+					 <!--<field name="display_name" string="Name"-->
+							<!--domain="[('is_company', '=', False)]"-->
+					 		<!--invisible="1"/>f-->
+				<!--</field>-->
+				<!--<tree position="inside">-->
+					<!--<field name="last_name"/>-->
+					<!--<field name="first_name" />-->
+					<!--<field name="middle_name"/>-->
+					<!--<field name="mobile"/>-->
+					<!--<field name="status"/>-->
+				<!--</tree>-->
+			<!--</field>-->
+		<!--</record>-->
+
+		<record model="ir.ui.view" id="allotee_view_partner_tree">
+			<field name="name">partner.tree</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref=""/>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="last_name"/>
+					<field name="first_name" />
+					<field name="middle_name"/>
+					<field name="mobile"/>
+					<field name="status"/>
+				</tree>
+			</field>
+		</record>
+
+        <record model="ir.ui.view" id="view_partner_forms">
+			<field name="name">partner.form</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form"/>
+			<field name="arch" type="xml">
+
+				<field name="is_company" position="after">
+					<field name="is_manning_agncy" invisible="1"/>
+					<field name="is_fleet_mngr" invisible="1"/>
+					<field name="is_ship_owner" invisible="1"/>
+				</field>
+
+
+				<field name="company_type" position="attributes">
+					<attribute name="attrs">{'readonly': ['|','|','|',('is_allottee','=',True),('is_manning_agncy','=',True),('is_fleet_mngr','=',True),('is_ship_owner','=',True)]}</attribute>
+				</field>
+
+				<xpath expr="//group/group[1]" position="before">
+					<group string="Personal information"  attrs="{'invisible' : [('is_allottee', '!=', True)]}">
+						<field name="is_allottee" invisible="1"/>
+						<field name="prefix" />
+						<field name="last_name" default_focus="1"/>
+						<field name="first_name" />
+						<field name="middle_name"/>
+						<field name="suffix" />
+					</group>
+				</xpath>
+
+				<field name="function" position="replace">
+					<field name="function" placeholder="e.g. Sales Director" attrs="{'invisible': ['|',('is_company','=', True),('is_allottee', '=', True)]}"/>
+				</field>
+
+				<field name="fax" position="attributes">
+					<attribute name="attrs">{'invisible' : [('is_allottee', '=', True)]}</attribute>
+				</field>
+
+				<field name="user_ids" position="attributes">
+					<attribute name="attrs">{'invisible' : [('is_allottee', '=', True)]}</attribute>
+				</field>
+
+				<field name="title" position="attributes">
+					<attribute name="attrs">{'invisible' : [('is_allottee', '=', True)]}</attribute>
+				</field>
+
+				<field name="website" position="attributes">
+					<attribute name="attrs">{'invisible' : [('is_allottee', '=', True)]}</attribute>
+				</field>
+
+				<field name="category_id" position="attributes">
+					<attribute name="attrs">{'invisible' : [('is_allottee', '=', True)]}</attribute>
+				</field>
+
+				<field name="lang" position="attributes">
+					<attribute name="attrs">{'invisible' : [('is_allottee', '=', True)]}</attribute>
+				</field>
+
+				<xpath expr="//page[@name='internal_notes']" position="attributes">
+					<attribute name="attrs">{'invisible': [('is_allottee','=',True)]}</attribute>
+				</xpath>
+
+				<xpath expr="//page[@name='sales_purchases']" position="attributes">
+					<attribute name="attrs">{'invisible': [('is_allottee','=',True)]}</attribute>
+				</xpath>
+
+				<xpath expr="//group/group[2]" position="attributes">
+					<attribute name="string">Other Information</attribute>
+				</xpath>
+
+
+
+			</field>
+		</record>
+
+		<record id="view_res_partner_allottee" model="ir.ui.view">
+        <field name="name">res.partner.allottee</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <filter name="customer" position="after">
+                <filter string="Allottee"
+                                name='is_allottee' domain="[('is_allottee', '=', True)]"/>
+            </filter>
+        </field>
+    </record>
+
+	<record model="ir.actions.act_window" id="action_allottee">
+		<field name="name">Allottee</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">res.partner</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{"is_allottee": True}</field>
+		<field name="domain">[('is_allottee','=',True)]</field>
+	</record>
+
+	 <record model="ir.actions.act_window.view" id="allottee_tree_action">
+		<field name="sequence" eval="1"/>
+		<field name="view_id" ref="allotee_view_partner_tree"/>
+		<field name="view_mode">tree</field>
+		<field name="act_window_id" ref="action_allottee"/>
+	 </record>
+
+	<record model="ir.actions.act_window.view" id="allottee_form_action">
+		<field name="sequence" eval="1"/>
+		<field name="view_id" ref="view_partner_forms"/>
+		<field name="view_mode">form</field>
+		<field name="act_window_id" ref="action_allottee"/>
+	 </record>
+
+
+
+	<menuitem id="allottee_menu"
+			  name="Allottee Management"
+			  action="action_allottee"
+              sequence="10"
+			  parent="vessel_main_menu"/>
+
+    <!--EMPLOYEE-ALLOTTEE-->
+
+		<record model="ir.ui.view" id="view_employee_partner_tree">
+		<field name="name">employee.partner.tree</field>
+		<field name="model">employee.allottee</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="partner_id" options="{'no_open':True,'no_create':True}"/>
+				<field name="allottee_type"/>
+				<field name="percentage"/>
+				<field name="relationship"/>
+			</tree>
+		</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_employee_partner_form">
+		<field name="name">employee.partner.form</field>
+		<field name="model">employee.allottee</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="partner_id" domain="[('is_allottee', '=', True)]"/>
+						<field name="allottee_type"/>
+						<field name="percentage"/>
+						<field name="relationship"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+		</record>
+
+
+
+    </data>
+</odoo>

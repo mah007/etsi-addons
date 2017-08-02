@@ -1,0 +1,51 @@
+id,name,bank_id:id
+res_bank_BDO_1,BDO Antipolo - M.L. Quezon Avenue St.,res_bank_BDO
+res_bank_BDO_2,BDO A. Mabini â Gen. Malvar,res_bank_BDO
+res_bank_BDO_3,BDO Escolta,res_bank_BDO
+res_bank_BDO_4,BDO Sta. Ana - Xentro Mall,res_bank_BDO
+res_bank_BDO_5,BDO Sampaloc â Legarda,res_bank_BDO
+res_bank_MetroBank_1,METROBANK Ayala Avenue - Bankmer,res_bank_MetroBank
+res_bank_MetroBank_2,METROBANK Edsa - Magallanes,res_bank_MetroBank
+res_bank_MetroBank_3,METROBANK Don Bosco - Makati,res_bank_MetroBank
+res_bank_MetroBank_4,METROBANK GreenBelt,res_bank_MetroBank
+res_bank_MetroBank_5,METROBANK Paseo - Makati Ave.,res_bank_MetroBank
+res_bank_LBP_1,LANDBANK Antipolo ,res_bank_LBP
+res_bank_LBP_2,LANDBANK Rosario (Batangas) ,res_bank_LBP
+res_bank_LBP_3,LANDBANK Lucban ,res_bank_LBP
+res_bank_LBP_4,LANDBANK Makati City Hall,res_bank_LBP
+res_bank_LBP_5,LANDBANK J.P. Rizal,res_bank_LBP
+res_bank_BPI_1,BPI Ayala 6750,res_bank_BPI
+res_bank_BPI_2,BPI Buendia Reposo,res_bank_BPI
+res_bank_BPI_3,BPI Forbes Park,res_bank_BPI
+res_bank_BPI_4,BPI Glorietta Mall Ground Level,res_bank_BPI
+res_bank_BPI_5,BPI Rockwell,res_bank_BPI
+res_bank_SecurityBank_1,SECURITY BANK Binondo,res_bank_SecurityBank
+res_bank_SecurityBank_2,SECURITY BANK Divisoria 1,res_bank_SecurityBank
+res_bank_SecurityBank_3,SECURITY BANK Ermita,res_bank_SecurityBank
+res_bank_SecurityBank_4,SECURITY BANK Malate,res_bank_SecurityBank
+res_bank_SecurityBank_5,SECURITY BANK Pandacan,res_bank_SecurityBank
+res_bank_PNB_1,PNB Alabang,res_bank_PNB
+res_bank_PNB_2,PNB Amorsolo,res_bank_PNB
+res_bank_PNB_3,PNB Antipolo,res_bank_PNB
+res_bank_PNB_4,PNB Ayala,res_bank_PNB
+res_bank_PNB_5,PNB Commonwealth,res_bank_PNB
+res_bank_DBP_1,DBP Caloocan,res_bank_DBP
+res_bank_DBP_2,DBP Camp Aguinaldo,res_bank_DBP
+res_bank_DBP_3,DBP Parañaque,res_bank_DBP
+res_bank_DBP_4,DBP Pasay,res_bank_DBP
+res_bank_DBP_5,DBP Pasig,res_bank_DBP
+res_bank_ChinaBank_1,CHINA BANK Manila - Maceda,res_bank_ChinaBank
+res_bank_ChinaBank_2,CHINA BANK Quiapo,res_bank_ChinaBank
+res_bank_ChinaBank_3,CHINA BANK Taft Ave. - Quirino,res_bank_ChinaBank
+res_bank_ChinaBank_4,CHINA BANK Sto. Cristo,res_bank_ChinaBank
+res_bank_ChinaBank_5,CHINA BANK Paco - Otis,res_bank_ChinaBank
+res_bank_RCBC_1,RCBC Katipunan,res_bank_RCBC
+res_bank_RCBC_2,RCBC P. Tuazon,res_bank_RCBC
+res_bank_RCBC_3,RCBC Novaliches,res_bank_RCBC
+res_bank_RCBC_4,RCBC Visayas Avenue,res_bank_RCBC
+res_bank_RCBC_5,RCBC Tomas Morato,res_bank_RCBC
+res_bank_UnionBank_1,UNIONBANK Caloocan - 9th Avenue,res_bank_UnionBank
+res_bank_UnionBank_2,UNIONBANK BGC - Mckinley Hills,res_bank_UnionBank
+res_bank_UnionBank_3,UNIONBANK Greenhills,res_bank_UnionBank
+res_bank_UnionBank_4,UNIONBANK St. Luke's Medical Center,res_bank_UnionBank
+res_bank_UnionBank_5,UNIONBANK Cubao P. Tuazon,res_bank_UnionBank
