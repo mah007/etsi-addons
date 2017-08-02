@@ -1,0 +1,315 @@
+<odoo>
+    <data>
+
+ <!--Vessel>Configuation>Vessel> -->
+
+       <menuitem id="vessel_cfg_menu"
+          name="Vessel"
+          parent="vessel_config_menu"/>
+
+<!--Vessel>Configuation>Vessel>Type -->
+
+        <record id="vessel_type_search_view" model="ir.ui.view">
+            <field name="name">vessel.type.search.view</field>
+            <field name="model">vessel.type</field>
+            <field name="arch" type="xml">
+                <search string="Vessel Type">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="vessel_type_tree_view" model="ir.ui.view">
+            <field name="name">vessel.type.tree.view</field>
+            <field name="model">vessel.type</field>
+            <field name="arch" type="xml">
+                <tree string="Vessel Type">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="vessel_type_form_view" model="ir.ui.view">
+            <field name="name">vessel.type.form.view</field>
+            <field name="model">vessel.type</field>
+            <field name="arch" type="xml">
+                <form string="Vessel Type">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="desc"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="vessel_type_action">
+            <field name="name">Vessel Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vessel.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">search,tree,form</field>
+        </record>
+
+        <menuitem id="vessel_type_menu"
+                  name="Type"
+                  action="vessel_type_action"
+                  parent="vessel_cfg_menu"/>
+
+<!--Vessel>Configuation>Vessel>Port Registry  -->
+
+        <record id="port_registry_search_view" model="ir.ui.view">
+            <field name="name">port.registry.search.view</field>
+            <field name="model">port.registry</field>
+            <field name="arch" type="xml">
+                <search string="Port Registry">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="port_registry_tree_view" model="ir.ui.view">
+            <field name="name">port.registry.tree.view</field>
+            <field name="model">port.registry</field>
+            <field name="arch" type="xml">
+                <tree string="Port Registry">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="port_registry_form_view" model="ir.ui.view">
+            <field name="name">port.registry.form.view</field>
+            <field name="model">port.registry</field>
+            <field name="arch" type="xml">
+                <form string="Port Registry">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="desc"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="port_registry_action">
+            <field name="name">Port Registry</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">port.registry</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">search,tree,form</field>
+        </record>
+
+        <menuitem id="port_registry_menu"
+                  name="Port Registry"
+                  action="port_registry_action"
+                  parent="vessel_cfg_menu"/>
+
+<!--Vessel>Configuation>Vessel>Engine  -->
+
+        <record id="vessel_engine_search_view" model="ir.ui.view">
+            <field name="name">vessel.engine.search.view</field>
+            <field name="model">vessel.engine</field>
+            <field name="arch" type="xml">
+                <search string="Vessel Engine">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="vessel_engine_tree_view" model="ir.ui.view">
+            <field name="name">vessel.engine.tree.view</field>
+            <field name="model">vessel.engine</field>
+            <field name="arch" type="xml">
+                <tree string="Vessel Engine">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="vessel_engine_form_view" model="ir.ui.view">
+            <field name="name">vessel.engine.form.view</field>
+            <field name="model">vessel.engine</field>
+            <field name="arch" type="xml">
+                <form string="Vessel Engine">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="desc"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="vessel_engine_action">
+            <field name="name">Vessel Engine</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vessel.engine</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">search,tree,form</field>
+        </record>
+
+        <menuitem id="vessel_engine_menu"
+                  name="Engine"
+                  action="vessel_engine_action"
+                  parent="vessel_cfg_menu"/>
+
+<!--Vessel>Configuation>Vessel>Trade Route  -->
+
+        <record id="trade_route_search_view" model="ir.ui.view">
+            <field name="name">trade.route.search.view</field>
+            <field name="model">trade.route</field>
+            <field name="arch" type="xml">
+                <search string="Trade Route">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="trade_route_tree_view" model="ir.ui.view">
+            <field name="name">trade.route.tree.view</field>
+            <field name="model">trade.route</field>
+            <field name="arch" type="xml">
+                <tree string="Trade Route">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="trade_route_form_view" model="ir.ui.view">
+            <field name="name">trade.route.form.view</field>
+            <field name="model">trade.route</field>
+            <field name="arch" type="xml">
+                <form string="Trade Route">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="desc"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="trade_route_action">
+            <field name="name">Trade Route</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">trade.route</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">search,tree,form</field>
+        </record>
+
+        <menuitem id="trade_route_menu"
+                  name="Trade Route"
+                  action="trade_route_action"
+                  parent="vessel_cfg_menu"/>
+
+<!--Vessel>Configuation>Vessel>Status  -->
+
+        <record id="vessel_status_search_view" model="ir.ui.view">
+            <field name="name">vessel.status.search.view</field>
+            <field name="model">vessel.status</field>
+            <field name="arch" type="xml">
+                <search string="Vessel Status">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="vessel_status_tree_view" model="ir.ui.view">
+            <field name="name">vessel.status.tree.view</field>
+            <field name="model">vessel.status</field>
+            <field name="arch" type="xml">
+                <tree string="Vessel Status">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="vessel_status_form_view" model="ir.ui.view">
+            <field name="name">vessel.status.form.view</field>
+            <field name="model">vessel.status</field>
+            <field name="arch" type="xml">
+                <form string="Vessel Status">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="desc"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="vessel_status_action">
+            <field name="name">Vessel Status</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vessel.status</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">search,tree,form</field>
+        </record>
+
+        <menuitem id="vessel_status_menu"
+                  name="Status"
+                  action="vessel_status_action"
+                  parent="vessel_cfg_menu"/>
+
+<!--Vessel>Configuation>Vessel>Ports  -->
+
+        <record id="port_search_view" model="ir.ui.view">
+            <field name="name">port.search.view</field>
+            <field name="model">port.embarkation</field>
+            <field name="arch" type="xml">
+                <search string="Ports">
+                    <field name="name"/>
+                    <field name="country_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="port_tree_view" model="ir.ui.view">
+            <field name="name">port.tree.view</field>
+            <field name="model">port.embarkation</field>
+            <field name="arch" type="xml">
+                <tree string="Ports">
+                    <field name="name"/>
+                    <field name="country_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="port_form_view" model="ir.ui.view">
+            <field name="name">port.form.view</field>
+            <field name="model">port.embarkation</field>
+            <field name="arch" type="xml">
+                <form string="Ports">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="country_id"/>
+                            <field name="desc"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="port_action">
+            <field name="name">Port</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">port.embarkation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">search,tree,form</field>
+        </record>
+
+        <menuitem id="port_menu"
+                  name="Ports"
+                  action="port_action"
+                  parent="vessel_cfg_menu"/>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,78 @@
+<odoo>
+    <data>
+         <record id="remit_tree_view" model="ir.ui.view">
+            <field name="name">remittance.advice.tree.view</field>
+            <field name="model">remittance.advice</field>
+            <field name="arch" type="xml">
+                <tree string="Remittance Advice">
+                    <field name="name" string="Remitter Name"/>
+                    <field name="remit_no" widget="Text"/>
+                    <field name="date"/>
+                    <field name="remitter_bank"/>
+                     <field name="amount"/>
+                    <field name="currency_id"/>
+                    <field name="beneficiary_id" string="Beneficiary Name"/>
+                    <field name="rate"/>
+                    <field name="local_amount"/>
+                </tree>
+            </field>
+         </record>
+
+         <record id="remit_form_view" model="ir.ui.view">
+            <field name="name">remittance.advice.form.view</field>
+            <field name="model">remittance.advice</field>
+            <field name="arch" type="xml">
+                <form string="Remittance Advice">
+                    <sheet>
+                        <group string="Remitter">
+                            <group>
+                                <field name="name" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+                                <field name="remitter_bank" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+                                <label for="amount" string="Amount"/>
+                                <div>
+                                    <field name="amount" class="oe_inline"/>
+                                    ( <field name="currency_id" class="oe_inline" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/> )
+                                </div>
+                                <!--<field name="amount"/>-->
+                                <!--<field name="currency_id"/>-->
+                            </group>
+                            <group>
+                                <field name="remit_no" widget="Text"/>
+                                <field name="date"/>
+                            </group>
+                        </group>
+                        <group string="Beneficiary">
+                            <group>
+                                <field name="beneficiary_id" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+                                <field name="bank_id" readonly="1"/>
+                                <field name="branch_id" readonly="1"/>
+                                <field name="account_no" readonly="1" widget="Text"/>
+                                <field name="account_name" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="rate"/>
+                                <field name="local_amount"/>
+                                <field name="remarks"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+         </record>
+
+        <record model="ir.actions.act_window" id="action_remittance_advice">
+            <field name="name">Remittance Advice</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">remittance.advice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="context">{"is_allottee": True}</field>-->
+            <!--<field name="domain">[('is_allottee','=',True)]</field>-->
+	    </record>
+
+        <menuitem id="remittance_advice_menu"
+			  name="Remittance Advice"
+			  action="action_remittance_advice"
+			  parent="vessel_main_menu"/>
+    </data>
+</odoo>

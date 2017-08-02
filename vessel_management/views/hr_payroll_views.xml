@@ -1,0 +1,244 @@
+<odoo>
+    <data>
+        PAYSLIP
+         <record model="ir.ui.view" id="seaman_pay_tree">
+			<field name="name">hr.payslip.tree</field>
+			<field name="model">hr.payslip</field>
+			<field name="arch" type="xml">
+                <tree>
+                    <field name="number"/>
+                    <field name="employee_id"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="seaman_pay_form">
+			<field name="name">hr.payslip.form</field>
+			<field name="model">hr.payslip</field>
+			<field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="inherit_id" ref="payroll_period.view_hr_payslip_form"/>
+            <field name="inherit_id" ref="etsi_payroll.etsi_payroll_payslip_line"/>
+			<field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="seaman" invisible="1"/>
+                    <field name="in_house" invisible="1"/>
+                </field>
+                <xpath expr="//notebook/page[1]" position="before">
+                    <page string="Allottee" attrs="{'invisible' : [('in_house', '=', True)]}">
+                        <field name="allottee_ids" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'>
+                            <tree create="false">
+                                <field name="partner_id" string="Name"/>
+                                <field name="allottee_type"/>
+                                <field name="relationship"/>
+                                <field name="percentage"/>
+                            </tree>
+                        </field>
+                    </page>
+                 </xpath>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="seaman_pay_action">
+            <field name="name">Allottee Payslip</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.payslip</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <field name="context">{"emp_type":'seaman'}</field>
+            <field name="domain">[('seaman','=',True)]</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="seaman_pay_tree_action">
+            <field name="sequence" eval="1"/>
+            <field name="view_id" ref="seaman_pay_tree"/>
+            <field name="view_mode">tree</field>
+            <field name="act_window_id" ref="seaman_pay_action"/>
+	    </record>
+
+        <menuitem
+            id="seaman_pay_menu"
+            name="Allottee"
+            action="seaman_pay_action"
+            parent="hr_payroll.menu_department_tree"
+            />
+
+        <record model="ir.ui.view" id="inhouse_pay_tree">
+			<field name="name">hr.payslip.tree</field>
+			<field name="model">hr.payslip</field>
+			<field name="arch" type="xml">
+                <tree>
+                    <field name="number"/>
+                    <field name="employee_id"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="inhouse_pay_action">
+            <field name="name">Allottee Payslip</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.payslip</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <field name="context">{"emp_type":'in_house'}</field>
+            <field name="domain">[('in_house','=',True)]</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="inhouse_pay_tree_action">
+            <field name="sequence" eval="1"/>
+            <field name="view_id" ref="inhouse_pay_tree"/>
+            <field name="view_mode">tree</field>
+            <field name="act_window_id" ref="inhouse_pay_action"/>
+	    </record>
+
+        <menuitem
+            id="inhouse_pay_menu"
+            name="In House"
+            action="inhouse_pay_action"
+            parent="hr_payroll.menu_department_tree"
+            />
+
+        PAYSLIP RUN
+        <record model="ir.ui.view" id="seaman_paybatch_tree">
+			<field name="name">hr.payslip.run.tree</field>
+			<field name="model">hr.payslip.run</field>
+			<field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="date_payment"/>
+                    <field name="schedule_pay"/>
+                    <field name="vessel_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="seaman_paybatch_form">
+			<field name="name">hr.payslip.run.form</field>
+			<field name="model">hr.payslip.run</field>
+			<field name="inherit_id" ref="payroll_period.hr_payslip_run_form"/>
+            <field name="inherit_id" ref="etsi_payroll.etsi_payroll_payslip_batch"/>
+			<field name="arch" type="xml">
+                <field name="name" position="before">
+                     <field name="seaman" invisible="1"/>
+                     <field name="in_house" invisible="1"/>
+                </field>
+                 <xpath expr="//h3" position="attributes">
+                     <attribute name="attrs">{'invisible': [('seaman','=',True)]}</attribute>
+                 </xpath>
+
+                <xpath expr="//group" position="before">
+                    <group attrs="{'invisible' : [('in_house', '=', True)]}">
+                        <group>
+                            <field name="vessel_id"/>
+                            <field name="remittance_id"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                </xpath>
+
+                <field name="date_start" position="replace">
+                    <!--<field name="date_start" attrs="{'readonly' : [('in_house', '=', True)]}"/>-->
+                    <field name="date_start" readonly="False"/>
+                </field>
+                <field name="date_end" position="replace">
+                    <!--<field name="date_end" class="oe_inline" attrs="{'readonly' : [('in_house', '=', True)]}"/>-->
+                    <field name="date_end" readonly="False"/>
+                </field>
+                 <field name="schedule_pay" position="replace">
+                     <!--<field name="schedule_pay" string="Payment Frequency" attrs="{'readonly' : [('in_house', '=', True)]}"/>-->
+                     <field name="schedule_pay" string="Payment Frequency" readonly="False"/>
+                 </field>
+                 <field name="date_payment" position="replace">
+                     <!--<field name="date_payment" string="Date of Payment" attrs="{'readonly' : [('in_house', '=', True)]}"/>-->
+                     <field name="date_payment" string="Date of Payment" readonly="False"/>
+                 </field>
+
+                <xpath expr="//button[@name='%(hr_payroll.action_hr_payslip_by_employees)d']" position="replace">
+                    <button name="%(hr_payroll.action_hr_payslip_by_employees)d"
+                            type="action"
+                            states="draft"
+                            string="Generate Payslips"
+                            class="oe_highlight"
+                            context="{'company_id': company_id, 'schedule_pay': schedule_pay,
+                                        'date_payment': date_payment, 'date_start': date_start,
+                                        'date_end': date_end,'vessel_id':vessel_id}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="seaman_paybatch_action">
+            <field name="name">Allottee Payslip Run</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.payslip.run</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <field name="context">{"emp_type":'seaman'}</field>
+            <field name="domain">[('seaman','=',True)]</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="seaman_paybatch_tree_action">
+            <field name="sequence" eval="1"/>
+            <field name="view_id" ref="seaman_paybatch_tree"/>
+            <field name="view_mode">tree</field>
+            <field name="act_window_id" ref="seaman_paybatch_action"/>
+	    </record>
+
+        <menuitem
+            id="seaman_paybatch_menu"
+            name="Allottee"
+            action="seaman_paybatch_action"
+            parent="hr_payroll.menu_hr_payslip_run"
+            />
+
+    <record model="ir.ui.view" id="inhouse_paybatch_tree">
+			<field name="name">hr.payslip.run.tree</field>
+			<field name="model">hr.payslip.run</field>
+			<field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="date_payment"/>
+                    <field name="schedule_pay"/>
+                    <field name="company_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+    <record model="ir.actions.act_window" id="inhouse_paybatch_action">
+        <field name="name">Inhouse Employee Payslip Run</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.payslip.run</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="context">{"emp_type":'in_house'}</field>
+        <field name="domain">[('in_house','=',True)]</field>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="inhouse_paybatch_tree_action">
+            <field name="sequence" eval="1"/>
+            <field name="view_id" ref="inhouse_paybatch_tree"/>
+            <field name="view_mode">tree</field>
+            <field name="act_window_id" ref="inhouse_paybatch_action"/>
+	    </record>
+
+    <menuitem
+        id="inhouse_paybatch_menu"
+        name="In House"
+        action="inhouse_paybatch_action"
+        parent="hr_payroll.menu_hr_payslip_run"
+        />
+    </data>
+</odoo>
