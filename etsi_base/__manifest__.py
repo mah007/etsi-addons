@@ -29,6 +29,7 @@
         'views/website_templates.xml',
         'views/partner_views.xml',
         'data/ir_mail_server.xml',
+        'views/partner_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

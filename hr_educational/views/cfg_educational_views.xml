@@ -1,59 +1,117 @@
 <odoo>
   <data>
-    <!-- explicit list view definition -->
-    <!--
-    <record model="ir.ui.view" id="hr_educational.list">
-      <field name="name">hr_educational list</field>
-      <field name="model">hr_educational.hr_educational</field>
+
+    <record id="educational_courses_tree_view" model="ir.ui.view">
+      <field name="name">educational.courses.tree.view</field>
+      <field name="model">educational.courses</field>
       <field name="arch" type="xml">
         <tree>
-          <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
+          <field name="field_of_study"/>
+          <field name="major"/>
         </tree>
       </field>
     </record>
-    -->
 
-    <!-- actions opening views on models -->
-    <!--
-    <record model="ir.actions.act_window" id="hr_educational.action_window">
-      <field name="name">hr_educational window</field>
-      <field name="res_model">hr_educational.hr_educational</field>
-      <field name="view_mode">tree,form</field>
-    </record>
-    -->
-
-    <!-- server action to the one above -->
-    <!--
-    <record model="ir.actions.server" id="hr_educational.action_server">
-      <field name="name">hr_educational server</field>
-      <field name="model_id" ref="model_hr_educational_hr_educational"/>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": self._name,
-        }
+    <!--educational_courses_form_view-->
+    <record id="educational_courses_form_view" model="ir.ui.view">
+      <field name="name">educational.courses.form.view</field>
+      <field name="model">educational.courses</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group string="Courses">
+              <group>
+                <field name="field_of_study"/>
+                <field name="major"/>
+              </group>
+              <group></group>
+            </group>
+          </sheet>
+        </form>
       </field>
     </record>
-    -->
 
-    <!-- Top menu item -->
-    <!--
-    <menuitem name="hr_educational" id="hr_educational.menu_root"/>
-    -->
-    <!-- menu categories -->
-    <!--
-    <menuitem name="Menu 1" id="hr_educational.menu_1" parent="hr_educational.menu_root"/>
-    <menuitem name="Menu 2" id="hr_educational.menu_2" parent="hr_educational.menu_root"/>
-    -->
-    <!-- actions -->
-    <!--
-    <menuitem name="List" id="hr_educational.menu_1_list" parent="hr_educational.menu_1"
-              action="hr_educational.action_window"/>
-    <menuitem name="Server to list" id="hr_educational" parent="hr_educational.menu_2"
-              action="hr_educational.action_server"/>
-    -->
+    <record id="educational_courses_search_view" model="ir.ui.view">
+      <field name="name">educational.courses.search.view</field>
+      <field name="model">educational.courses</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="field_of_study"/>
+          <field name="major"/>
+        </search>
+      </field>
+    </record>
+
+    <!--Educational action -->
+        <record  id="courses_action" model="ir.actions.act_window">
+            <field name="name">Courses</field>
+            <field name="res_model">educational.courses</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,search</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create the first course!</p>
+            </field>
+        </record>
+
+        <menuitem
+                id="courses_menu"
+                name="Courses"
+                parent="hr.menu_human_resources_configuration"
+                action="courses_action"/>
+
+
+
+    <record id = "educ_fields_study_form_view" model = "ir.ui.view">
+      <field name = "name">educ.fields.study.form.view</field>
+      <field name = "model">educ.fields.study</field>
+      <field name = "arch" type = "xml">
+        <form>
+          <sheet>
+            <group string = "Fields of Study">
+              <field name = "name"/>
+              <field name = "description"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id = "educ_fields_study_tree_view" model = "ir.ui.view">
+      <field name = "name">educ.fields.study.tree.view</field>
+      <field name = "model">educ.fields.study</field>
+      <field name = "arch" type = "xml">
+        <tree string = "Fields of Study">
+          <field name = "name"/>
+          <field name = "description"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="educ_fields_study_search_view">
+      <field name="name">educ.fields.study.search.view</field>
+      <field name="model">educ.fields.study</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name = "name"/>
+          <field name = "description"/>
+        </search>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="educ_fields_study_action">
+      <field name="name">Fields of Study</field>
+      <field name="res_model">educ.fields.study</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form,search</field>
+
+    </record>
+
+
+    <menuitem
+            id = "educ_fields_study_menu"
+            name = "Fields of Study"
+            action = "educ_fields_study_action"
+            parent = "hr.menu_human_resources_configuration"
+    />
   </data>
 </odoo>

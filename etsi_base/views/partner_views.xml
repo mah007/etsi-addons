@@ -12,8 +12,21 @@
                   <field name="address_type" widget="selection" attrs="{'invisible':[('type','in',['contact','invoice','delivery'])]}"/>
               </xpath>
 
+              <field name="type" position="before">
+                  <field name="first_name" attrs="{'invisible' : [('is_company', '=', True)]}" required="1"/>
+                  <field name="middle_name" attrs="{'invisible' : [('is_company', '=', True)]}" required="1"/>
+                  <field name="last_name" attrs="{'invisible' : [('is_company', '=', True)]}" required="1"/>
+
+              </field>
+
+              <field name="name" position="replace">
+                  <field name="name" default_focus="1" placeholder="Name" readonly="True"/>
+
+                </field>
+
             </field>
     </record>
+
 
   </data>
 </odoo>
