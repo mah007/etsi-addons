@@ -1,15 +1,9 @@
-# -*- coding: utf-8 -*-
-
 from odoo import models, fields, api
 
-# class git/etsi-addons/etsi_base(models.Model):
-#     _name = 'git/etsi-addons/etsi_base.git/etsi-addons/etsi_base'
+class AddressType(models.Model):
+    _inherit = 'res.partner'
 
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         self.value2 = float(self.value) / 100
+    address_type = fields.Selection([('1', 'Current Address'),
+                                  ('2', 'Permanent Address'),
+                                  ('3', 'Office Address'),
+                                  ('4', 'Mailing')], string="Address Type")
