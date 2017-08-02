@@ -27,6 +27,7 @@
         # 'security/ir.model.access.csv',
         'views/hr_employee_views.xml',
         'views/templates.xml',
+        'views/cfg_government_ids_views.xml'
     ],
     # only loaded in demonstration mode
     'demo': [
