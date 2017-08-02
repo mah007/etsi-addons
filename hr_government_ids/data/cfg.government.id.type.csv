@@ -1,0 +1,10 @@
+id,name,desc
+government_id_data1,SSS,"Social Security System"
+government_id_data2,Driver's License,"Driver's License"
+government_id_data3,GSIS,"Government Service Insurance System"
+government_id_data4,PRC,"Professional Regulation Commission"
+government_id_data5,POSTAL,"POSTAL"
+government_id_data6,OWWA,"Overseas Workers Welfare Administration"
+government_id_data7,BIR/TIN,"Tax Identification Number"
+government_id_data9,Senior's Citizen,"Senior Citizen ID"
+government_id_data10,Voter's,"Voter ID"
