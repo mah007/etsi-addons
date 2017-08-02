@@ -103,3 +103,10 @@ class City_Barangay(models.Model):
         return super(City_Barangay, self).write(vals)
 
 
+class City_Zip_Code(models.Model):
+    _name = 'cfg.city.zipcode'
+
+    name = fields.Char(string='Zip Code')
+    desc = fields.Text(string='Description')
+
+    city_id = fields.Many2one('cfg.province.city', string='City')
