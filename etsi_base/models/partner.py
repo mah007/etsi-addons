@@ -20,9 +20,9 @@ class Partner(models.Model):
                                ('iv', 'IV'),
                                ('v', 'V'),],
                               string="Suffix")
-    address_type = fields.Selection([('1', 'Current Address'),
-                                     ('2', 'Permanent Address'),
-                                     ('3', 'Office Address'),
+    address_type = fields.Selection([('1', 'Current'),
+                                     ('2', 'Permanent'),
+                                     ('3', 'Office'),
                                      ('4', 'Mailing')], string="Address Type")
 
     @api.multi
