@@ -1,7 +1,7 @@
 <odoo>
   <data>
-    <record id = "educ_fos_form_view" model = "ir.ui.view">
-      <field name = "name">educ.fos.form.view</field>
+    <record id = "educ_fields_study_form_view" model = "ir.ui.view">
+      <field name = "name">educ.fields.study.form.view</field>
       <field name = "model">educ.fields.study</field>
       <field name = "arch" type = "xml">
         <form>
@@ -15,8 +15,8 @@
       </field>
     </record>
 
-    <record id = "educ_fos_tree_view" model = "ir.ui.view">
-      <field name = "name">educ.fos.tree.view</field>
+    <record id = "educ_fields_study_tree_view" model = "ir.ui.view">
+      <field name = "name">educ.fields.study.tree.view</field>
       <field name = "model">educ.fields.study</field>
       <field name = "arch" type = "xml">
         <tree string = "Fields of Study">
@@ -26,8 +26,8 @@
       </field>
     </record>
 
-    <record model="ir.ui.view" id="educ_fos_search_view">
-      <field name="name">educ.fos.search.view</field>
+    <record model="ir.ui.view" id="educ_fields_study_search_view">
+      <field name="name">educ.fields.study.search.view</field>
       <field name="model">educ.fields.study</field>
       <field name="arch" type="xml">
         <search>
@@ -37,7 +37,7 @@
       </field>
     </record>
 
-    <record model="ir.actions.act_window" id="educ_fos_action">
+    <record model="ir.actions.act_window" id="educ_fields_study_action">
       <field name="name">Fields of Study</field>
       <field name="res_model">educ.fields.study</field>
       <field name="view_type">form</field>
@@ -47,9 +47,9 @@
 
 
     <menuitem
-            id = "educ_fos_menu"
+            id = "educ_fields_study_menu"
             name = "Fields of Study"
-            action = "educ_fos_action"
+            action = "educ_fields_study_action"
             parent = "hr.menu_human_resources_configuration"
     />
   </data>
