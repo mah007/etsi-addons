@@ -1,0 +1,34 @@
+<odoo>
+    <data>
+        <record id="custom_sales_partner_form_view" model="ir.ui.view">
+            <field name="name">custom.sales_partner.form.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+
+                <field name="lang" position="after">
+                    <field name="is_institution" attrs="{'invisible': [('is_company', '=', False)]}"/>
+                </field>
+
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="institution_actions">
+                <field name="name">Institution</field>
+                <field name="res_model">res.partner</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form,search</field>
+                <field name="help" type="html">
+                    <p class="oe_view_nocontent_create">Create your first Institution!
+                </p>
+                </field>
+            </record>
+
+        <menuitem
+                id="institution_menu"
+                name="Institution"
+                parent="hr.menu_human_resources_configuration"
+                action="institution_actions"
+        />
+    </data>
+</odoo>
