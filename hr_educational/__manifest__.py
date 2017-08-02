@@ -27,6 +27,7 @@
         # 'security/ir.model.access.csv',
         'views/cfg_educational_views.xml',
         'views/templates.xml',
+        'data/educ.fields.study.csv'
     ],
     # only loaded in demonstration mode
     'demo': [
