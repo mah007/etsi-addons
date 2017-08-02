@@ -7,5 +7,10 @@ class EducationalCourses(models.Model):
 
     field_of_study = fields.Char(string="Field of Study")
     major = fields.Char(string="Major")
+
+
+class EducFieldStudy(models.Model):
+    _name = 'educ.fields.study'
+
     name = fields.Char(string = "Name")
     description = fields.Char(string = "Description")

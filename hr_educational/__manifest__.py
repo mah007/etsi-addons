@@ -20,13 +20,14 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','hr'],
+    'depends': ['base','hr','sale',],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
         'views/cfg_educational_views.xml',
         'views/templates.xml',
+        'views/partner_views.xml',
         'data/educ.fields.study.csv'
     ],
     # only loaded in demonstration mode
