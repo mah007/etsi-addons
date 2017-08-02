@@ -2,14 +2,8 @@
 
 from odoo import models, fields, api
 
-# class hr_government_ids(models.Model):
-#     _name = 'hr_government_ids.hr_government_ids'
+class GovernmentIDType(models.Model):
+    _name = 'cfg.government.id.type'
 
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         self.value2 = float(self.value) / 100
+    name = fields.Char(string="Name")
+    desc = fields.Text(string="Description")
