@@ -20,12 +20,11 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['website','sale','auditlog'],
+    'depends': ['website','sale'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/views.xml',
         'views/bank_info_views.xml',
         'views/website_templates.xml',
         'data/ir_mail_server.xml',
