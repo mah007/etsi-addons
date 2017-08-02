@@ -3,7 +3,7 @@ from odoo import api, models, fields
 class Institution(models.Model):
     _inherit = 'res.partner'
 
-
+    # Institution: True
     @api.model
     def default_get(self, fields):
         context = self.env.context
