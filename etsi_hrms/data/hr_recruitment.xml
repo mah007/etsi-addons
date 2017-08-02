@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+<!-- Templates for job offer applicants -->
+    <record id="email_template_data_applicant_refuse" model="mail.template">
+        <field name="name">Applicant: Job Offer</field>
+        <field name="subject">Application Job Offer</field>
+        <field name="email_to">${object.email_from}</field>
+        <field name="partner_to">${object.partner_id and object.partner_id.id or ''}</field>
+        <field name="lang">${object.partner_id and object.partner_id.lang or ''}</field>
+        <field name="model_id" ref="hr_recruitment.model_hr_applicant"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+            <p>Hi ${object.partner_name or 'applicant'},</p>
+            <p>We have all really enjoyed speaking with you and getting to know you over the course of the last few weeks.
+            The team and I have been impressed with your background and approach and would love to formally offer you a position
+            as a ${object.job_id.name or ''}
+            </p>
+
+            <p>We can offer you a ${'{0:,.2f}'.format(object.salary_proposed) or ''} monthly base salary.
+            We offer ${object.salary_proposed_extra or ''} and [number of days] of vacation per year.
+            We can discuss start dates based on what is possible on your end, but we’d be excited to have you
+            start [as soon as possible / on XYZ date].
+            </p>
+
+            <p>Please let me know if you have any questions or would like to discuss the offer in more detail.
+             We would be thrilled to welcome you to the team!
+             </p>
+        ]]>
+        </field>
+    </record>
+
+    </data>
+</odoo>

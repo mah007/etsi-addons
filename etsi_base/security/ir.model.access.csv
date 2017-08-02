@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_git/etsi-addons/etsi_base_git/etsi-addons/etsi_base,git/etsi-addons/etsi_base.git/etsi-addons/etsi_base,model_git/etsi-addons/etsi_base_git/etsi-addons/etsi_base,,1,0,0,0

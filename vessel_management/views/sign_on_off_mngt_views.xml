@@ -1,0 +1,73 @@
+<odoo>
+
+<!--Seaman - Sign On        -->
+
+
+        <record id="sign_on_mngt_form_view" model="ir.ui.view">
+            <field name="name">sign_on.mngt.form.view</field>
+            <field name="model">sign_on.management</field>
+            <field name="arch" type="xml">
+                <form string="Sign On Management" create="false" edit="false">
+                    <sheet>
+                         <button name="sign_on_confirm" string ="Sign On"
+                           type="object" class="oe_highlight" confirm="Are you sure you want Seaman to be signed on?"/>
+                        <group>
+                            <group>
+                            <field name="employee_id" options="{'no_create':True,'no_open':True}"/>
+                            <field name="sign_on_date"/>
+                            </group>
+                            <br/>
+                            <group string="Port of Embarcation">
+                                <field name="country_id" options="{'no_create':True,'no_open':True}" required="1"/>
+                                <field name="port_embark_id" options="{'no_create':True,'no_open':True}" required="1"/>
+                            </group>
+                            <br/>
+
+                        </group>
+                        <group string="Contract">
+                            <field name="contract" widget="html" nolabel="1"/>
+                        </group>
+                        <footer> <button name="cancel" string="Cancel" special="cancel" class="oe_highlight"/> </footer>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+<!--Seaman - Sign Off        -->
+
+
+        <record id="sign_off_mngt_form_view" model="ir.ui.view">
+            <field name="name">sign_off.mngt.form.view</field>
+            <field name="model">sign_off.management</field>
+            <field name="arch" type="xml">
+                <form string="Sign Off Management" create="false" edit="false">
+                    <sheet>
+                         <button name="sign_off_confirm" string ="Sign Off"
+                           type="object" class="oe_highlight" confirm="Are you sure you want Seaman to be signed off?"/>
+                        <group>
+                            <group>
+                            <field name="employee_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="sign_off_date"/>
+                            </group>
+                            <br/>
+                            <group string="Port of Disembarkation">
+                                <field name="country_id" options="{'no_open': True, 'no_create': True}" required="1"/>
+                                <field name="port_embark_id" options="{'no_open': True, 'no_create': True}" required="1"/>
+                                <field name="reason" required="1"/>
+                            </group>
+                            <br/>
+
+                        </group>
+                        <group string="Contract">
+                            <field name="contract" widget="html" nolabel="1"/>
+                        </group>
+                        <footer> <button name="cancel" string="Cancel" special="cancel" class="oe_highlight"/> </footer>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+</odoo>

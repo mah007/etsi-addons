@@ -1,0 +1,19 @@
+id,region_code,name,country_id:id,active
+cfg_country_region_010000000,010000000,Region I (Ilocos Region),base.ph,TRUE
+cfg_country_region_020000000,020000000,Region II (Cagayan Valley),base.ph,TRUE
+cfg_country_region_030000000,030000000,Region III (Central Luzon),base.ph,TRUE
+cfg_country_region_040000000,040000000,Region IV-A (CALABARZON),base.ph,TRUE
+cfg_country_region_050000000,050000000,Region V (Bicol Region),base.ph,TRUE
+cfg_country_region_060000000,060000000,Region VI (Western Visayas),base.ph,TRUE
+cfg_country_region_070000000,070000000,Region VII (Central Visayas),base.ph,TRUE
+cfg_country_region_080000000,080000000,Region VIII (Eastern Visayas),base.ph,TRUE
+cfg_country_region_090000000,090000000,Region IX (Zamboanga Peninsula),base.ph,TRUE
+cfg_country_region_100000000,100000000,Region X (Northern Mindanao),base.ph,TRUE
+cfg_country_region_110000000,110000000,Region XI (Davao Region),base.ph,TRUE
+cfg_country_region_120000000,120000000,Region XII (SOCCSKSARGEN),base.ph,TRUE
+cfg_country_region_130000000,130000000,National Capital Region (NCR),base.ph,TRUE
+cfg_country_region_140000000,140000000,Cordillera Administrative Region (CAR),base.ph,TRUE
+cfg_country_region_150000000,150000000,Autonomous Region in Muslim Mindanao (ARMM),base.ph,TRUE
+cfg_country_region_160000000,160000000,Region XIII (Caraga),base.ph,TRUE
+cfg_country_region_170000000,170000000,MIMAROPA Region,base.ph,TRUE
+cfg_country_region_180000000,180000000,Negros Island Region (NIR),base.ph,TRUE

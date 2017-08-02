@@ -1,0 +1,238 @@
+<odoo>
+    <data>
+
+<!--Country Region Views      -->
+        <record id="cfg_country_region_search" model="ir.ui.view">
+            <field name="name">cfg.country.region.search</field>
+            <field name="model">cfg.country.region</field>
+            <field name="arch" type="xml">
+                <search>
+                  <field name="name"/>
+                  <field name="region_code"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="cfg_country_region_tree" model="ir.ui.view">
+            <field name="name">cfg.country.region.tree</field>
+            <field name="model">cfg.country.region</field>
+            <field name="arch" type="xml">
+                <tree>
+                  <field name="name"/>
+                  <field name="region_code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="cfg_country_region_form" model="ir.ui.view">
+            <field name="name">cfg.country.region.form</field>
+            <field name="model">cfg.country.region</field>
+            <field name="arch" type="xml">
+                <form>
+                  <sheet>
+                      <group>
+                          <field name="name"/>
+                          <field name="region_code"/>
+                          <field name="country_id"/>
+                          <field name="active"/>
+                      </group>
+                  </sheet>
+                  <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                  </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="cfg_country_region_action">
+            <field name="name">Country Region</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cfg.country.region</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">search,tree,form</field>
+        </record>
+
+        <menuitem id="php_localization_main"
+                  name="Localization"/>
+
+        <menuitem id="cfg_country_region_menu"
+                  name="Region"
+                  action="cfg_country_region_action"
+                  parent="php_localization_main"/>
+
+<!--Region Province Views      -->
+        <record id="cfg_region_province_search" model="ir.ui.view">
+            <field name="name">cfg.region.province.search</field>
+            <field name="model">cfg.region.province</field>
+            <field name="arch" type="xml">
+                <search>
+                  <field name="name"/>
+                  <field name="province_code"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="cfg_region_province_tree" model="ir.ui.view">
+            <field name="name">cfg.region.province.tree</field>
+            <field name="model">cfg.region.province</field>
+            <field name="arch" type="xml">
+                <tree>
+                  <field name="name"/>
+                  <field name="province_code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="cfg_region_province_form" model="ir.ui.view">
+            <field name="name">cfg.region.province.form</field>
+            <field name="model">cfg.region.province</field>
+            <field name="arch" type="xml">
+                <form>
+                  <sheet>
+                      <group>
+                          <field name="name"/>
+                          <field name="province_code"/>
+                          <field name="region_id"/>
+                          <field name="active"/>
+                      </group>
+                  </sheet>
+                  <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                  </div>
+
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="cfg_region_province_action">
+            <field name="name">Country Region</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cfg.region.province</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">search,tree,form</field>
+        </record>
+
+        <menuitem id="cfg_region_province_menu"
+                  name="Province"
+                  action="cfg_region_province_action"
+                  parent="php_localization_main"/>
+
+<!--Province City Views      -->
+        <record id="cfg_province_city_search" model="ir.ui.view">
+            <field name="name">cfg.province.city.search</field>
+            <field name="model">cfg.province.city</field>
+            <field name="arch" type="xml">
+                <search>
+                  <field name="name"/>
+                  <field name="city_code"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="cfg_province_city_tree" model="ir.ui.view">
+            <field name="name">cfg.province.city.tree</field>
+            <field name="model">cfg.province.city</field>
+            <field name="arch" type="xml">
+                <tree>
+                  <field name="name"/>
+                  <field name="city_code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="cfg_province_city_form" model="ir.ui.view">
+            <field name="name">cfg.province.city.form</field>
+            <field name="model">cfg.province.city</field>
+            <field name="arch" type="xml">
+                <form>
+                  <sheet>
+                      <group>
+                          <field name="name"/>
+                          <field name="city_code"/>
+                          <field name="province_id"/>
+                          <field name="active"/>
+                      </group>
+                  </sheet>
+                  <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                  </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="cfg_province_city_action">
+            <field name="name">Province City</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cfg.province.city</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">search,tree,form</field>
+        </record>
+
+        <menuitem id="cfg_province_city_menu"
+                  name="City"
+                  action="cfg_province_city_action"
+                  parent="php_localization_main"/>
+
+<!--City Barangay Views      -->
+        <record id="cfg_city_brgy_search" model="ir.ui.view">
+            <field name="name">cfg.city.brgy.search</field>
+            <field name="model">cfg.city.barangay</field>
+            <field name="arch" type="xml">
+                <search>
+                  <field name="name"/>
+                  <field name="brgy_code"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="cfg_city_brgy_tree" model="ir.ui.view">
+            <field name="name">cfg.city.brgy.tree</field>
+            <field name="model">cfg.city.barangay</field>
+            <field name="arch" type="xml">
+                <tree>
+                  <field name="name"/>
+                  <field name="brgy_code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="cfg_city_brgy_form" model="ir.ui.view">
+            <field name="name">cfg.city.brgy.form</field>
+            <field name="model">cfg.city.barangay</field>
+            <field name="arch" type="xml">
+                <form>
+                  <sheet>
+                      <group>
+                          <field name="name"/>
+                          <field name="brgy_code"/>
+                          <field name="city_id"/>
+                          <field name="active"/>
+                      </group>
+                  </sheet>
+                  <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                  </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="cfg_city_brgy_action">
+            <field name="name">City Barangay</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cfg.city.barangay</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">search,tree,form</field>
+        </record>
+
+        <menuitem id="cfg_city_brgy_menu"
+                  name="Barangay"
+                  action="cfg_city_brgy_action"
+                  parent="php_localization_main"/>
+
+    </data>
+</odoo>
+
