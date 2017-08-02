@@ -1,4 +1,6 @@
-# -*- coding: utf-8 -*-
+from odoo import fields, api, models
 
-from odoo import models, fields, api
+class MarkElisha (models.Model):
+    _name = 'mark.elisha'
 
+    name = fields.Char (string = "Name")
