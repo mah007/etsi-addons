@@ -7,9 +7,11 @@
             <field name="arch" type="xml">
 
                 <field name="lang" position="after">
-                    <field name="is_institution" attrs="{'invisible': [('is_company', '=', False)]}"/>
+                    <field name="is_institution" invisible="1"/>
                 </field>
-
+                <field name="company_type" position="attributes">
+                       <attribute name="invisible">True</attribute>
+                </field>
             </field>
         </record>
 
@@ -18,6 +20,8 @@
                 <field name="res_model">res.partner</field>
                 <field name="view_type">form</field>
                 <field name="view_mode">tree,form,search</field>
+                <field name="domain">[('is_institution','=',True),('is_company','=',True)]</field>
+                <field name="context">{'institution':True}</field>
                 <field name="help" type="html">
                     <p class="oe_view_nocontent_create">Create your first Institution!
                 </p>
