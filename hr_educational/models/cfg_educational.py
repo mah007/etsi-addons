@@ -2,14 +2,8 @@
 
 from odoo import models, fields, api
 
-# class hr_educational(models.Model):
-#     _name = 'hr_educational.hr_educational'
+class EducationalCourses(models.Model):
+    _name = 'educational.courses'
 
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         self.value2 = float(self.value) / 100
+    field_of_study = fields.Char(string="Field of Study")
+    major = fields.Char(string="Major")
