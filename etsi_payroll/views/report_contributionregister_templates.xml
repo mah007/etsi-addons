@@ -2,11 +2,11 @@
     <data>
 
         <template id="etsi_contribution_register_template" inherit_id="hr_payroll.report_contributionregister">
+
               <xpath expr="//div[@class='page']"  position="replace">
                   <div class="page">
-                    <h2>PaySlip Lines by Contribution Register</h2>
-
-
+                    <!--<h2>PaySlip Lines by Contribution Register</h2>-->
+                      <h3 style = "text-align:center;"><span t-esc="o.name"/> Lines by Contribution Register</h3>
                     <div class="row mt32 mb32">
                         <div class="col-xs-3">
                             <strong>Register Name:</strong>
