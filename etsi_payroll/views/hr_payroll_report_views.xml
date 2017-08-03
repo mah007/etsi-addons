@@ -1,0 +1,40 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="payroll_report_form">
+            <field name="name">payroll.report.form</field>
+            <field name="model">hr.payroll.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group string="Select Company">
+                                <field name="company" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+                            </group>
+                            <group string="Select Year">
+                                <field name="year_date" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+
+        </record>
+
+        <record id="action_print_payroll_report" model="ir.actions.act_window">
+            <field name="name">Generate Payroll Report</field>
+            <field name="res_model">hr.payroll.report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="payroll_report_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem name="Annual Tax"
+              id="print_annual_tax"
+              action="action_print_payroll_report"
+              parent="submenu_report_reg"/>
+
+    </data>
+</odoo>
