@@ -1,0 +1,197 @@
+<odoo>
+    <data noupdate="0">
+
+        <!--SALARY RULE CATEGORIES-->
+         <record id="etsi_payroll.13MPAY" model="hr.salary.rule.category">
+            <field name="name">13th Month Pay</field>
+            <field name="code">13MPAY</field>
+        </record>
+
+        <record id="etsi_payroll.OT" model="hr.salary.rule.category">
+            <field name="name">Overtime</field>
+            <field name="code">OT</field>
+        </record>
+
+        <record id="etsi_payroll.OIT" model="hr.salary.rule.category">
+            <field name="name">Other Income Taxable</field>
+            <field name="code">OIT</field>
+        </record>
+
+        <record id="etsi_payroll.OINT" model="hr.salary.rule.category">
+            <field name="name">Other Income Non-Taxable</field>
+            <field name="code">OINT</field>
+        </record>
+
+         <record id="etsi_payroll.adj" model="hr.salary.rule.category">
+            <field name="name">Adjustment</field>
+            <field name="code">ADJ</field>
+        </record>
+
+        <!--SALARY RULE-->
+
+        <!--BASIC-->
+        <record id="hr_payroll.hr_rule_basic" model="hr.salary.rule">
+            <field name="name">Basic</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">BASIC</field>
+            <field name="category_id" ref="hr_payroll.BASIC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result=(contract._get_basic(worked_days))</field>
+        </record>
+
+        <!--GROSS-->
+         <record id="etsi_payroll.hr_rule_ot125" model="hr.salary.rule">
+            <field name="name">Overtime</field>
+            <field name="sequence" eval="50"/>
+            <field name="code">OT</field>
+            <field name="category_id" ref="etsi_payroll.OT"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+             <field name="amount_python_compute">result = (contract._get_overtime(payslip))</field>
+         </record>
+
+         <record id="etsi_payroll.hr_rule_oit" model="hr.salary.rule">
+            <field name="name">Other Income (Taxable)</field>
+            <field name="sequence" eval="51"/>
+            <field name="code">OITax</field>
+            <field name="category_id" ref="etsi_payroll.OIT"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+             <field name="amount_python_compute">result = inputs.OIT.amount </field>
+         </record>
+
+
+        <record id="etsi_payroll.hr_rule_transpo" model="hr.salary.rule">
+            <field name="name">Allowance</field>
+            <field name="sequence" eval="52"/>
+            <field name="code">ALW</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.ALW.amount </field>
+         </record>
+
+        <record id="hr_payroll.hr_rule_taxable" model="hr.salary.rule">
+            <field name="name">Gross</field>
+            <field name="sequence" eval="100"/>
+            <field name="code">GROSS</field>
+            <field name="category_id" ref="hr_payroll.GROSS"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = (contract._get_gross(categories))</field>
+            <!--<field name="amount_python_compute">result = categories.BASIC + categories.ALW + categories.OT + categories.OIT</field>-->
+        </record>
+
+        <!--DEDUCTIONS-->
+        <record id="etsi_payroll.hr_rule_absence" model="hr.salary.rule">
+            <field name="name">Absences</field>
+            <field name="sequence" eval="200"/>
+            <field name="code">ABS</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = (contract._get_absent(payslip))</field>
+        </record>
+
+        <record id="etsi_payroll.hr_rule_sss" model="hr.salary.rule">
+            <field name="name">SSS</field>
+            <field name="sequence" eval="201"/>
+            <field name="code">SSS</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = (contract._get_sss_contribution(worked_days,payslip,categories))</field>
+            <field name="register_id" ref="hr_sss_register"/>
+        </record>
+
+        <record id="etsi_payroll.hr_rule_philhealth" model="hr.salary.rule">
+            <field name="name">PhilHealth</field>
+            <field name="sequence" eval="202"/>
+            <field name="code">PHILHEALTH</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = (contract._get_philhealth_contribution(worked_days,payslip,categories))</field>
+            <field name="register_id" ref="hr_philhealth_register"/>
+        </record>
+
+         <record id="etsi_payroll.hr_rule_pagibig" model="hr.salary.rule">
+            <field name="name">Pagibig</field>
+            <field name="sequence" eval="203"/>
+            <field name="code">PAGIBIG</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = (contract._get_pagibig_contribution(worked_days,payslip,categories))</field>
+            <field name="register_id" ref="hr_pagibig_register"/>
+         </record>
+
+        <record id="etsi_payroll.hr_rule_tax" model="hr.salary.rule">
+            <field name="name">Tax</field>
+            <field name="sequence" eval="204"/>
+            <field name="code">TAX</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = (contract._get_tax(categories.GROSS,categories.DED,worked_days))</field>
+            <field name="register_id" ref="hr_tax_register"/>
+         </record>
+
+         <record id="etsi_payroll.hr_rule_CA" model="hr.salary.rule">
+            <field name="name">Cash Advance</field>
+            <field name="sequence" eval="205"/>
+            <field name="code">CA</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+             <field name="amount_python_compute">result = inputs.CA.amount</field>
+         </record>
+
+        <!--NET-->
+
+
+         <record id="hr_payroll.hr_rule_adj" model="hr.salary.rule">
+            <field name="name">Adjustment</field>
+            <field name="sequence" eval="300"/>
+            <field name="code">ADJ</field>
+            <field name="category_id" ref="etsi_payroll.adj"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.ADJ.amount</field>
+        </record>
+
+         <record id="etsi_payroll.hr_rule_oint" model="hr.salary.rule">
+            <field name="name">Other Income (Non-Taxable)</field>
+            <field name="sequence" eval="301"/>
+            <field name="code">OINTax</field>
+            <field name="category_id" ref="etsi_payroll.OINT"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+             <field name="amount_python_compute">result = inputs.OINT.amount </field>
+         </record>
+
+         <record id="hr_payroll.hr_rule_net" model="hr.salary.rule">
+            <field name="name">Net</field>
+            <field name="sequence" eval="500"/>
+            <field name="code">NET</field>
+            <field name="category_id" ref="hr_payroll.NET"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = (contract._get_net(categories))</field>
+            <!--<field name="amount_python_compute">result = (categories.GROSS + categories.OINT + (categories.ADJ)) - categories.DED</field>-->
+        </record>
+
+        <record id="hr_payroll.hr_rule_13pay" model="hr.salary.rule">
+            <field name="name">Accrued 13th Month</field>
+            <field name="sequence" eval="1000"/>
+            <field name="code">A13MPAY</field>
+            <field name="category_id" ref="etsi_payroll.13MPAY"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = (contract._get_13thpay(payslip))</field>
+        </record>
+
+
+    </data>
+</odoo>

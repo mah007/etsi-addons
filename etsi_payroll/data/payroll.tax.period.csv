@@ -1,0 +1,5 @@
+id,period_code,name
+hr_payroll_tax_period_d,D,Daily
+hr_payroll_tax_period_w,W,Weekly
+hr_payroll_tax_period_sm,SM,Semi-monthly
+hr_payroll_tax_period_m,M,Monthly

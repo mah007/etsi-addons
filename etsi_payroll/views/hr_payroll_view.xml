@@ -1,0 +1,209 @@
+<odoo>
+    <data>
+         <record id="etsi_payroll_contract" model="ir.ui.view">
+            <field name="name">Contract for Payroll </field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_payroll.hr_contract_form_inherit"/>
+            <field name="arch" type="xml">
+                <field name="struct_id" position="after">
+                    <field name="sss_contri"/>
+                    <field name="philhealth_contri"/>
+                    <field name="pagibig_contri"/>
+                    <field name="wtax_contri"/>
+                </field>
+
+                <field name="wage" position="attributes">
+                    <attribute name="string">Payroll Rate</attribute>
+                </field>
+
+                <xpath expr="//group[@name='duration_group']" position="replace">
+                    <group name="duration_group" string="Duration">
+
+                        <label for="date_start" string="Duration"/>
+                        <div>
+                            <field name="date_start" class="oe_inline"/> - <field name="date_end" class="oe_inline" attrs="{'required' : [('type_id', '=',%(etsi_hrms.hr_contract_type_contractual)d)]}"/>
+                        </div>
+                        <field name="working_hours"/>
+                        <field name="schedule_pay" string="Payroll Frequency"/>
+                    </group>
+                </xpath>
+
+                <field name="wage" position="after">
+                    <field name="payroll_type"/>
+                </field>
+
+            </field>
+        </record>
+
+        <record id="etsi_payroll_employees" model="ir.ui.view">
+            <field name="name">etsi payroll employee</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="etsi_hrms.etsi_hr_employee_form_view"/>
+            <field name="arch" type="xml">
+                <field name="tin" position="after">
+                    <field name="tin_type" widget="selection"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="etsi_payroll_payslip_batch" model="ir.ui.view">
+            <field name="name">Payroll Batch Run</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='%(hr_payroll.action_hr_payslip_by_employees)d']" position="replace">
+                    <button name="%(hr_payroll.action_hr_payslip_by_employees)d"
+                            type="action"
+                            states="draft"
+                            string="Generate Payslips"
+                            class="oe_highlight"
+                            context="{'company_id': company_id, 'schedule_pay': schedule_pay, 'date_payment': date_payment, 'date_start': date_start, 'date_end': date_end}"/>
+                </xpath>
+
+
+                <xpath expr="//sheet/field[@name='slip_ids']" position="replace">
+                    <field name="slip_ids" readonly="True" />
+                </xpath>
+
+                <field name ='date_start' position="replace">
+                    <field name="date_start" readonly="1" class="oe_inline"/>
+                </field>
+                <field name ='date_end' position="replace">
+                    <field name="date_end" readonly="1" class="oe_inline"/>
+                </field>
+                 <field name="schedule_pay" position="replace">
+                     <field name="schedule_pay" string="Payment Frequency" readonly="1"/>
+                 </field>
+                 <field name="date_payment" position="replace">
+                     <field name="date_payment" string="Date of Payment" readonly="1"/>
+                 </field>
+                <field name="credit_note" position="replace"/>
+
+
+            </field>
+        </record>
+
+        <record id="etsi_payroll_payslip_trees" model="ir.ui.view">
+            <field name="name">Payroll payslip tree</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_tree"/>
+            <field name="arch" type="xml">
+                <tree position="attributes">
+                    <attribute name="colors">green:state=='draft'</attribute>
+                </tree>
+
+                <!--<field name="name" position="replace">-->
+                    <!--<field name="name" invisible="1"/>-->
+                <!--</field>-->
+                <field name="name" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>
+            </field>
+         </record>
+
+
+        <record id="etsi_payroll_payslip_line" model="ir.ui.view">
+            <field name="name">Payroll payslip Line</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="inherit_id" ref="payroll_period.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[2]/field[@name='line_ids']/tree/field[@name='sequence']" position="replace"/>
+                <!--<xpath expr="//page[2]/field[@name='line_ids']/tree/field[@name='quantity']" position="replace"/>-->
+                <!--<xpath expr="//page[2]/field[@name='line_ids']/tree/field[@name='rate']" position="replace"/>-->
+                <!--<xpath expr="//page[2]/field[@name='line_ids']/tree/field[@name='amount']" position="replace"/>-->
+                <xpath expr="//page[2]/field[@name='line_ids']/tree/field[@name='salary_rule_id']" position="replace"/>
+
+                <field name="name" position="replace">
+                    <field name="name" invisible="1"/>
+                </field>
+
+                <xpath expr="//page[1]/field[@name='worked_days_line_ids']/form/group" position="after">
+                    <group string="Overtime Breakdown" attrs="{'invisible' : [('code', '!=','OT')]}">
+                        <field name="overtime_breakdown_ids" nolabel="1">
+                            <tree>
+                                <field name="date"/>
+                                <field name="auth_ot" widget="float_time" sum="total"/>
+                                <field name="act_ot" widget="float_time" sum="total"/>
+                                <!--<field name="hours" widget="float_time"/>-->
+                                <field name="type"/>
+                                <field name="rate"/>
+                                <field name="amount" sum="amount"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group string="Absence Breakdown" attrs="{'invisible' : [('code', '!=','ATTN')]}">
+                        <field name="absence_breakdown_ids" nolabel="1">
+                            <tree>
+                                <field name="date"/>
+                                <field name="duty_hours" widget="float_time" sum="total"/>
+                                <field name="auth_abs" sum="total"/>
+                                <field name="act_abs" widget="float_time" sum="total"/>
+                                <field name="leave_id"/>
+                                <field name="type"/>
+                                <field name="rate"/>
+                                <field name="amount" sum="amount"/>
+                                <field name="remark"/>
+                            </tree>
+                        </field>
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+
+
+
+        <record id="etsi_payroll_payslip_run" model="ir.ui.view">
+            <field name="name">Payslip Batch Run</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[1]" position="before">
+                 <div class="oe_button_box" name="button_box">
+
+                     <button name="act_payslips" class="oe_stat_button" icon="fa-book" type="object">
+                         <field name="payslip_count" widget="statinfo" string="Payslip" help="Payslip Generated"/>
+                     </button>
+
+                     <button name="act_employee" class="oe_stat_button" icon="fa-book" type="object">
+                         <field name="ex_emp_count" widget="statinfo" string="Excluded" help="Payslip not generated!"/>
+                     </button>
+                 </div>
+             </xpath>
+            </field>
+        </record>
+
+
+        <record id="etsi_payroll_payslip_employees" model="ir.ui.view">
+            <field name="name">Payslip Employees</field>
+            <field name="model">hr.payslip.employees</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_by_employees"/>
+            <field name="arch" type="xml">
+
+             <!--<xpath expr="//group[1]" position="after">-->
+                 <!--<div class="oe_button_box" name="button_box">-->
+                    <!--<button name="388" class="oe_stat_button" icon="fa-book" type="action">-->
+                       <!--<field name="emp_exclude_count" widget="statinfo" string="Excluded" help="Payslip Computation Details"/>-->
+                       <!--&lt;!&ndash;<field name="employee_ids" widget="statinfo" string="Excluded" help="Payslip Computation Details"/>&ndash;&gt;-->
+                    <!--</button>-->
+                 <!--</div>-->
+             <!--</xpath>-->
+
+                <field name ='employee_ids' position="replace">
+                    <field name="employee_ids" readonly="1" nolabel="1">
+                        <tree>
+                            <field name="name"/>
+                            <!--<field name="contract_id"/>-->
+                            <field name="department_id"/>
+                            <field name="job_id"/>
+                            <field name="wage"/>
+                            <field name="pay_type"/>
+                            <field name="schedule_pay"/>
+                        </tree>
+                    </field>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

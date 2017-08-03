@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sss_matrix_tree_view" model="ir.ui.view">
+        <field name="name">sss_matrix.tree</field>
+        <field name="model">payroll.sss.matrix</field>
+        <field name="arch" type="xml">
+            <tree string="SSS Contribution Table" editable="True">
+                <field name="sal_range_min"/>
+                <field name="sal_range_max"/>
+                <field name="employer_share"/>
+                <field name="employee_share"/>
+                <field name="employer_compensation"/>
+                <field name="total_contribution"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--<record model="ir.ui.view" id="sss_matrix_form_view">-->
+        <!--<field name="name">sss_matrix.form</field>-->
+        <!--<field name="model">payroll.sss.matrix</field>-->
+        <!--<field name="arch" type="xml">-->
+            <!--<form string="SSS Matrix">-->
+                <!--<sheet>-->
+                    <!--<group>-->
+                        <!--<group>-->
+                            <!--<field name="sal_range_min"></field>-->
+                            <!--<field name="employer_share"></field>-->
+                            <!--<field name="employer_compensation"></field>-->
+                        <!--</group>-->
+                        <!--<group>-->
+                            <!--<field name="sal_range_max"></field>-->
+                            <!--<field name="employee_share"></field>-->
+                            <!--<field name="total_contribution"></field>-->
+                        <!--</group>-->
+                    <!--</group>-->
+                <!--</sheet>-->
+            <!--</form>-->
+        <!--</field>-->
+    <!--</record>-->
+
+     <record id="philhealth_matrix_tree_view" model="ir.ui.view">
+        <field name="name">philhealth_matrix.tree</field>
+        <field name="model">payroll.philhealth.matrix</field>
+        <field name="arch" type="xml">
+            <tree string="PhilHealth Contribution Table" editable="True">
+                <field name="sal_range_min"/>
+                <field name="sal_range_max"/>
+                <field name="employer_share"/>
+                <field name="employee_share"/>
+                <field name="total_monthly_premium"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="pagibig_matrix_tree_view" model="ir.ui.view">
+        <field name="name">pagibig_matrix.tree</field>
+        <field name="model">payroll.pagibig.matrix</field>
+        <field name="arch" type="xml">
+            <tree string="Pag-ibig Contribution Table" editable="True">
+                <field name="sal_range_min"/>
+                <field name="sal_range_max"/>
+                <field name="employer_share"/>
+                <field name="employee_share"/>
+                <field name="total"/>
+            </tree>
+        </field>
+    </record>
+
+     <record id="tax_period_tree_view" model="ir.ui.view">
+        <field name="name">tax_period.tree</field>
+        <field name="model">payroll.tax.period</field>
+        <field name="arch" type="xml">
+            <tree string="Tax Period" editable="True">
+                <field name="period_code"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="tax_status_tree_view" model="ir.ui.view">
+        <field name="name">tax_status.tree</field>
+        <field name="model">payroll.tax.status</field>
+        <field name="arch" type="xml">
+            <tree string="Tax Status" editable="True">
+                <field name="stat_code"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="tax_exemption_tree_view" model="ir.ui.view">
+        <field name="name">tax_exemption.tree</field>
+        <field name="model">payroll.tax.exemption</field>
+        <field name="arch" type="xml">
+            <tree string="Tax Exemption" editable="True">
+                <field name="period_ids"/>
+                <field name="col_num"/>
+                <field name="tax_value"/>
+                <field name="tax_rate"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="tax_range_tree_view" model="ir.ui.view">
+        <field name="name">tax_income_range.tree</field>
+        <field name="model">payroll.tax.income.range</field>
+        <field name="arch" type="xml">
+            <tree string="Tax Period" editable="True">
+                <field name="period_ids"/>
+                <field name="exemp_ids"/>
+                <field name="stat_ids"/>
+                <field name="income_min"/>
+                <field name="income_max"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!--actions-->
+    <record id="action_hr_payroll_config_sss_matrix" model="ir.actions.act_window">
+        <field name="name">SSS Matrix</field>
+        <field name="res_model">payroll.sss.matrix</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create"> Create matrix...
+            </p>
+        </field>
+    </record>
+
+    <record id="action_hr_payroll_config_philhealth_matrix" model="ir.actions.act_window">
+        <field name="name">PhilHealth Matrix</field>
+        <field name="res_model">payroll.philhealth.matrix</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create"> Create matrix...
+            </p>
+        </field>
+    </record>
+
+    <record id="action_hr_payroll_config_pagibig_matrix" model="ir.actions.act_window">
+        <field name="name">Pag-ibig Matrix</field>
+        <field name="res_model">payroll.pagibig.matrix</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create"> Create matrix...
+            </p>
+        </field>
+    </record>
+
+    <record id="action_hr_payroll_config_tax_period" model="ir.actions.act_window">
+        <field name="name">Tax Period</field>
+        <field name="res_model">payroll.tax.period</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create"> Create period...
+            </p>
+        </field>
+    </record>
+
+    <record id="action_hr_payroll_config_tax_status" model="ir.actions.act_window">
+        <field name="name">Tax Status</field>
+        <field name="res_model">payroll.tax.status</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create"> Create Status...
+            </p>
+        </field>
+    </record>
+
+     <record id="action_hr_payroll_config_tax_exemption" model="ir.actions.act_window">
+        <field name="name">Tax Exemption</field>
+        <field name="res_model">payroll.tax.exemption</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create"> Create Exemption...
+            </p>
+        </field>
+    </record>
+
+     <record id="action_hr_payroll_config_tax_income_range" model="ir.actions.act_window">
+        <field name="name">Tax Income Range</field>
+        <field name="res_model">payroll.tax.income.range</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create"> Create Income Range...
+            </p>
+        </field>
+    </record>
+
+     <record id="action_payroll_config_company" model="ir.actions.act_window">
+            <field name="name">Payroll Company</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,form</field>
+            <field name="domain">[('is_company','=',True)]</field>
+            <!--<field name="view_id">etsi_payroll.etsi_payroll_partner_form</field>-->
+        </record>
+
+     <menuitem id="menu_hr_payroll_config_company"
+              name="Company"
+              parent="hr_payroll.menu_hr_payroll_configuration"
+              action="action_payroll_config_company"
+              sequence="0"/>
+
+    <menuitem id="menu_hr_payroll_config_root_matrix"
+              name="Contributation Table"
+              parent="hr_payroll.menu_hr_payroll_configuration"
+              sequence="60"/>
+
+    <menuitem id="menu_hr_payroll_config_sss_matrix"
+              name="SSS Matrix"
+              parent="menu_hr_payroll_config_root_matrix"
+              action="action_hr_payroll_config_sss_matrix"
+              sequence="1"/>
+
+     <menuitem id="menu_hr_payroll_config_philhealth_matrix"
+              name="PhilHealth Matrix"
+              parent="menu_hr_payroll_config_root_matrix"
+              action="action_hr_payroll_config_philhealth_matrix"
+               sequence="2"/>
+     <menuitem id="menu_hr_payroll_config_pagibig_matrix"
+              name="Pag-ibig Matrix"
+              parent="menu_hr_payroll_config_root_matrix"
+              action="action_hr_payroll_config_pagibig_matrix"
+              sequence="3"/>
+     <menuitem id="menu_hr_payroll_config_tax"
+              name="Tax Matrix"
+              parent="menu_hr_payroll_config_root_matrix"
+              sequence="4"/>
+
+
+        <!--TAX MATRIX-->
+    <menuitem id="menu_hr_payroll_config_tax_period"
+              name="Period"
+              sequence="0"
+              parent="menu_hr_payroll_config_tax"
+              action="action_hr_payroll_config_tax_period"/>
+
+
+    <menuitem id="menu_hr_payroll_config_tax_status"
+              name="Status"
+              sequence="1"
+              parent="menu_hr_payroll_config_tax"
+              action="action_hr_payroll_config_tax_status"/>
+
+    <menuitem id="menu_hr_payroll_config_tax_exemption"
+              name="Exemption"
+              sequence="2"
+              parent="menu_hr_payroll_config_tax"
+              action="action_hr_payroll_config_tax_exemption"/>
+
+    <menuitem id="menu_hr_payroll_config_tax_income_range"
+              name="Income Range"
+              sequence="3"
+              parent="menu_hr_payroll_config_tax"
+              action="action_hr_payroll_config_tax_income_range"/>
+
+
+    <!--<menuitem id="menu_hr_payroll_config_sss_matrix"-->
+              <!--name="SSS Matrix"-->
+              <!--parent="hr_payroll.menu_hr_payroll_configuration"-->
+              <!--action="action_hr_payroll_config_sss_matrix"-->
+              <!--sequence="60"/>-->
+
+     <!--<menuitem id="menu_hr_payroll_config_philhealth_matrix"-->
+              <!--name="PhilHealth Matrix"-->
+              <!--parent="hr_payroll.menu_hr_payroll_configuration"-->
+              <!--action="action_hr_payroll_config_philhealth_matrix"-->
+               <!--sequence="70"/>-->
+
+    <!--<menuitem id="menu_hr_payroll_config_pagibig_matrix"-->
+              <!--name="Pag-ibig Matrix"-->
+              <!--parent="hr_payroll.menu_hr_payroll_configuration"-->
+              <!--action="action_hr_payroll_config_pagibig_matrix"-->
+              <!--sequence="80"/>-->
+
+    <!--<menuitem id="menu_hr_payroll_config_tax"-->
+              <!--name="Tax Matrix"-->
+              <!--parent="hr_payroll.menu_hr_payroll_configuration"-->
+              <!--sequence="90"/>-->
+
+
+
+<!--Payroll > Configuration > Overtime > Overtime Day Type-->
+
+    <!--<record id="payroll_ot_day_type_tree" model="ir.ui.view">-->
+        <!--<field name="name">payroll overtime day type tree</field>-->
+        <!--<field name="model">payroll.ot.day.type</field>-->
+        <!--<field name="arch" type="xml">-->
+            <!--<tree string="Overtime Day Type">-->
+                <!--<field name="name"/>-->
+            <!--</tree>-->
+        <!--</field>-->
+    <!--</record>-->
+
+    <!--<record id="payroll_ot_day_type_form" model="ir.ui.view">-->
+        <!--<field name="name">payroll overtime day type form</field>-->
+        <!--<field name="model">payroll.ot.day.type</field>-->
+        <!--<field name="arch" type="xml">-->
+            <!--<form string="Overtime Day Type">-->
+                <!--<sheet>-->
+                    <!--<group>-->
+                        <!--<field name="name"/>-->
+                    <!--</group>-->
+                <!--</sheet>-->
+            <!--</form>-->
+        <!--</field>-->
+    <!--</record>-->
+
+    <!--<record id="action_payroll_ot_day_type" model="ir.actions.act_window">-->
+        <!--<field name="name">Overtime Day Type</field>-->
+        <!--<field name="type">ir.actions.act_window</field>-->
+        <!--<field name="res_model">payroll.ot.day.type</field>-->
+        <!--<field name="view_type">form</field>-->
+        <!--<field name="view_mode">tree,form</field>-->
+    <!--</record>-->
+
+    <!--<menuitem-->
+        <!--id="menu_payroll_overtime"-->
+        <!--name="Overtime"-->
+        <!--parent="hr_payroll.menu_hr_payroll_configuration"-->
+        <!--/>-->
+
+    <!--<menuitem-->
+        <!--id="menu_payroll_ot_day_type"-->
+        <!--name="Overtime Day Type"-->
+        <!--parent="menu_payroll_overtime"-->
+        <!--action="action_payroll_ot_day_type"-->
+        <!--/>-->
+
+<!--&lt;!&ndash;Payroll > Configuration > Overtime > Overtime Rate&ndash;&gt;-->
+
+    <!--<record id="payroll_ot_rate_tree" model="ir.ui.view">-->
+        <!--<field name="name">payroll overtime rate tree</field>-->
+        <!--<field name="model">payroll.ot.rate</field>-->
+        <!--<field name="arch" type="xml">-->
+            <!--<tree string="Overtime Rate">-->
+                <!--<field name="name"/>-->
+                <!--<field name="ot_day_type"/>-->
+                <!--<field name="rate" align="center"/>-->
+            <!--</tree>-->
+        <!--</field>-->
+    <!--</record>-->
+
+    <!--<record id="payroll_ot_rate_form" model="ir.ui.view">-->
+        <!--<field name="name">payroll overtime rate form</field>-->
+        <!--<field name="model">payroll.ot.rate</field>-->
+        <!--<field name="arch" type="xml">-->
+            <!--<form string="Overtime Rate">-->
+                <!--<sheet>-->
+                    <!--<group>-->
+                        <!--<field name="name" invisible="1"/>-->
+                        <!--<field name="ot_day_type"/>-->
+                        <!--<field name="rate" />-->
+                    <!--</group>-->
+                <!--</sheet>-->
+            <!--</form>-->
+        <!--</field>-->
+    <!--</record>-->
+
+    <!--<record id="action_payroll_ot_rate" model="ir.actions.act_window">-->
+        <!--<field name="name">Overtime Rate</field>-->
+        <!--<field name="type">ir.actions.act_window</field>-->
+        <!--<field name="res_model">payroll.ot.rate</field>-->
+        <!--<field name="view_type">form</field>-->
+        <!--<field name="view_mode">tree,form</field>-->
+    <!--</record>-->
+
+    <!--<menuitem-->
+        <!--id="menu_payroll_ot_rate"-->
+        <!--name="Overtime Rate"-->
+        <!--parent="menu_payroll_overtime"-->
+        <!--action="action_payroll_ot_rate"-->
+        <!--/>-->
+
+</odoo>

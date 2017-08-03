@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+         <record id="payroll_register_form" model="ir.ui.view">
+            <field name="name">Payroll Register</field>
+            <field name="model">hr.payroll.register</field>
+            <field name="arch" type="xml">
+               <form>
+                   <group>
+                        <group string="Select Company">
+                                <field name="company" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+                        </group>
+                       <group string="Select Date">
+                                <field name="from_date"/>
+                                <field name="to_date"/>
+                        </group>
+                        <footer>
+                            <button string="Print" name="print_payroll_register" type="object" class="btn-primary"/>
+                            <button string="Discard" class="btn-default" special="cancel"/>
+                        </footer>
+                    </group>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_print_payroll_register" model="ir.actions.act_window">
+            <field name="name">Generate Payroll Register</field>
+            <field name="res_model">hr.payroll.register</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="payroll_register_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem name="Reports"
+                  parent="hr_payroll.menu_hr_payroll_root"
+                  id="menu_hr_payroll_report_root"
+                  groups="hr_payroll.group_hr_payroll_manager,hr_payroll.group_hr_payroll_user"/>
+
+        <menuitem name="Comp"
+                  parent="hr_payroll.menu_hr_payroll_root"
+                  id="menu_hr_payroll_report_rootsss"
+                  groups="hr_payroll.group_hr_payroll_manager,hr_payroll.group_hr_payroll_user"/>
+
+       <menuitem name="Registers"
+                  parent="menu_hr_payroll_report_root"
+                  id="submenu_report_reg"/>
+
+       <menuitem name="Payroll Register"
+              id="print_payroll_register"
+              action="action_print_payroll_register"
+              parent="submenu_report_reg"/>
+
+        <menuitem name="Contribution Register"
+              id="print_contribution_register"
+              action="hr_payroll.action_contribution_register_form"
+              parent="submenu_report_reg"/>
+
+        <record id="paperformat_styles" model="report.paperformat">
+		    <field name="name">Payroll Register</field>
+		    <field name="default" eval="True"/>
+		    <field name="format">Legal</field>
+		    <field name="orientation">Landscape</field>
+		    <field name="margin_top">10</field>
+		    <field name="margin_bottom">10</field>
+		    <field name="margin_left">20</field>
+		    <field name="margin_right">20</field>
+		    <field name="header_line" eval="False"/>
+		    <field name="header_spacing">3</field>
+		    <field name="dpi">80</field>
+		</record>
+
+        <report
+            id="action_report_print_payroll_register"
+            model="hr.payroll.register"
+            report_type="qweb-pdf"
+            string="Payroll Register"
+            name="etsi_payroll.report_payroll_register"
+            file="etsi_payroll.report_payroll_register"
+            menu="False"
+            paperformat="paperformat_styles"
+        />
+
+        <!--<menuitem name="Payroll Register"-->
+                  <!--id="print_payroll_register"-->
+                  <!--action="action_print_payroll_register"-->
+                  <!--parent="hr_payroll.menu_hr_payroll_configuration"/>-->
+
+
+    </data>
+</odoo>
