@@ -70,19 +70,22 @@ class Partner(models.Model):
         return values
 
     @api.model
-    def create(self, vals,):
-        if vals['first_name']:
-            first_name = vals['first_name'].title()
+    def create(self, vals):
+        if 'first_name' in vals:
+            if vals['first_name']:
+                first_name = vals['first_name'].title()
         else:
             first_name = ''
 
-        if vals['last_name']:
-            last_name = vals['last_name'].title()
+        if 'last_name' in vals:
+            if vals['last_name']:
+                last_name = vals['last_name'].title()
         else:
             last_name = ''
 
-        if vals['middle_name']:
-            middle_name = vals['middle_name'].title()
+        if 'middle_name' in vals:
+            if vals['middle_name']:
+                middle_name = vals['middle_name'].title()
         else:
             middle_name = ''
 
@@ -97,22 +100,24 @@ class Partner(models.Model):
         return super(Partner, self).create(vals)
 
     @api.multi
-    def write(self, vals,):
+    def write(self, vals):
         if 'first_name' in vals:
             if vals['first_name']:
                 first_name = vals['first_name'].title()
         else:
-            first_name = self.first_name.title()
+            first_name = self.first_name
 
         if 'middle_name' in vals:
-            middle_name = vals['middle_name'].title()
+            if vals['middle_name']:
+                middle_name = vals['middle_name'].title()
         else:
-            middle_name = self.middle_name.title()
+            middle_name = self.middle_name
 
         if 'last_name' in vals:
-            last_name = vals['last_name'].title()
+            if vals['last_name']:
+                last_name = vals['last_name'].title()
         else:
-            last_name = self.last_name.title()
+            last_name = self.last_name
 
         name = "{}, {} {} ".format(last_name, first_name, middle_name)
         print 'name', name
