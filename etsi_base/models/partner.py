@@ -1,18 +1,17 @@
 from odoo import models, fields, api
 
 class Partner(models.Model):
-    _inherit ='res.partner'
-
+    _inherit = 'res.partner'
 
     first_name = fields.Char(string="First name")
     last_name = fields.Char(string="Last name")
     middle_name = fields.Char(string="Middle name")
 
-    prefix = fields.Selection([('mr','Mr.'),
+    prefix = fields.Selection([('mr', 'Mr.'),
                                ('ms', 'Ms.'),
                                ('mrs', 'Mrs.')],
                               string="Prefix")
-    suffix = fields.Selection([('sr','Sr.'),
+    suffix = fields.Selection([('sr', 'Sr.'),
                                ('jr', 'Jr.'),
                                ('i', 'I'),
                                ('ii', 'II'),
@@ -20,6 +19,7 @@ class Partner(models.Model):
                                ('iv', 'IV'),
                                ('v', 'V'),],
                               string="Suffix")
+
     address_type = fields.Selection([('1', 'Current'),
                                      ('2', 'Permanent'),
                                      ('3', 'Office'),
@@ -65,24 +65,27 @@ class Partner(models.Model):
                 'fname': fname,
                 'mname': mname,
                 'lname': lname,
-                'name': name,
+                'name': name
             }
         return values
 
     @api.model
-    def create(self, vals,):
-        if vals['first_name']:
-            first_name = vals['first_name'].title()
+    def create(self, vals):
+        if 'first_name' in vals:
+            if vals['first_name']:
+                first_name = vals['first_name'].title()
         else:
             first_name = ''
 
-        if vals['last_name']:
-            last_name = vals['last_name'].title()
+        if 'last_name' in vals:
+            if vals['last_name']:
+                last_name = vals['last_name'].title()
         else:
             last_name = ''
 
-        if vals['middle_name']:
-            middle_name = vals['middle_name'].title()
+        if 'middle_name' in vals:
+            if vals['middle_name']:
+                middle_name = vals['middle_name'].title()
         else:
             middle_name = ''
 
@@ -94,25 +97,29 @@ class Partner(models.Model):
         vals['middle_name'] = middle_name
         vals['last_name'] = last_name
 
+        print 'here', vals['first_name']
+
         return super(Partner, self).create(vals)
 
     @api.multi
-    def write(self, vals,):
+    def write(self, vals):
         if 'first_name' in vals:
             if vals['first_name']:
                 first_name = vals['first_name'].title()
         else:
-            first_name = self.first_name.title()
+            first_name = self.first_name
 
         if 'middle_name' in vals:
-            middle_name = vals['middle_name'].title()
+            if vals['middle_name']:
+                middle_name = vals['middle_name'].title()
         else:
-            middle_name = self.middle_name.title()
+            middle_name = self.middle_name
 
         if 'last_name' in vals:
-            last_name = vals['last_name'].title()
+            if vals['last_name']:
+                last_name = vals['last_name'].title()
         else:
-            last_name = self.last_name.title()
+            last_name = self.last_name
 
         name = "{}, {} {} ".format(last_name, first_name, middle_name)
         print 'name', name
