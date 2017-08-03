@@ -39,10 +39,39 @@
     	<!--</div>-->
     <!--</template>-->
 
+    <template id="external_layout_custom_timesheet" inherit_id="report.external_layout" primary="True">
+            <xpath expr="//t[@t-call='report.external_layout_header']" position="attributes">
+                <attribute name="t-call">timesheets_by_employee.external_layout_header_timesheet</attribute>
+            </xpath>
+            <xpath expr="//t[@t-call='report.external_layout_footer']" position="attributes">
+                <attribute name="t-call">timesheets_by_employee.external_layout_header_timesheet</attribute>
+            </xpath>
+        </template>
+
+        <template id="external_layout_header_timesheet" inherit_id="report.external_layout_header" primary="True">
+            <xpath expr="//div[@class='col-xs-9 text-right']" position="replace">
+                <div class="col-xs-9 text-right"
+                      t-field="company.partner_id"
+                      t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                <div class="col-xs-9 text-right" t-field="company.rml_header1"/>
+            </xpath>
+            <xpath expr="//div[@name='company_address']" position="replace"/>
+        </template>
+         <template id="external_layout_footer_timesheet" inherit_id="report.external_layout_footer" primary="True">
+             <xpath expr="//div[@class='text-center']" position="attributes">
+                  <attribute name="style">border-top: 1px dashed black;</attribute>
+             </xpath>
+            <xpath expr="//ul[1]" position="replace"/>
+            <xpath expr="//ul[2]" position="replace"/>
+        </template>
+
+
+
+
 
     <template id="report_timesheets">
       <t t-call="report.html_container">
-          <t t-call="report.external_layout">
+          <t t-call="timesheets_by_employee.external_layout_custom_timesheet">
               <t t-foreach="docs" t-as="o">
                   <div class="page">
                           <!--<t t-call="report.external_layout">-->
@@ -111,6 +140,22 @@
                                          </tr>
                                       </tbody>
                                   </table>
+
+                                  <div>
+                                     <table width="100%" style="margin-top:20px">
+                                         <tr>
+                                             <td><p><strong>Checked By</strong></p></td>
+                                             <td><p class="text-right"><strong>Approved By</strong></p></td>
+                                         </tr>
+                                         <tr>
+                                             <td><p><strong>____________________________<br/></strong></p></td>
+                                            <!--<td><p class="text-right"><strong>____________________________ <br/> Manager</strong></p></td>-->
+                                             <t t-foreach="timesheet_emp" t-as="emp">
+                                                 <td><p class="text-right"><strong>____________________________ <br/><span t-esc="emp.parent_id.name"/></strong></p></td>
+                                             </t>
+                                         </tr>
+                                     </table>
+                                 </div>
                               </div>
                           </div>
                       <!--</t>-->
