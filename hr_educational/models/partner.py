@@ -17,7 +17,7 @@ class Institution(models.Model):
         return result
 
     is_institution = fields.Boolean(string="Institution")
-    # test
+
 
 
 
