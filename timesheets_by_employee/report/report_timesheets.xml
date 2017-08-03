@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--<record id="paperformat_style" model="report.paperformat">-->
+		    <!--<field name="name">Summary</field>-->
+		    <!--<field name="default" eval="True"/>-->
+		    <!--<field name="format">Legal</field>-->
+		    <!--<field name="orientation">Landscape</field>-->
+		    <!--<field name="margin_top">3</field>-->
+		    <!--<field name="margin_bottom">3</field>-->
+		    <!--<field name="margin_left">3</field>-->
+		    <!--<field name="margin_right">3</field>-->
+		    <!--<field name="header_line" eval="False"/>-->
+		    <!--<field name="header_spacing">3</field>-->
+		    <!--<field name="dpi">80</field>-->
+		<!--</record>-->
+
+
+    <!--<report-->
+            <!--id="rep_summary"-->
+            <!--model="timesheets_by_employee.timesheet_employee"-->
+            <!--string="TIMESHEET"-->
+            <!--name="timesheets_by_employee.report_timesheets"-->
+            <!--file="timesheets_by_employee.report_timesheets"-->
+            <!--report_type="qweb-pdf"-->
+            <!--paperformat="paperformat_style"-->
+            <!--/>-->
+    <!---->
+    <!--<template id="custom_layout_header">-->
+		<!--<div class="header">-->
+		<!--<div class="row">-->
+		<!--<div class="text-center">-->
+			<!--<h3>TIMESHEET</h3>-->
+            <!--<span t-esc="period"/>-->
+			<!--&lt;!&ndash;<span> as of </span>&ndash;&gt;-->
+			<!--&lt;!&ndash;<span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/>&ndash;&gt;-->
+    	<!--</div>-->
+    	<!--</div>-->
+    	<!--</div>-->
+    <!--</template>-->
+
+
+    <template id="report_timesheets">
+      <t t-call="report.html_container">
+          <t t-call="report.external_layout">
+              <t t-foreach="docs" t-as="o">
+                  <div class="page">
+                          <!--<t t-call="report.external_layout">-->
+                          <!--<t t-call="timesheets_by_employee.custom_layout_header">-->
+                            <br/><br/><br/>
+                          <h3 style="vertical-align:middle;text-align:center">TIMESHEET</h3>
+                          <p style="vertical-align:middle;text-align:center"><span t-esc="period"/></p>
+                          <div class="row">
+                              <div class="mt32 mb32">
+                                  <table style="width:80%;">
+                                       <tr>
+                                        <th style="vertical-align:middle;padding:5px">Name</th>
+                                        <th style="vertical-align:middled;padding:5px"><span t-esc="identification[0]['name']"/></th>
+                                      </tr>
+
+                                      <tr>
+                                        <th style="vertical-align:middle;padding:5px" colspan="1">Company</th>
+                                        <th style="vertical-align:middle;padding:5px"><span t-esc="company"/></th>
+                                      </tr>
+
+                                    <tr t-foreach="timesheets" t-as="t" >
+                                        <th style="vertical-align:middle;padding:5px">Project</th>
+                                        <th style="vertical-align:middle;padding:5px"><span t-esc="t['project']"/></th>
+
+                                    </tr>
+                                      <tr t-foreach="timesheets" t-as="t" >
+                                        <th style="vertical-align:middle;padding:5px">Duration</th>
+                                        <th style="vertical-align:middle;padding:5px"><span t-esc="t['duration']"/></th>
+                                      </tr>
+                                         <!--<tr t-foreach="timesheets" t-as="t" style="height:35px;border:1px solid">-->
+                                            <!--<th style="vertical-align:middle;border:1px solid; text-align:center">Duration</th>-->
+                                            <!--<th style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="t['duration']"/></th>-->
+                                        <!--</tr>-->
+                                  </table>
+                                  <table style="border:1px solid;width:100%;">
+                                        <thead>
+                                            <tr style="border:1px solid">
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Date</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Time In</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Time Out</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Duty Hours</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Auth Overtime Hours</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Actual Overtime Hours</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Actual Worked Hours</th>
+                                            </tr>
+                                        </thead>
+                                      <tbody>
+                                          <tr t-foreach="timesheet_analysis" t-as="t" style="border:1px solid">
+                                                <td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="t['date']"/></td>
+                                                <td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="t['check_in']"/></td>
+                                                <td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="t['check_out']"/></td>
+                                                <td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="t['duty_hours']"/></td>
+                                                <td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="t['auth_ot']"/></td>
+                                                <td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="t['actual_ot']"/></td>
+                                                <td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="t['actual_worked_hours']"/></td>
+                                          </tr>
+
+                                         <tr style="border:1px solid">
+                                             <th style="vertical-align:middle;text-align:center;border:1px solid">Total</th>
+                                             <th style="text-align:center"> </th>
+                                             <th style="text-align:center"> </th>
+                                             <th style="text-align:center"><span t-esc="sum_duty"/></th>
+                                             <th style="text-align:center"><span t-esc="sum_auth_ot"/></th>
+                                             <th style="text-align:center"><span t-esc="sum_ot"/></th>
+                                             <th style="text-align:center"><span t-esc="sum_worked"/></th>
+                                         </tr>
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+                      <!--</t>-->
+                  </div>
+              </t>
+          </t>
+       </t>
+    </template>
+</odoo>

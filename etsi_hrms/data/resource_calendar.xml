@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--Mondays to Saturdays Working Schedule-->
+        <record id="timesheet_mon_to_sat" model="resource.calendar">
+            <field name="name">48 Hours/Week</field>
+            <field name="work_type">weekly</field>
+        </record>
+
+        <record model="resource.calendar.attendance" id="calndr_attn_montosat_mon1">
+            <field name="name">Monday morning</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">0</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">12</field>
+            <field name="sched_hours">4</field>
+            <field name="calendar_id" ref="timesheet_mon_to_sat"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montosat_mon2">
+            <field name="name">Monday afternoon</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">0</field>
+            <field name="hour_from">13</field>
+            <field name="hour_to">17</field>
+            <field name="sched_hours">4</field>
+            <field name="calendar_id" ref="timesheet_mon_to_sat"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montosat_tue1">
+            <field name="name">Tuesday morning</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">1</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">12</field>
+            <field name="sched_hours">4</field>
+            <field name="calendar_id" ref="timesheet_mon_to_sat"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montosat_tue2">
+            <field name="name">Tuesday afternoon</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">1</field>
+            <field name="hour_from">13</field>
+            <field name="hour_to">17</field>
+            <field name="sched_hours">4</field>
+            <field name="calendar_id" ref="timesheet_mon_to_sat"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montosat_wed1">
+            <field name="name">Wednesday morning</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">2</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">12</field>
+            <field name="sched_hours">4</field>
+            <field name="calendar_id" ref="timesheet_mon_to_sat"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montosat_wed2">
+            <field name="name">Wednesday afternoon</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">2</field>
+            <field name="hour_from">13</field>
+            <field name="hour_to">17</field>
+            <field name="sched_hours">4</field>
+            <field name="calendar_id" ref="timesheet_mon_to_sat"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montosat_thu1">
+            <field name="name">Thursday morning</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">3</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">12</field>
+            <field name="sched_hours">4</field>
+            <field name="calendar_id" ref="timesheet_mon_to_sat"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montosat_thu2">
+            <field name="name">Thursday afternoon</field>
+            <field name="work_type">weekly</field>
+            <field name="hour_from">13</field>
+            <field name="hour_to">17</field>
+            <field name="dayofweek">3</field>
+            <field name="sched_hours">4</field>
+            <field name="calendar_id" ref="timesheet_mon_to_sat"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montosat_fri1">
+            <field name="name">Friday morning</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">4</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">12</field>
+            <field name="sched_hours">4</field>
+            <field name="calendar_id" ref="timesheet_mon_to_sat"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montosat_fri2">
+            <field name="name">Friday afternoon</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">4</field>
+            <field name="hour_from">13</field>
+            <field name="hour_to">17</field>
+            <field name="sched_hours">4</field>
+            <field name="calendar_id" ref="timesheet_mon_to_sat"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montosat_sat1">
+            <field name="name">Saturday morning</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">5</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">12</field>
+            <field name="sched_hours">4</field>
+            <field name="calendar_id" ref="timesheet_mon_to_sat"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montosat_sat2">
+            <field name="name">Saturday afternoon</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">5</field>
+            <field name="hour_from">13</field>
+            <field name="hour_to">17</field>
+            <field name="sched_hours">4</field>
+            <field name="calendar_id" ref="timesheet_mon_to_sat"/>
+        </record>
+
+<!--Mondays to Fridays Working Schedule-->
+        <record id="timesheet_mon_to_fri" model="resource.calendar">
+            <field name="name">40 Hours/Week</field>
+            <field name="work_type">weekly</field>
+        </record>
+
+        <record model="resource.calendar.attendance" id="calndr_attn_montofri_mon1">
+            <field name="name">Monday morning</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">0</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">12</field>
+            <field name="sched_hours">4</field>
+            <field name="calendar_id" ref="timesheet_mon_to_fri"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montofri_mon2">
+            <field name="name">Monday afternoon</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">0</field>
+            <field name="hour_from">13</field>
+            <field name="hour_to">17</field>
+             <field name="sched_hours">4</field>
+            <field name="calendar_id" ref="timesheet_mon_to_fri"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montofri_tue1">
+            <field name="name">Tuesday morning</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">1</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">12</field>
+            <field name="sched_hours">4</field>
+            <field name="calendar_id" ref="timesheet_mon_to_fri"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montofri_tue2">
+            <field name="name">Tuesday afternoon</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">1</field>
+            <field name="hour_from">13</field>
+            <field name="hour_to">17</field>
+            <field name="sched_hours">4</field>
+            <field name="calendar_id" ref="timesheet_mon_to_fri"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montofri_wed1">
+            <field name="name">Wednesday morning</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">2</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">12</field>
+            <field name="sched_hours">4</field>
+            <field name="calendar_id" ref="timesheet_mon_to_fri"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montofri_wed2">
+            <field name="name">Wednesday afternoon</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">2</field>
+            <field name="hour_from">13</field>
+            <field name="hour_to">17</field>
+            <field name="sched_hours">4</field>
+            <field name="calendar_id" ref="timesheet_mon_to_fri"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montofri_thu1">
+            <field name="name">Thursday morning</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">3</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">12</field>
+            <field name="sched_hours">4</field>
+            <field name="calendar_id" ref="timesheet_mon_to_fri"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montofri_thu2">
+            <field name="name">Thursday afternoon</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">3</field>
+            <field name="hour_from">13</field>
+            <field name="hour_to">17</field>
+             <field name="sched_hours">4</field>
+            <field name="calendar_id" ref="timesheet_mon_to_fri"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montofri_fri1">
+            <field name="name">Friday morning</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">4</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">12</field>
+            <field name="sched_hours">4</field>
+            <field name="calendar_id" ref="timesheet_mon_to_fri"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montofri_fri2">
+            <field name="name">Friday afternoon</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">4</field>
+            <field name="hour_from">13</field>
+            <field name="hour_to">17</field>
+            <field name="sched_hours">4</field>
+            <field name="calendar_id" ref="timesheet_mon_to_fri"/>
+        </record>
+
+<!--Mondays to Saturdays StayIns Working Schedule-->
+        <record id="timesheet_mon_to_sat_stayins" model="resource.calendar">
+            <field name="name">48 Hours/Week - StayIns</field>
+            <field name="work_type">weekly</field>
+        </record>
+
+        <record model="resource.calendar.attendance" id="calndr_attn_montosat_mon">
+            <field name="name">Day 1</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">0</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">17</field>
+            <field name="sched_hours">8</field>
+            <field name="calendar_id" ref="timesheet_mon_to_sat_stayins"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montosat_tue">
+            <field name="name">Day 2</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">1</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">17</field>
+            <field name="sched_hours">8</field>
+            <field name="calendar_id" ref="timesheet_mon_to_sat_stayins"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montosat_wed">
+            <field name="name">Day 3</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">2</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">17</field>
+            <field name="sched_hours">8</field>
+            <field name="calendar_id" ref="timesheet_mon_to_sat_stayins"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montosat_thu">
+            <field name="name">Day 4</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">3</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">17</field>
+            <field name="sched_hours">8</field>
+            <field name="calendar_id" ref="timesheet_mon_to_sat_stayins"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montosat_fri">
+            <field name="name">Day 5</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">4</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">17</field>
+            <field name="sched_hours">8</field>
+            <field name="calendar_id" ref="timesheet_mon_to_sat_stayins"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montosat_sat">
+            <field name="name">Day 6</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">5</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">17</field>
+            <field name="sched_hours">8</field>
+            <field name="calendar_id" ref="timesheet_mon_to_sat_stayins"/>
+        </record>
+
+<!--Mondays to Fridays StayIns Working Schedule-->
+        <record id="timesheet_mon_to_fri_stayins" model="resource.calendar">
+            <field name="name">40 Hours/Week - StayIns</field>
+            <field name="work_type">weekly</field>
+        </record>
+
+        <record model="resource.calendar.attendance" id="calndr_attn_montofri_mon">
+            <field name="name">Day 1</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">0</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">17</field>
+            <field name="sched_hours">8</field>
+            <field name="calendar_id" ref="timesheet_mon_to_fri_stayins"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montofri_tue">
+            <field name="name">Day 2</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">1</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">17</field>
+            <field name="sched_hours">8</field>
+            <field name="calendar_id" ref="timesheet_mon_to_fri_stayins"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montofri_wed">
+            <field name="name">Day 3</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">2</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">17</field>
+            <field name="sched_hours">8</field>
+            <field name="calendar_id" ref="timesheet_mon_to_fri_stayins"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montofri_thu">
+            <field name="name">Day 4</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">3</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">17</field>
+            <field name="sched_hours">8</field>
+            <field name="calendar_id" ref="timesheet_mon_to_fri_stayins"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_montofri_fri">
+            <field name="name">Day 5</field>
+            <field name="work_type">weekly</field>
+            <field name="dayofweek">4</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">17</field>
+            <field name="sched_hours">8</field>
+            <field name="calendar_id" ref="timesheet_mon_to_fri_stayins"/>
+        </record>
+
+<!--Daily Working Schedule-->
+        <record id="timesheet_daily" model="resource.calendar">
+            <field name="name">Daily</field>
+            <field name="work_type">daily</field>
+        </record>
+
+        <record model="resource.calendar.attendance" id="calndr_attn_daily1">
+            <field name="name">Morning In-Out</field>
+            <field name="work_type">daily</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">12</field>
+            <field name="sched_hours">4</field>
+            <field name="calendar_id" ref="timesheet_daily"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calndr_attn_daily2">
+            <field name="name">Afternoon In-Out</field>
+            <field name="work_type">daily</field>
+            <field name="hour_from">13</field>
+            <field name="hour_to">17</field>
+            <field name="sched_hours">4</field>
+            <field name="calendar_id" ref="timesheet_daily"/>
+        </record>
+
+
+<!--Daily StayIns Working Schedule-->
+        <record id="timesheet_daily_stayins" model="resource.calendar">
+            <field name="name">Daily- StayIns</field>
+            <field name="work_type">daily</field>
+        </record>
+
+        <record model="resource.calendar.attendance" id="calndr_attn_daily_stayins">
+            <field name="name">Time In-Out</field>
+            <field name="work_type">daily</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">17</field>
+            <field name="sched_hours">8</field>
+            <field name="calendar_id" ref="timesheet_daily_stayins"/>
+        </record>
+
+
+<!--Flexi Band Working Schedule-->
+        <record id="timesheet_flexi_band" model="resource.calendar">
+            <field name="name">Flexi Band</field>
+            <field name="work_type">flexi</field>
+            <field name="flexi_type">band</field>
+        </record>
+
+        <record model="resource.calendar.attendance" id="calndr_attn_flexi_band">
+            <field name="name">Time In-Out</field>
+            <field name="work_type">flexi</field>
+            <field name="flexi_type">band</field>
+            <field name="hour_from">06</field>
+            <field name="hour_to">18</field>
+            <field name="sched_hours">8</field>
+            <field name="flex_start">9</field>
+            <field name="flex_end">15</field>
+            <field name="flex_week_hours">40</field>
+            <field name="calendar_id" ref="timesheet_flexi_band"/>
+        </record>
+
+<!--Flexi Range Working Schedule-->
+        <record id="timesheet_flexi_range" model="resource.calendar">
+            <field name="name">Flexi Range</field>
+            <field name="work_type">flexi</field>
+            <field name="flexi_type">range</field>
+        </record>
+
+        <record model="resource.calendar.attendance" id="calndr_attn_flexi_range">
+            <field name="name">Time In-Out</field>
+            <field name="work_type">flexi</field>
+            <field name="flexi_type">range</field>
+            <field name="hour_from">06</field>
+            <field name="hour_to">23</field>
+            <field name="sched_hours">8</field>
+            <field name="flex_week_hours">40</field>
+            <field name="calendar_id" ref="timesheet_flexi_range"/>
+        </record>
+
+<!--Flexi Core Working Schedule-->
+        <record id="timesheet_flexi_core" model="resource.calendar">
+            <field name="name">Flexi Core</field>
+            <field name="work_type">flexi</field>
+            <field name="flexi_type">core</field>
+        </record>
+
+        <record model="resource.calendar.attendance" id="calndr_attn_flexi_core">
+            <field name="name">Time In-Out</field>
+            <field name="work_type">flexi</field>
+            <field name="flexi_type">core</field>
+            <field name="hour_from">0</field>
+            <field name="hour_to">23.98</field>
+            <field name="sched_hours">8</field>
+            <field name="flex_start">9</field>
+            <field name="flex_end">15</field>
+            <field name="flex_week_hours">40</field>
+            <field name="calendar_id" ref="timesheet_flexi_core"/>
+        </record>
+
+<!--Flexi Core Working Schedule-->
+        <record id="timesheet_flexi_core_plus" model="resource.calendar">
+            <field name="name">Flexi Core Plus</field>
+            <field name="work_type">flexi</field>
+            <field name="flexi_type">core_plus</field>
+        </record>
+
+        <record model="resource.calendar.attendance" id="calndr_attn_flexi_core_plus">
+            <field name="name">Time In-Out</field>
+            <field name="work_type">flexi</field>
+            <field name="flexi_type">core_plus</field>
+            <field name="hour_from">0</field>
+            <field name="hour_to">23.98</field>
+            <field name="sched_hours">8</field>
+            <field name="flex_start">9</field>
+            <field name="flex_end">15</field>
+            <field name="flex_week_hours">40</field>
+            <field name="calendar_id" ref="timesheet_flexi_core_plus"/>
+        </record>
+
+
+</odoo>

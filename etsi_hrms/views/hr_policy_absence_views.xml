@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Policy Lines -->
+
+    <record id="absence_policy_line_tree_view" model="ir.ui.view">
+        <field name="name">hr.policy.line.absence.tree</field>
+        <field name="model">hr.policy.line.absence</field>
+        <field name="arch" type="xml">
+            <tree string="Absence Lines">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="type"/>
+                <field name="rate"/>
+                <field name="holiday_status_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="absence_policy_line_form_view" model="ir.ui.view">
+        <field name="name">hr.policy.line.absence.form</field>
+        <field name="model">hr.policy.line.absence</field>
+        <field name="arch" type="xml">
+            <form string="Absence Policy">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="holiday_status_id"/>
+                            <field name="rate"/>
+                            <field name="type"/>
+                            <field name="use_awol"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="policy_id" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Absence Policy -->
+    <record id="absence_policy_view_tree" model="ir.ui.view">
+        <field name="name">hr.policy.absence.tree</field>
+        <field name="model">hr.policy.absence</field>
+        <field name="arch" type="xml">
+            <tree string="Absence Policies">
+                <field name="name"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="absence_policy_view_form" model="ir.ui.view">
+        <field name="name">hr.policy.absence.form</field>
+        <field name="model">hr.policy.absence</field>
+        <field name="arch" type="xml">
+            <form string="Absence Policy">
+                <sheet>
+                    <group>
+                        <h1>
+                            <label for="name" string="Name" class="oe_edit_only"/>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="policy_categ" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+                            <field name="date"/>
+                        </group>
+                        <group></group>
+                    </group>
+                    <group string="Absence Lines">
+                        <field name="line_ids" nolabel="1" editable="top">
+                            <form>
+                                <div class="oe_title">
+                                    <field name="use_leave"/>
+                                    <label for="use_leave" string="Leave"/>
+
+                                    <field name="use_holiday"/>
+                                    <label for="use_holiday" string="Holiday"/>
+
+                                    <field name="use_awol"/>
+                                    <label for="use_awol" string="Absent w/o Leave"/>
+
+                                    <field name="use_late"/>
+                                    <label for="use_late" string="Late"/>
+
+
+                                </div>
+                                <h1>
+                                    <!--<field name="name" readonly="1"/>-->
+                                    <field name="name"/>
+                                </h1>
+                                <group>
+                                    <group>
+                                        <field name="holiday_status_id"
+                                               options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'
+                                               attrs="{'invisible' : [('use_leave', '!=', True)]}"/>
+                                        <field name="holiday_id"
+                                               attrs="{'invisible':[('use_holiday','=',False)]}"
+                                               options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+                                        <field name="type" attrs="{'invisible' : [('use_awol', '=', False),
+                                                                                  ('use_leave', '=', False),
+                                                                                  ('use_late', '=', False),
+                                                                                  ('use_holiday', '=', False)]}"/>
+                                        <field name="active_after" attrs="{'invisible':[('use_late','=',False)]}" widget="float_time"/>
+
+                                    </group>
+                                    <group>
+                                        <field name="code" attrs="{'invisible' : [('use_awol', '=', False),
+                                                                                  ('use_leave', '=', False),
+                                                                                  ('use_late', '=', False),
+                                                                                  ('use_holiday', '=', False)]}"/>
+                                        <field name="rate" attrs="{'invisible' : [('use_awol', '=', False),
+                                                                                  ('use_leave', '=', False),
+                                                                                  ('use_late', '=', False),
+                                                                                  ('use_holiday', '=', False)]}"/>
+                                    </group>
+                                </group>
+                            </form>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="open_absence_policy" model="ir.actions.act_window">
+        <field name="name">Absence Policy</field>
+        <field name="res_model">hr.policy.absence</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="open_absence_policy"
+        id="menu_hr_absence_policy"
+        parent="configuration_policy"/>
+
+      <!--Policy Group-->
+
+    <record id="absence_policy_group_view_form" model="ir.ui.view">
+        <field name="name">hr.policy.group.form.absence.inherit</field>
+        <field name="model">hr.policy.group</field>
+        <field name="inherit_id" ref="policy_group_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='left']" position="inside">
+                <field name="absence_policy_ids"  options="{'no_open': True, 'no_create': True}"/>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

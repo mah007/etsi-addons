@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <!-- Overtime-related subtypes for messaging / Chatter -->
+        <record id="mt_overtime_confirmed" model="mail.message.subtype">
+            <field name="name">Confirmed</field>
+            <field name="res_model">hr.overtime.det</field>
+            <field name="description">Request created and waiting confirmation</field>
+        </record>
+        <record id="mt_overtime_approved" model="mail.message.subtype">
+            <field name="name">Approved</field>
+            <field name="res_model">hr.overtime</field>
+            <field name="description">Request approved</field>
+        </record>
+         <record id="mt_overtime_refused" model="mail.message.subtype">
+            <field name="name">Refused</field>
+            <field name="res_model">hr.holidays</field>
+            <field name="default" eval="False"/>
+            <field name="description">Request refused</field>
+        </record>
+    </data>
+</odoo>

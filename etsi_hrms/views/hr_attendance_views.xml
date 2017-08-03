@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+        <record id="timesheet_overtime" model="ir.ui.view">
+            <field name="name">hr_timesheet_sheet.overtime.form</field>
+            <field name="model">hr_timesheet_sheet.sheet</field>
+            <field name="inherit_id" ref="hr_timesheet_attendance.hr_timesheet_sheet_form"/>
+            <field name="arch" type="xml">
+                <field name="total_attendance" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>
+                 <field name="total_difference" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

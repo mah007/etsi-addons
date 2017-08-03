@@ -1,49 +1,49 @@
 <odoo>
   <data>
 
-    <record id="educational_courses_tree_view" model="ir.ui.view">
-      <field name="name">educational.courses.tree.view</field>
-      <field name="model">educational.courses</field>
-      <field name="arch" type="xml">
-        <tree>
-          <field name="field_of_study"/>
-          <field name="major"/>
-        </tree>
-      </field>
-    </record>
+      <record id="educational_courses_tree_view" model="ir.ui.view">
+          <field name="name">educational.courses.tree.view</field>
+          <field name="model">educational.courses</field>
+          <field name="arch" type="xml">
+              <tree>
+                  <field name="field_of_study"/>
+                  <field name="major"/>
+              </tree>
+          </field>
+      </record>
 
     <!--educational_courses_form_view-->
-    <record id="educational_courses_form_view" model="ir.ui.view">
-      <field name="name">educational.courses.form.view</field>
-      <field name="model">educational.courses</field>
-      <field name="arch" type="xml">
-        <form>
-          <sheet>
-            <group string="Courses">
-              <group>
-                <field name="field_of_study"/>
-                <field name="major"/>
-              </group>
-              <group></group>
-            </group>
-          </sheet>
-        </form>
-      </field>
-    </record>
+      <record id="educational_courses_form_view" model="ir.ui.view">
+          <field name="name">educational.courses.form.view</field>
+          <field name="model">educational.courses</field>
+          <field name="arch" type="xml">
+              <form>
+                  <sheet>
+                      <group string="Courses">
+                          <group>
+                              <field name="field_of_study"/>
+                              <field name="major"/>
+                          </group>
+                          <group></group>
+                      </group>
+                  </sheet>
+              </form>
+          </field>
+      </record>
 
-    <record id="educational_courses_search_view" model="ir.ui.view">
-      <field name="name">educational.courses.search.view</field>
-      <field name="model">educational.courses</field>
-      <field name="arch" type="xml">
-        <search>
-          <field name="field_of_study"/>
-          <field name="major"/>
-        </search>
-      </field>
-    </record>
+      <record id="educational_courses_search_view" model="ir.ui.view">
+          <field name="name">educational.courses.search.view</field>
+          <field name="model">educational.courses</field>
+          <field name="arch" type="xml">
+              <search>
+                  <field name="field_of_study"/>
+                  <field name="major"/>
+            </search>
+          </field>
+      </record>
 
     <!--Educational action -->
-        <record  id="courses_action" model="ir.actions.act_window">
+      <record  id="courses_action" model="ir.actions.act_window">
             <field name="name">Courses</field>
             <field name="res_model">educational.courses</field>
             <field name="view_type">form</field>
@@ -59,59 +59,59 @@
                 parent="hr.menu_human_resources_configuration"
                 action="courses_action"/>
 
+      <!--educ_field_of_studies_form -->
+      <record id = "educ_fields_study_form_view" model = "ir.ui.view">
+          <field name = "name">educ.fields.study.form.view</field>
+          <field name = "model">educ.fields.study</field>
+          <field name = "arch" type = "xml">
+              <form>
+                  <sheet>
+                      <group string = "Fields of Study">
+                          <field name = "name"/>
+                          <field name = "description"/>
+                      </group>
+                  </sheet>
+              </form>
+          </field>
+      </record>
 
+      <!--educ_field_of_studies_tree-->
+      <record id = "educ_fields_study_tree_view" model = "ir.ui.view">
+          <field name = "name">educ.fields.study.tree.view</field>
+          <field name = "model">educ.fields.study</field>
+          <field name = "arch" type = "xml">
+              <tree string = "Fields of Study">
+                  <field name = "name"/>
+                  <field name = "description"/>
+              </tree>
+          </field>
+      </record>
 
-    <record id = "educ_fields_study_form_view" model = "ir.ui.view">
-      <field name = "name">educ.fields.study.form.view</field>
-      <field name = "model">educ.fields.study</field>
-      <field name = "arch" type = "xml">
-        <form>
-          <sheet>
-            <group string = "Fields of Study">
-              <field name = "name"/>
-              <field name = "description"/>
-            </group>
-          </sheet>
-        </form>
-      </field>
-    </record>
+      <!--educ_field_of_studies_search-->
+      <record model="ir.ui.view" id="educ_fields_study_search_view">
+          <field name="name">educ.fields.study.search.view</field>
+          <field name="model">educ.fields.study</field>
+          <field name="arch" type="xml">
+              <search>
+                  <field name = "name"/>
+                  <field name = "description"/>
+              </search>
+          </field>
+      </record>
 
-    <record id = "educ_fields_study_tree_view" model = "ir.ui.view">
-      <field name = "name">educ.fields.study.tree.view</field>
-      <field name = "model">educ.fields.study</field>
-      <field name = "arch" type = "xml">
-        <tree string = "Fields of Study">
-          <field name = "name"/>
-          <field name = "description"/>
-        </tree>
-      </field>
-    </record>
+      <!--educ_field_of_studies_action-->
+      <record model="ir.actions.act_window" id="educ_fields_study_action">
+          <field name="name">Fields of Study</field>
+          <field name="res_model">educ.fields.study</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">tree,form,search</field>
+      </record>
 
-    <record model="ir.ui.view" id="educ_fields_study_search_view">
-      <field name="name">educ.fields.study.search.view</field>
-      <field name="model">educ.fields.study</field>
-      <field name="arch" type="xml">
-        <search>
-          <field name = "name"/>
-          <field name = "description"/>
-        </search>
-      </field>
-    </record>
-
-    <record model="ir.actions.act_window" id="educ_fields_study_action">
-      <field name="name">Fields of Study</field>
-      <field name="res_model">educ.fields.study</field>
-      <field name="view_type">form</field>
-      <field name="view_mode">tree,form,search</field>
-
-    </record>
-
-
-    <menuitem
-            id = "educ_fields_study_menu"
-            name = "Fields of Study"
-            action = "educ_fields_study_action"
-            parent = "hr.menu_human_resources_configuration"
-    />
+      <menuitem
+              id = "educ_fields_study_menu"
+              name = "Fields of Study"
+              action = "educ_fields_study_action"
+              parent = "hr.menu_human_resources_configuration"
+      />
   </data>
 </odoo>

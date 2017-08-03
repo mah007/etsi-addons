@@ -1,0 +1,19 @@
+id,name,date,year_id:id,variable,state_ids,holiday_type:id
+hr_public_holiday_line_1,New Year's Day,2017-01-01,hr_holiday_public,,,hr_holiday_public_type_1
+hr_public_holiday_line_2,Araw ng Kagitingan,2017-04-09,hr_holiday_public,,,hr_holiday_public_type_1
+hr_public_holiday_line_3,Maundy Thursday,2017-04-13,hr_holiday_public,TRUE,,hr_holiday_public_type_1
+hr_public_holiday_line_4,Good Friday,2017-04-14,hr_holiday_public,TRUE,,hr_holiday_public_type_1
+hr_public_holiday_line_5,Labor Day,2017-05-01,hr_holiday_public,,,hr_holiday_public_type_1
+hr_public_holiday_line_6,Independence Day,2017-06-12,hr_holiday_public,,,hr_holiday_public_type_1
+hr_public_holiday_line_7,National Heroes Day,2017-08-28,hr_holiday_public,TRUE,,hr_holiday_public_type_1
+hr_public_holiday_line_8,Bonifacio Day,2017-11-30,hr_holiday_public,,,hr_holiday_public_type_1
+hr_public_holiday_line_9,Christmas Day,2017-12-25,hr_holiday_public,,,hr_holiday_public_type_1
+hr_public_holiday_line_10,Rizal Day,2017-12-30,hr_holiday_public,,,hr_holiday_public_type_1
+hr_public_holiday_line_11,Eid Ul-Fitr,2017-06-26,hr_holiday_public,TRUE,,hr_holiday_public_type_1
+hr_public_holiday_line_12,Eid-Ul-Adha,2017-09-01,hr_holiday_public,TRUE,,hr_holiday_public_type_1
+hr_public_holiday_line_13,Chinese New Year,2017-01-28,hr_holiday_public,TRUE,,hr_holiday_public_type_2
+hr_public_holiday_line_14,EDSA People Power Revolution Anniversary,2017-02-25,hr_holiday_public,,,hr_holiday_public_type_2
+hr_public_holiday_line_15,Black Saturday,2017-04-15,hr_holiday_public,TRUE,,hr_holiday_public_type_2
+hr_public_holiday_line_16,Ninoy Aquino Day,2017-08-21,hr_holiday_public,,,hr_holiday_public_type_2
+hr_public_holiday_line_17,All Saints Day,2017-11-01,hr_holiday_public,,,hr_holiday_public_type_2
+hr_public_holiday_line_18,Last Day of the Year,2017-12-31,hr_holiday_public,,,hr_holiday_public_type_2
