@@ -13,7 +13,7 @@
                     <field name="is_institution" invisible="1"/>
                 </field>
                 <field name="company_type" position="attributes">
-                    <attributes name="attrs">{'invisible':[('is_institution','=',True)]}</attributes>
+                    <attribute name="attrs">{'invisible':[('is_institution','=',True)]}</attribute>
                 </field>
             </field>
         </record>
