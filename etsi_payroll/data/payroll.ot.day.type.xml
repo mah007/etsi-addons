@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+
+        <record id="ot_ordinary_day" model="payroll.ot.day.type">
+            <field name="name">Ordinary Day</field>
+        </record>
+
+        <record id="ot_rest_day" model="payroll.ot.day.type">
+            <field name="name">Rest Day</field>
+        </record>
+
+        <record id="ot_special_holiday" model="payroll.ot.day.type">
+            <field name="name">Special Holiday</field>
+        </record>
+
+        <record id="ot_special_rest_day" model="payroll.ot.day.type">
+            <field name="name">Special Holiday and Rest Day</field>
+        </record>
+
+        <record id="ot_regular_holiday" model="payroll.ot.day.type">
+            <field name="name">Regular Holiday</field>
+        </record>
+
+        <record id="ot_regular_rest_day" model="payroll.ot.day.type">
+            <field name="name">Regular Holiday and Rest Day</field>
+        </record>
+
+        <record id="ot_special_holiday" model="payroll.ot.day.type">
+            <field name="name">Special Holiday</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,85 @@
+<odoo>
+    <data>
+
+        <template id="etsi_contribution_register_template" inherit_id="hr_payroll.report_contributionregister">
+              <xpath expr="//div[@class='page']"  position="replace">
+                  <div class="page">
+                    <h2>PaySlip Lines by Contribution Register</h2>
+
+
+                    <div class="row mt32 mb32">
+                        <div class="col-xs-3">
+                            <strong>Register Name:</strong>
+                            <p t-field="o.name"/>
+                        </div>
+                        <div class="col-xs-3">
+                            <strong>Date From:</strong>
+                            <p t-esc="data['form']['date_from']"/>
+                        </div>
+                        <div class="col-xs-3">
+                            <strong>Date To:</strong>
+                            <p t-esc="data['form']['date_to']"/>
+                        </div>
+                    </div>
+                    <table class="table table-condensed" width="100%">
+                        <thead>
+                            <tr>
+                                <th>PaySlip Name</th>
+                                <th>Code</th>
+                                <th style="vertical-align:middle;text-align:center">EE</th>
+                                <th style="vertical-align:middle;text-align:center">ER</th>
+                                <th style="vertical-align:middle;text-align:center">Total</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="lines_data.get(o.id, [])" t-as="line">
+                                <td><span t-esc="line.employee_id.name"/></td>
+                                <td><span t-esc="line.code"/></td>
+                                <td class="text-right">
+                                    <span t-esc="'%.2f'%(line.amount)"
+                                          t-esc-options='{"widget": "False", "display_currency": o.company_id.currency_id}'/>
+                                </td>
+                                 <td class="text-right">
+                                     <span t-esc="'%.2f'%(line.employer_share)"
+                                           t-esc-options='{"widget": "False", "display_currency": o.company_id.currency_id}'/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="'%.2f'%(line.total + line.employer_share)"
+                                          t-esc-options='{"widget": "False", "display_currency": o.company_id.currency_id}'/>
+                                </td>
+                            </tr>
+                            <tr style="font-weight: bold;" class="border-black">
+
+                                <td colspan="3" class="text-right">
+                                    <span t-esc="'%.2f'%(lines_total.get(o.id))" t-esc-options='{"widget": "False", "display_currency": o.company_id.currency_id}'/>
+                                </td>
+
+
+                                <t t-set="total_emplyr_share" t-value="0" />
+                                    <t t-foreach="lines_data.get(o.id, [])" t-as="i">
+                                        <t t-set="total_emplyr_share" t-value="total_emplyr_share+i.employer_share"/>
+							    </t>
+                                <td class="text-right">
+                                    <span t-esc="'%.2f'%(total_emplyr_share)" t-esc-options='{"widget": "False", "display_currency": o.company_id.currency_id}'/>
+                                </td>
+
+
+                                <t t-set="total_share" t-value="0" />
+                                    <t t-foreach="lines_data.get(o.id, [])" t-as="i">
+                                        <t t-set="total_share" t-value="total_share+i.employer_share+i.total"/>
+							    </t>
+                                <td class="text-right">
+                                    <span t-esc="'%.2f'%(total_share)" t-esc-options='{"widget": "False", "display_currency": o.company_id.currency_id}'/>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                  </div>
+
+              </xpath>
+        </template>
+
+    </data>
+</odoo>

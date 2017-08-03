@@ -1,0 +1,6 @@
+id,stat_code,name
+hr_payroll_tax_s_me,S/ME,Single / Married
+hr_payroll_tax_me1_s1,ME1/S1,Single / Maried  w/ 1 Dependent
+hr_payroll_tax_me2_s2,ME2/S2,Single / Maried w/ 2 Dependent
+hr_payroll_tax_me3_s3,ME3/S3,Single / Maried w/ 3 Dependent
+hr_payroll_tax_me4_s4,ME4/S4,Single / Maried w/ 4 Dependent

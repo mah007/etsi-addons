@@ -1,0 +1,59 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="etsi_payroll.list">
+      <field name="name">etsi_payroll list</field>
+      <field name="model">etsi_payroll.etsi_payroll</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="etsi_payroll.action_window">
+      <field name="name">etsi_payroll window</field>
+      <field name="res_model">etsi_payroll.etsi_payroll</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="etsi_payroll.action_server">
+      <field name="name">etsi_payroll server</field>
+      <field name="model_id" ref="model_etsi_payroll_etsi_payroll"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="etsi_payroll" id="etsi_payroll.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="etsi_payroll.menu_1" parent="etsi_payroll.menu_root"/>
+    <menuitem name="Menu 2" id="etsi_payroll.menu_2" parent="etsi_payroll.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="etsi_payroll.menu_1_list" parent="etsi_payroll.menu_1"
+              action="etsi_payroll.action_window"/>
+    <menuitem name="Server to list" id="etsi_payroll" parent="etsi_payroll.menu_2"
+              action="etsi_payroll.action_server"/>
+    -->
+  </data>
+</odoo>

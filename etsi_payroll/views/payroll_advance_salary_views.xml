@@ -1,0 +1,128 @@
+<odoo>
+
+    <record id="payroll_salary_request_tree" model="ir.ui.view">
+        <field name="name">hr salary request tree</field>
+        <field name="model">payroll.salary.request</field>
+        <field name="arch" type="xml">
+            <tree string="Employee Advance Salary">
+                <field name="name"/>
+                <field name="req_date"/>
+                <field name="dept_ids"/>
+                <field name="req_amount"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+
+   <record id="payroll_salary_request_form" model="ir.ui.view">
+       <field name ="name">hr salary request form</field>
+       <field name="model">payroll.salary.request</field>
+       <field name="arch" type="xml">
+           <form string="Employee Salary Request">
+               <header>
+                   <button name="action_confirm" string ="Confirm"
+                           type="object" class="oe_highlight" states="draft"/>
+
+                   <button name="action_dept_approve" string ="Approved by Department"
+                           type="object" class="oe_highlight" states="confirmed"/>
+                   <button name="action_draft" string ="Reset to Draft"
+                           type="object" class="oe_highlight" states="confirmed"/>
+                   <button name="action_refused" string ="Refuse"
+                           type="object" class="oe_highlight" states="confirmed"/>
+
+                   <button name="action_hr_approve" string ="Approved By HR"
+                           type="object" class="oe_highlight" states="dept_approved"/>
+                   <button name="action_refused" string ="Refuse"
+                           type="object" class="oe_highlight" states="dept_approved"/>
+
+                   <button name="action_bod_approve" string ="Approved By Director"
+                           type="object" class="oe_highlight" states="hr_approved"/>
+                   <button name="action_refused" string ="Refuse"
+                           type="object" class="oe_highlight" states="hr_approved"/>
+
+                   <button name="action_paid" string ="Paid"
+                           type="object" class="oe_highlight" states="bod_approved"/>
+                   <button name="action_refused" string ="Refuse"
+                           type="object" class="oe_highlight" states="bod_approved"/>
+
+                   <button name="action_done" string ="Done"
+                           type="object" class="oe_highlight" states="paid"/>
+                   <field name="state" widget = "statusbar"
+                          statusbar_visible="draft,confirmed,dept_approved,hr_approved,bod_approved,paid,done,refused"
+                          clickable="True"/>
+               </header>
+               <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                   <group>
+                       <group>
+                           <field name="req_date"/>
+                           <field name="req_amount"/>
+                       </group>
+                       <group>
+                           <field name="dept_ids"/>
+                           <field name="job_ids"/>
+                           <field name="dept_manager"/>
+                           <field name="user_ids" readonly="True"/>
+                           <field name="company_ids" readonly="True"/>
+                       </group>
+                   </group>
+                   <notebook>
+                        <page string="General Information">
+                            <group string="Reason for Advance">
+                                <field name="reason" nolabel="1"/>
+                            </group>
+                            <group string="Comment">
+                                <field name="comment" nolabel="1"/>
+                            </group>
+                        </page>
+                        <page string="Remarks">
+                            <group>
+                               <group>
+                                   <field name="confirmed_date" readonly="True"/>
+                                   <field name="approved_date_dept" readonly="True"/>
+                                   <field name="approved_date_hr" readonly="True"/>
+                                   <field name="approved_date_bod" readonly="True"/>
+                                   <field name="paid_date" readonly="True"/>
+                                   <field name="refused_date" readonly="True"/>
+                               </group>
+                               <group>
+                                   <field name="confirm_by" readonly="True"/>
+                                   <field name="approve_by_dept" readonly="True"/>
+                                   <field name="approve_by_hr" readonly="True"/>
+                                   <field name="approve_by_bod" readonly="True"/>
+                                   <field name="paid_by" readonly="True"/>
+                                   <field name="refused_by" readonly="True"/>
+                               </group>
+                            </group>
+                        </page>
+                   </notebook>
+               </sheet>
+           </form>
+       </field>
+   </record>
+
+    <record model="ir.actions.act_window" id="action_salary_request">
+            <field name="name">Salary Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">payroll.salary.request</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_hr_advance_salary"
+        name="Advance Salary"
+        parent="hr_payroll.menu_hr_payroll_root"
+    />
+
+    <menuitem
+        id="menu_hr_advance_salary_request"
+        name="Advance Salary Request"
+        parent="menu_hr_advance_salary"
+        action="action_salary_request"
+    />
+
+</odoo>
