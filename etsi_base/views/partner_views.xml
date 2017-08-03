@@ -9,7 +9,7 @@
             <field name="arch" type="xml">
 
               <xpath expr="//form/sheet/notebook/page/field/form/sheet/group/group[1]/label[@for='street']" position="before">
-                  <field name="address_type" widget="selection" attrs="{'invisible':[('type','in',['contact','invoice','delivery'])]}"/>
+                  <field name="address_type" widget="selection" attrs="{'invisible':[('type','in',['contact','invoice','delivery'])]}" placeholder="Choose"/>
               </xpath>
 
               <field name="type" position="before">
