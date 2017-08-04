@@ -20,9 +20,26 @@ class CompanyInfo(models.AbstractModel):
         else:
             annual_company_id = False
 
-        res_stud = self.env['hr.payslip'].search([('company_id', '=', annual_company_id[0])])
+        res_comp = self.env['hr.employee'].search([('company_id', '=', annual_company_id[0])])
 
-        data.update({'company_employee': res_stud})
+        for e in res_comp:
+            res_payroll = self.env['hr.payslip.line'].search([('employee_id', '=', e.id), ('code', '=', 'TAX')])
+            tax_sum = 0
+            for x in res_payroll:
+                tax_sum = x.amount
+
+            annual_tax = []
+            for res_tax in res_payroll:
+                amt = res_tax.amount
+                # print 'name', name
+                if amt:
+                    annual_tax.append((res_tax.id, amt))
+            # print 'res', res
+            return annual_tax
+
+
+
+        data.update({'company_employee': res_comp})
 
 
         docargs = {

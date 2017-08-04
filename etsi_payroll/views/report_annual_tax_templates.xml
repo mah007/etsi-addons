@@ -45,6 +45,7 @@
                                           </tr>
                                           <tr t-foreach="data['company_employee']" t-as="employees">
                                             <td t-esc="employees.employee_id.name "/>
+                                            <td />
                                           </tr>
                                     </table>
                                 </body>
