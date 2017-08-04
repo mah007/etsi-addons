@@ -25,16 +25,13 @@ class CompanyInfo(models.AbstractModel):
         for e in res_comp:
             res_payroll = self.env['hr.payslip.line'].search([('employee_id', '=', e.id), ('code', '=', 'TAX')])
             tax_sum = 0
-            for x in res_payroll:
-                tax_sum = x.amount
 
             annual_tax = []
             for res_tax in res_payroll:
-                amt = res_tax.amount
-                # print 'name', name
-                if amt:
-                    annual_tax.append((res_tax.id, amt))
-            # print 'res', res
+                tax_sum += res_tax.amount
+
+            annual_tax.append((res_tax.employee_id, res_payroll[0].code, tax_sum))
+
             return annual_tax
 
 
