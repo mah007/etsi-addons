@@ -18,7 +18,7 @@
         <report
             id="report_annual_tax"
             model="hr.payroll.annual.tax.report"
-            string="Employee Payroll Report"
+            string="Company Payroll Report"
             name="etsi_payroll.report_annual_tax_template"
             file="etsi_payroll.report_annual_tax_template"
             report_type="qweb-pdf"
@@ -33,39 +33,20 @@
                                 <head>
                                     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
                                     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-                                    <title>Company Information</title>
+                                    <title>Annual Tax Report</title>
 
                                 </head>
                                 <body>
-                                    <br/><br/><br/><br/>
-                                    <h1 class="text-center style2">Employee Payroll Report</h1>
-                                        <!--<table style="width:100%" align="center">-->
-                                            <!--<tr>-->
-                                                <!--<th class="text-center" colspan="3"><span t-esc="comp_name"/></th>-->
-                                                    <!--other way. direct substitute of comp_id-->
-                                                    <!--<t t-foreach="doc.comp_id" t-as="emp">-->
-                                                    <!--<b><tab1><span t-esc="emp.name"/></tab1></b><br/>-->
-                                                    <!--</t>-->
-                                          <!--</tr>-->
-                                          <!--<tr>-->
-                                            <!--<th class="text-center">Department</th>-->
-                                            <!--<th class="text-center">Supervisor</th>-->
-                                            <!--<th class="text-center">Employees</th>-->
-                                          <!--</tr>-->
-                                            <!--<p t-foreach="data['comp_ids']" t-as="company">-->
-                                          <!--<tr>-->
-                                            <!--<td class="text-center"><span t-esc="company.name"/></td>-->
-                                            <!--<td class="text-center"><span t-esc="company.employee_id.name"/></td>-->
-                                            <!--<td class="text-center">-->
-                                                <!--<t t-foreach="company.employee_ids" t-as="emp">-->
-                                                     <!--&#160;<span t-esc="emp.name"/>-->
-                                                <!--</t>-->
-                                            <!--</td>-->
-                                            <!--</tr>-->
-                                            <!--</p>-->
-
-
-                                        <!--</table>-->
+                                    <h1>Annual Tax Report</h1>
+                                        <table style="width:100%">
+                                            <tr>
+                                            <th>Employees</th>
+                                            <!--<th>Supervisor</th>-->
+                                          </tr>
+                                          <tr t-foreach="data['company_employee']" t-as="employees">
+                                            <td t-esc="employees.employee_id.name "/>
+                                          </tr>
+                                    </table>
                                 </body>
                             </html>
                         </div>
