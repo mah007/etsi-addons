@@ -37,6 +37,7 @@
         'views/hr_annual_tax_views.xml',
         'views/report_payslip_templates.xml',
         'views/report_payroll_register.xml',
+        'views/report_annual_tax_templates.xml',
         'data/payroll.sss.matrix.csv',
         'data/payroll.philhealth.matrix.csv',
         'data/payroll.pagibig.matrix.csv',
