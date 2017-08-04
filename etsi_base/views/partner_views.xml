@@ -22,7 +22,7 @@
               <field name="name" position="replace">
                   <field name="name" default_focus="1" placeholder="Name" readonly="True"/>
 
-                </field>
+              </field>
 
             </field>
     </record>
