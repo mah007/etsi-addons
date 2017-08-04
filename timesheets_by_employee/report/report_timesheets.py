@@ -133,7 +133,8 @@ class ReportTimesheet(models.AbstractModel):
                 analysis.append(val)
 
         print 'analysis', analysis
-        return [records, total, analysis]
+        emp = self.env['hr.employee'].search([('user_id', '=', docs.employee[0].id)])
+        return [records, total, analysis, emp]
 
     @api.model
     def render_html(self, docids, data=None):
@@ -172,9 +173,11 @@ class ReportTimesheet(models.AbstractModel):
            'timesheets': timesheets[0],
            'total': timesheets[1],
            'company': docs.employee[0].company_id.name,
+           # 'manager_name': docs.employee[0].parent_id.name,
            'identification': identification,
            'period': period,
            'timesheet_analysis':timesheets[2],
+           'timesheet_emp': timesheets[3],
            'sum_duty': sum_duty_hrs,
            'sum_worked': sum_act_worked,
            'sum_ot': sum_act_ot,

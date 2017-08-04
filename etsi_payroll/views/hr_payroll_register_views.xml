@@ -23,6 +23,7 @@
             </field>
         </record>
 
+
         <record id="action_print_payroll_register" model="ir.actions.act_window">
             <field name="name">Generate Payroll Register</field>
             <field name="res_model">hr.payroll.register</field>
@@ -32,6 +33,9 @@
             <field name="view_id" ref="payroll_register_form"/>
             <field name="target">new</field>
         </record>
+
+
+
 
         <menuitem name="Reports"
                   parent="hr_payroll.menu_hr_payroll_root"
@@ -56,6 +60,8 @@
               id="print_contribution_register"
               action="hr_payroll.action_contribution_register_form"
               parent="submenu_report_reg"/>
+
+
 
         <record id="paperformat_styles" model="report.paperformat">
 		    <field name="name">Payroll Register</field>
