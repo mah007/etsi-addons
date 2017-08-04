@@ -30,13 +30,11 @@ class CompanyInfo(models.AbstractModel):
             for res_tax in res_payroll:
                 tax_sum += res_tax.amount
 
-            annual_tax.append((res_tax.employee_id, res_payroll[0].code, tax_sum))
-
-            return annual_tax
+            annual_tax.append((e.name, res_payroll[0].code, tax_sum))
 
 
-
-        data.update({'company_employee': res_comp})
+        print annual_tax
+        # data.update({'company_employee': annual_tax})
 
 
         docargs = {
@@ -44,6 +42,7 @@ class CompanyInfo(models.AbstractModel):
             'doc_model': model,
             'data': data,
             'docs': docs,
+            'company_employees': annual_tax
             # 'comp_name': comp_id[1], #other ways
         }
         return self.env['report'].render('etsi_payroll.report_annual_tax_template', docargs)
