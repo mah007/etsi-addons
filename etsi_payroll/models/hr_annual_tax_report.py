@@ -1,10 +1,19 @@
 from odoo import fields,api,models
+from datetime import datetime, timedelta
 
 class AnnualTaxReport(models.Model):
     _name = 'hr.payroll.annual.tax.report'
 
     annual_company_id = fields.Many2one('res.partner', string='Company')
-    year_selection = fields.Selection([(num, str(num)) for num in range(2000, (fields.datetime.now().year) + 1)], 'Year')
+    def _get_years(self):
+        this_year = datetime.today().year
+
+        results = [(str(x), str(x)) for x in range(this_year - 40, this_year + 10)]
+        return results
+
+    year_selection = fields.Selection(_get_years, string="Select Year")
+
+
 
     def print_annual_tax_report(self,data):
         data = {}
