@@ -40,12 +40,12 @@
                                     <h1>Annual Tax Report</h1>
                                         <table style="width:100%">
                                             <tr>
-                                                <th>Employees</th>
+                                            <th>Employees</th>
                                             <!--<th>Supervisor</th>-->
-                                            </tr>
-                                            <tr t-foreach="data['company_employee']" t-as="employees">
-                                                <td t-esc="employees.employee_id.name "/>
-                                            </tr>
+                                          </tr>
+                                          <tr t-foreach="data['company_employee']" t-as="employees">
+                                            <td t-esc="employees.employee_id.name "/>
+                                          </tr>
                                     </table>
                                 </body>
                             </html>
