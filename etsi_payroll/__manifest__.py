@@ -33,7 +33,7 @@
         # 'views/payroll_advance_salary_views.xml',
         'views/hr_attendance_view.xml',
         'views/hr_payroll_register_views.xml',
-        'views/hr_payroll_report_views.xml',
+        # 'views/hr_payroll_report_views.xml',
         'views/report_contributionregister_templates.xml',
         'views/hr_annual_tax_views.xml',
         'views/report_payslip_templates.xml',

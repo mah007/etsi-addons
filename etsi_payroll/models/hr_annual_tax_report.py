@@ -13,9 +13,6 @@ class AnnualTaxReport(models.Model):
     annual_company_id = fields.Many2one('res.partner', string='Company')
     year_selection = fields.Selection(_get_years, string="Select Year")
 
-
-
-
     def print_annual_tax_report(self, data):
         data = {}
 
