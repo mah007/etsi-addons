@@ -50,17 +50,28 @@
                                 <body>
                                     <h1 class="text-center">Annual Tax Report</h1>
                                     <br/>
-                                    <p><b>Company : </b><span t-esc="comp_name"/></p>
-                                        <table style="border:2px solid;width:100%;">
-                                            <tr style="height:50px">
-                                            <th style="vertical-align:middle;text-align:center;border:2px solid">Employee Name</th>
-                                            <th style="vertical-align:middle;text-align:center;border:2px solid">Tax Code</th>
-                                            <th style="vertical-align:middle;text-align:center">Total Tax Amount</th>
+                                        <table style="width:67%;">
+                                            <tr style="height:20px">
+                                            <th>Company:</th>
+                                            <th>Year:</th>
                                           </tr >
                                           <tr t-foreach="company_employees" t-as="employees" style="height:35px">
-                                              <td t-esc="employees[0]" style="vertical-align:middle;text-align:left;border:2px solid;padding:5px"/>
-                                              <td t-esc="employees[1]" style="vertical-align:middle;text-align:left;border:2px solid;padding:5px"/>
-                                              <td t-esc="employees[2]" style="vertical-align:middle;text-align:left;border:2px solid;padding:5px"/>
+                                              <td t-esc="company_name"/>
+                                              <td t-esc="company_date"/>
+                                            <td />
+                                          </tr>
+                                    </table>
+                                    <br/>
+                                        <table style="border:1px solid;width:100%;">
+                                            <tr style="height:50px">
+                                            <th style="vertical-align:middle;text-align:center;border:1px solid">Employee Name</th>
+                                            <th style="vertical-align:middle;text-align:center;border:1px solid">Tax Code</th>
+                                            <th style="vertical-align:middle;text-align:center;border:1px solid">Total Tax Amount</th>
+                                          </tr >
+                                          <tr t-foreach="company_employees" t-as="employees" style="height:35px">
+                                              <td t-esc="employees[0]" style="vertical-align:middle;text-align:left;border:1px solid;padding:5px"/>
+                                              <td t-esc="employees[1]" style="vertical-align:middle;text-align:left;border:1px solid;padding:5px"/>
+                                              <td t-esc="employees[2]" style="vertical-align:middle;text-align:left;padding:5px"/>
                                             <td />
                                           </tr>
                                     </table>
