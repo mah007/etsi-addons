@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+         <record id="hr_sss_register" model="hr.contribution.register">
+            <field name="name">Social Security System</field>
+        </record>
+         <record id="hr_philhealth_register" model="hr.contribution.register">
+            <field name="name">PhilHealth</field>
+        </record>
+         <record id="hr_pagibig_register" model="hr.contribution.register">
+            <field name="name">Pagibig</field>
+        </record>
+         <record id="hr_tax_register" model="hr.contribution.register">
+            <field name="name">Withholding Tax</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,93 @@
+<odoo>
+    <data>
+
+         <record id="paperformat_payslip1" model="report.paperformat">
+            <field name="name">Letter Half</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">140</field>
+            <field name="page_width">215</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">18</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">15</field>
+            <field name="dpi">90</field>
+		</record>
+
+
+
+         <!--<report paperformat="paperformat_payslip"/>-->
+            <!--id="action_etsi_report_payslip"-->
+            <!--inherit_id ="hr_payroll.action_report_payslip"-->
+            <!--model="hr.payslip"-->
+            <!--string="Payslip"-->
+            <!--report_type="qweb-pdf"-->
+            <!--name="hr_payroll.report_payslip"-->
+            <!--file="hr_payroll.report_payslip"-->
+
+
+         <template id="external_layout_custom_payslip_details" inherit_id="report.external_layout" primary="True">
+            <xpath expr="//t[@t-call='report.external_layout_header']" position="attributes">
+                <attribute name="t-call">etsi_payroll.external_layout_header_payslip</attribute>
+            </xpath>
+            <xpath expr="//t[@t-call='report.external_layout_footer']" position="attributes">
+                <attribute name="t-call">etsi_payroll.external_layout_footer_payslip</attribute>
+            </xpath>
+        </template>
+
+
+        <template id="external_layout_header_payslip_details" inherit_id="report.external_layout_header" primary="True">
+            <xpath expr="//div[@class='col-xs-9 text-right']" position="replace">
+                <div class="col-xs-9 text-right"
+                      t-field="company.partner_id"
+                      t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                <div class="col-xs-9 text-right" t-field="company.rml_header1"/>
+            </xpath>
+            <xpath expr="//div[@name='company_address']" position="replace"/>
+        </template>
+
+        <template id="external_layout_footer_payslip_details" inherit_id="report.external_layout_footer" primary="True">
+             <xpath expr="//div[@class='text-center']" position="attributes">
+                  <attribute name="style">border-top: 1px dashed black;</attribute>
+             </xpath>
+            <xpath expr="//ul[1]" position="replace"/>
+            <xpath expr="//ul[2]" position="replace"/>
+        </template>
+
+        <template id="etsi_payslip_template_details" inherit_id="hr_payroll.report_payslipdetails">
+            <xpath expr="//t[@t-call='report.external_layout']" position="attributes">
+                <attribute name="t-call">etsi_payroll.external_layout_custom_payslip_details</attribute>
+            </xpath>
+            <xpath expr="//h2" position="replace">
+                <h3>Pay Slip</h3>
+            </xpath>
+            <xpath expr="//p[1]" position="replace"/>
+
+            <xpath expr="//table[1]" position="attributes">
+                 <attribute name="class">""</attribute>
+                 <attribute name="style">width:100%; margin-bottom:10px</attribute>
+            </xpath>
+
+
+            <!--<xpath expr="//table[2]" position="attributes">-->
+                 <!--<attribute name="class">""</attribute>-->
+                 <!--<attribute name="style">width:100%; border-bottom:1pt solid black; border-top:1pt solid black</attribute>-->
+            <!--</xpath>-->
+
+            <xpath expr="//tr[2]" position="replace">
+                <attribute name="Address"></attribute>
+            </xpath>
+
+            <xpath expr="//tr[2]/td[1]" position="replace">
+                <attributes></attributes>
+            </xpath>
+            <xpath expr="//tr[2]/td[2]" position="replace">
+                <attributes></attributes>
+            </xpath>
+
+        </template>
+    </data>
+</odoo>

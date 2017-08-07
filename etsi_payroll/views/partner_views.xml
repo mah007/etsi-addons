@@ -1,0 +1,34 @@
+<odoo>
+    <data>
+
+        <record id="etsi_payroll_partner_form" model="ir.ui.view">
+            <field name="name">etsi payroll partner form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+
+               <xpath expr="//notebook" postion="inside">
+                   <page name="payroll_partner" string="Payroll">
+                       <!--<group string="Cut-Off Date">-->
+                       <group string="Mode of Payment">
+                           <group>
+                               <field name="sss_contri"/>
+                               <field name="philhealth_contri"/>
+                               <field name="pagibig_contri"/>
+                               <field name="schedule_pay"/>
+                               <field name="dayofweek" attrs="{'invisible': [('schedule_pay', '!=', 'weekly')]}"/>
+                               <!--<field name="value_1" attrs="{'invisible': [('schedule_pay', '!=', 'bi-monthly')]}"/>-->
+                               <!--<field name="value_2" attrs="{'invisible': [('schedule_pay', '!=', 'bi-monthly')]}"/>-->
+                               <field name="value" attrs="{'invisible': [('schedule_pay', '!=', 'semi-monthly')]}" widget="radio"/>
+
+                           </group>
+                           <group>
+                           </group>
+                       </group>
+                   </page>
+
+               </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

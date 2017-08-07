@@ -1,0 +1,60 @@
+<odoo>
+    <data>
+        <record id="annual_tax_report_form" model="ir.ui.view">
+            <field name="name">Payroll Register</field>
+            <field name="model">hr.payroll.annual.tax.report</field>
+            <field name="arch" type="xml">
+               <form>
+                   <group>
+                        <group string="Select Company">
+                                <field name="annual_company_id" domain="[('is_company','=',True)]" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+                        </group>
+                       <group string="Select Year">
+                                <field name="year_selection"/>
+
+                        </group>
+                        <footer>
+                            <button string="Print" name="print_annual_tax_report" type="object" class="btn-primary"/>
+                            <button string="Discard" class="btn-default" special="cancel"/>
+                        </footer>
+                    </group>
+               </form>
+            </field>
+        </record>
+
+
+        <record id="action_print_annual_tax_report" model="ir.actions.act_window">
+            <field name="name">Annual Tax Report</field>
+            <field name="res_model">hr.payroll.annual.tax.report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="annual_tax_report_form" />
+            <field name="target">new</field>
+        </record>
+
+         <menuitem name="Annual Tax Report"
+              id="print_annual_tax_report"
+              action="action_print_annual_tax_report"
+              parent="submenu_report_reg"/>
+
+        <record id="paperformat_styles" model="report.paperformat">
+		    <field name="name">Payroll Register</field>
+		    <field name="default" eval="True"/>
+		    <field name="format">Legal</field>
+		    <field name="orientation">Landscape</field>
+		    <field name="margin_top">10</field>
+		    <field name="margin_bottom">10</field>
+		    <field name="margin_left">20</field>
+		    <field name="margin_right">20</field>
+		    <field name="header_line" eval="False"/>
+		    <field name="header_spacing">3</field>
+		    <field name="dpi">80</field>
+		</record>
+
+
+
+
+
+    </data>
+</odoo>

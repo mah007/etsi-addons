@@ -1,0 +1,237 @@
+<odoo>
+    <data noupdate="0">
+        <record id="etsi_hrms.hr_policy_categ_base" model="hr.policy.category">
+            <field name="name">Base Policy</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">BASE</field>
+        </record>
+
+         <record id="hr_policy_line_absence_awol" model="hr.policy.line.absence">
+             <field name="name">Absence Without Leave</field>
+            <field name="use_awol">True</field>
+            <field name="use_leave">False</field>
+            <field name="use_late">False</field>
+            <field name="type">unpaid</field>
+            <field name="code">AWOL</field>
+            <field name="rate" eval="100"/>
+        </record>
+
+        <record id="hr_policy_line_absence_legal" model="hr.policy.line.absence">
+            <field name="name">Legal Leave</field>
+            <field name="holiday_status_id" ref="hr_holidays.holiday_status_cl"/>
+            <field name="use_leave">True</field>
+            <field name="use_awol">False</field>
+            <field name="use_late">False</field>
+            <field name="type">paid</field>
+            <field name="code">LEGAL</field>
+            <field name="rate" eval="100"/>
+        </record>
+
+         <record id="hr_policy_line_absence_comp" model="hr.policy.line.absence">
+            <field name="name">Compensatory Leave</field>
+            <field name="holiday_status_id" ref="hr_holidays.holiday_status_comp"/>
+            <field name="use_leave">True</field>
+            <field name="use_awol">False</field>
+            <field name="use_late">False</field>
+            <field name="type">paid</field>
+            <field name="code">COMP</field>
+            <field name="rate" eval="100"/>
+        </record>
+
+        <record id="hr_policy_line_absence_reg" model="hr.policy.line.absence">
+            <field name="name">Regular Holiday</field>
+            <field name="holiday_id" ref="hr_public_holidays.hr_holiday_public_type_1"/>
+            <field name="use_holiday">True</field>
+            <field name="type">paid</field>
+            <field name="code">REG</field>
+            <field name="rate" eval="100"/>
+        </record>
+
+        <record id="hr_policy_line_absence_snw" model="hr.policy.line.absence">
+            <field name="name">Special Non-Working Holiday</field>
+            <field name="holiday_id" ref="hr_public_holidays.hr_holiday_public_type_2"/>
+            <field name="use_holiday">True</field>
+            <field name="type">paid</field>
+            <field name="code">SNW</field>
+            <field name="rate" eval="100"/>
+        </record>
+
+        <record id="hr_policy_line_absence_sl" model="hr.policy.line.absence">
+            <field name="name">Sick Leave</field>
+            <field name="holiday_status_id" ref="hr_holidays.holiday_status_sl"/>
+            <field name="use_leave">True</field>
+            <field name="use_awol">False</field>
+            <field name="use_late">False</field>
+            <field name="type">paid</field>
+            <field name="code">SL</field>
+            <field name="rate" eval="100"/>
+        </record>
+
+        <record id="hr_policy_line_absence_late" model="hr.policy.line.absence">
+            <field name="name">Late</field>
+            <field name="use_late">True</field>
+            <field name="use_leave">False</field>
+            <field name="use_awol">False</field>
+            <field name="type">unpaid</field>
+            <field name="code">LATE</field>
+            <field name="rate" eval="0.00"/>
+        </record>
+
+        <record id="hr_policy_absence_base" model="hr.policy.absence">
+            <field name="name">Base Policy</field>
+            <field name="policy_categ" ref="etsi_hrms.hr_policy_categ_base"/>
+            <field name="date">01/01/2017</field>
+            <field eval="[(6, 0, [ref('hr_policy_line_absence_legal'),
+                                  ref('hr_policy_line_absence_comp'),
+                                  ref('hr_policy_line_absence_sl'),
+                                  ref('hr_policy_line_absence_awol'),
+                                  ref('hr_policy_line_absence_late'),
+                                  ref('hr_policy_line_absence_reg'),
+                                  ref('hr_policy_line_absence_snw'),])]" name="line_ids"/>
+        </record>
+
+        <!--<record id="hr_policy_line_ot_reg" model="hr.policy.line.ot">-->
+            <!--<field name="name">Ordinary Day</field>-->
+            <!--<field name="code">D</field>-->
+            <!--<field name="type">daily</field>-->
+            <!--<field name="rate" eval="125"/>-->
+            <!--<field name="active_after" eval="0"/>-->
+            <!--<field name="active_start_time" eval="17"/>-->
+            <!--<field name="active_end_time" eval="24"/>-->
+        <!--</record>-->
+
+        <!--<record id="hr_policy_ot_daily" model="hr.policy.ot">-->
+            <!--<field name="policy_categ" ref="etsi_hrms.hr_policy_categ_base"/>-->
+            <!--<field name="date">01/01/2017</field>-->
+            <!--<field name="type">daily</field>-->
+            <!--<field eval="[(6, 0, [ref('hr_policy_line_ot_reg')])]" name="line_ids"/>-->
+        <!--</record>-->
+
+        <!--<record id="hr_policy_line_ot_rd" model="hr.policy.line.ot">-->
+            <!--<field name="code">RD</field>-->
+            <!--<field name="type">restday</field>-->
+            <!--<field name="rate" eval="130"/>-->
+        <!--</record>-->
+
+        <!--<record id="hr_policy_ot_restday" model="hr.policy.ot">-->
+            <!--<field name="policy_categ" ref="etsi_hrms.hr_policy_categ_base"/>-->
+            <!--<field name="date">01/01/2017</field>-->
+            <!--<field name="type">restday</field>-->
+            <!--<field eval="[(6, 0, [ref('hr_policy_line_ot_rd')])]" name="line_ids"/>-->
+        <!--</record>-->
+
+
+        <!--<record id="hr_policy_line_ot_rd_reg" model="hr.policy.line.ot">-->
+            <!--<field name="code">REG</field>-->
+            <!--<field name="type">holiday</field>-->
+            <!--<field name="holiday_id" ref="hr_public_holidays.hr_holiday_public_type_1"/>-->
+            <!--<field name="rate" eval="200"/>-->
+        <!--</record>-->
+
+        <!--<record id="hr_policy_line_ot_rd_snw" model="hr.policy.line.ot">-->
+            <!--<field name="code">SNW</field>-->
+            <!--<field name="type">holiday</field>-->
+            <!--<field name="holiday_id" ref="hr_public_holidays.hr_holiday_public_type_2"/>-->
+            <!--<field name="rate" eval="130"/>-->
+        <!--</record>-->
+
+        <!--<record id="hr_policy_ot_holiday" model="hr.policy.ot">-->
+            <!--<field name="policy_categ" ref="etsi_hrms.hr_policy_categ_base"/>-->
+            <!--<field name="date">01/01/2017</field>-->
+            <!--<field name="type">holiday</field>-->
+            <!--<field eval="[(6, 0, [ref('hr_policy_line_ot_rd_reg'),-->
+                                  <!--ref('hr_policy_line_ot_rd_snw')])]" name="line_ids"/>-->
+        <!--</record>-->
+
+
+        <!--<record id="hr_policy_line_ot_rreg" model="hr.policy.line.ot">-->
+            <!--<field name="code">RREG</field>-->
+            <!--<field name="type">rest_on_holiday</field>-->
+            <!--<field name="holiday_id" ref="hr_public_holidays.hr_holiday_public_type_1"/>-->
+            <!--<field name="rate" eval="260"/>-->
+        <!--</record>-->
+
+        <!--<record id="hr_policy_line_ot_rsnw" model="hr.policy.line.ot">-->
+            <!--<field name="code">RSNW</field>-->
+            <!--<field name="type">rest_on_holiday</field>-->
+            <!--<field name="holiday_id" ref="hr_public_holidays.hr_holiday_public_type_2"/>-->
+            <!--<field name="rate" eval="150"/>-->
+        <!--</record>-->
+
+        <!--<record id="hr_policy_ot_rest_on_holiday" model="hr.policy.ot">-->
+            <!--<field name="policy_categ" ref="etsi_hrms.hr_policy_categ_base"/>-->
+            <!--<field name="date">01/01/2017</field>-->
+            <!--<field name="type">rest_on_holiday</field>-->
+            <!--<field eval="[(6, 0, [ref('hr_policy_line_ot_rreg'),-->
+                                  <!--ref('hr_policy_line_ot_rsnw')])]" name="line_ids"/>-->
+        <!--</record>-->
+
+         <record id="hr_policy_line_ot_otd" model="hr.policy.line.ot">
+            <field name="name">Ordinary Day</field>
+            <field name="code">OTD</field>
+            <field name="type">daily</field>
+            <field name="rate" eval="125"/>
+            <field name="active_start_time" eval="17"/>
+            <field name="active_end_time" eval="24"/>
+        </record>
+
+        <record id="hr_policy_line_ot_otrd" model="hr.policy.line.ot">
+            <field name="name">Rest Day</field>
+            <field name="code">OTRD</field>
+            <field name="type">restday</field>
+            <field name="rate" eval="130"/>
+        </record>
+
+        <record id="hr_policy_line_ot_otrh" model="hr.policy.line.ot">
+            <field name="name">Regular Holiday</field>
+            <field name="code">OTRH</field>
+            <field name="type">holiday</field>
+            <field name="holiday_id" ref="hr_public_holidays.hr_holiday_public_type_1"/>
+            <field name="rate" eval="200"/>
+        </record>
+
+        <record id="hr_policy_line_ot_otsnwh" model="hr.policy.line.ot">
+            <field name="name">Special Non-working Holiday</field>
+            <field name="code">OTSNWH</field>
+            <field name="type">holiday</field>
+            <field name="holiday_id" ref="hr_public_holidays.hr_holiday_public_type_2"/>
+            <field name="rate" eval="150"/>
+        </record>
+
+        <record id="hr_policy_line_ot_othrr" model="hr.policy.line.ot">
+            <field name="name">Holiday on Restday(Regular)</field>
+            <field name="code">OTHRR</field>
+            <field name="type">rest_on_holiday</field>
+            <field name="holiday_id" ref="hr_public_holidays.hr_holiday_public_type_1"/>
+            <field name="rate" eval="260"/>
+        </record>
+
+        <record id="hr_policy_line_ot_othrsnw" model="hr.policy.line.ot">
+             <field name="name">Holiday on Restday(Special Non-Working)</field>
+            <field name="code">OTHRSNW</field>
+            <field name="type">rest_on_holiday</field>
+            <field name="holiday_id" ref="hr_public_holidays.hr_holiday_public_type_2"/>
+            <field name="rate" eval="150"/>
+        </record>
+
+        <record id="hr_policy_ot_base" model="hr.policy.ot">
+            <field name="policy_categ" ref="etsi_hrms.hr_policy_categ_base"/>
+            <field name="date">01/01/2017</field>
+            <field eval="[(6, 0, [ref('hr_policy_line_ot_otd'),
+                                  ref('hr_policy_line_ot_otrd'),
+                                  ref('hr_policy_line_ot_otrh'),
+                                  ref('hr_policy_line_ot_otsnwh'),
+                                  ref('hr_policy_line_ot_othrr'),
+                                  ref('hr_policy_line_ot_othrsnw'),
+                                  ])]"
+                   name="line_ids"/>
+        </record>
+
+        <record id="hr_policy_group" model="hr.policy.group">
+            <field name="name">Base Policy</field>
+            <field eval="[(6, 0, [ref('hr_policy_absence_base')])]" name="absence_policy_ids"/>
+            <field eval="[(6, 0, [ref('hr_policy_ot_base')])]"
+                   name="ot_policy_ids"/>
+        </record>
+    </data>
+</odoo>

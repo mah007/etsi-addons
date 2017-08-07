@@ -1,0 +1,153 @@
+<odoo>
+    <data>
+         <record id="paperformat_payslip" model="report.paperformat">
+            <field name="name">Letter Half</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">140</field>
+            <field name="page_width">215</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">18</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">15</field>
+            <field name="dpi">90</field>
+		</record>
+
+         <!--<report-->
+            <!--id="action_etsi_report_payslip"-->
+            <!--inherit_id ="hr_payroll.action_report_payslip"-->
+            <!--model="hr.payslip"-->
+            <!--string="Payslip"-->
+            <!--report_type="qweb-pdf"-->
+            <!--name="hr_payroll.report_payslip"-->
+            <!--file="hr_payroll.report_payslip"-->
+            <!--paperformat="paperformat_payslip"/>-->
+
+         <template id="external_layout_custom_payslip" inherit_id="report.external_layout" primary="True">
+            <xpath expr="//t[@t-call='report.external_layout_header']" position="attributes">
+                <attribute name="t-call">etsi_payroll.external_layout_header_payslip</attribute>
+            </xpath>
+            <xpath expr="//t[@t-call='report.external_layout_footer']" position="attributes">
+                <attribute name="t-call">etsi_payroll.external_layout_footer_payslip</attribute>
+            </xpath>
+        </template>
+
+        <template id="external_layout_header_payslip" inherit_id="report.external_layout_header" primary="True">
+            <xpath expr="//div[@class='col-xs-9 text-right']" position="replace">
+                <div class="col-xs-9 text-right"
+                      t-field="company.partner_id"
+                      t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                <div class="col-xs-9 text-right" t-field="company.rml_header1"/>
+            </xpath>
+            <xpath expr="//div[@name='company_address']" position="replace"/>
+        </template>
+
+        <template id="external_layout_footer_payslip" inherit_id="report.external_layout_footer" primary="True">
+             <xpath expr="//div[@class='text-center']" position="attributes">
+                  <attribute name="style">border-top: 1px dashed black;</attribute>
+             </xpath>
+            <xpath expr="//ul[1]" position="replace"/>
+            <xpath expr="//ul[2]" position="replace"/>
+        </template>
+
+
+        <template id="etsi_payslip_template" inherit_id="hr_payroll.report_payslip">
+            <xpath expr="//t[@t-call='report.external_layout']" position="attributes">
+                <attribute name="t-call">etsi_payroll.external_layout_custom_payslip</attribute>
+            </xpath>
+            <xpath expr="//h2" position="replace">
+                <h3>Pay Slip</h3>
+            </xpath>
+            <xpath expr="//p[1]" position="replace"/>
+
+            <xpath expr="//table[1]" position="attributes">
+                 <attribute name="class">""</attribute>
+                 <attribute name="style">width:100%; margin-bottom:10px</attribute>
+            </xpath>
+
+            <xpath expr="//table[2]" position="attributes">
+                 <attribute name="class">""</attribute>
+                 <attribute name="style">width:100%; border-bottom:1pt solid black; border-top:1pt solid black</attribute>
+            </xpath>
+
+            <xpath expr="//tr[2]" position="replace"/>
+            <xpath expr="//tr[2]" position="replace"/>
+            <xpath expr="//thead" position="replace">
+                <tr style="border-bottom:1pt solid black">
+                    <th>Code</th>
+                    <th>Particular</th>
+                    <th>Quantity/rate</th>
+                    <th style="vertical-align:middle;text-align:right">Amount</th>
+                    <th style="vertical-align:middle;text-align:right">Total</th>
+                </tr>
+            </xpath>
+            <xpath expr="//tbody" position="replace">
+                    <tr t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)"
+                        t-as="line"
+                        t-if="line.code != 'A13MPAY' and line.code != 'NET' and line.amount != 0.00">
+
+                        <td><span t-field="line.code"/></td>
+                        <td><span t-field="line.name"/></td>
+                        <td><span t-field="line.quantity"/></td>
+                        <td style="vertical-align:middle;text-align:right"><span t-esc="'%.2f'%(line.amount)"
+                                                                                 t-esc-options="{&quot;widget&quot;: &quot;False&quot;}"/></td>
+                        <td style="vertical-align:middle;text-align:right"><span t-esc="'%.2f'%(line.total)"
+                                                                                 t-esc-options="{&quot;widget&quot;: &quot;False&quot;}"/></td>
+                    </tr>
+
+                    <tr t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)"
+                        t-as="line"
+                        t-if="line.code == 'NET'">
+                        <!--style="border-bottom:1pt solid black; border-top:1pt solid black">-->
+
+                        <th><span t-field="line.code"/></th>
+                        <th><span t-field="line.name"/></th>
+                        <th><span t-field="line.quantity"/></th>
+                        <th style="vertical-align:middle;text-align:right"><span t-esc="line.amount"
+                                                                                 t-esc-options="{&quot;widget&quot;: &quot;False&quot;}"/></th>
+                        <th style="vertical-align:middle;text-align:right"><span t-esc="line.total"
+                                                                                 t-esc-options="{&quot;widget&quot;: &quot;False&quot;}"/></th>
+                    </tr>
+            </xpath>
+
+             <xpath expr="//table[2]" position="after">
+                 <div>
+                     <table style="width:100%; border-bottom:1pt dashed black; border-top:1pt dashed black; margin-top:10px; padding:5px">
+                        <tr t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)"
+                            t-as="line"
+                            t-if="line.code == 'A13MPAY' and line.amount != 0.00">
+
+                            <td><span t-field="line.code"/></td>
+                            <td><span t-field="line.name"/></td>
+                            <!--<td><span t-field="line.quantity" style="text-align:left"/></td>-->
+                            <td/>
+                            <td style="vertical-align:middle;text-align:right"><span t-esc="line.amount"
+                                                                                     t-esc-options="{&quot;widget&quot;: &quot;False&quot;}"/></td>
+                            <td style="vertical-align:middle;text-align:right"><span t-esc="line.total"
+                                                                                     t-esc-options="{&quot;widget&quot;: &quot;False&quot;}"/></td>
+                        </tr>
+                     </table>
+                 </div>
+             </xpath>
+
+             <xpath expr="//p[1]" position="replace">
+                 <div>
+                     <table width="100%" style="margin-top:20px">
+                         <tr>
+                             <td><p><strong>Received By</strong></p></td>
+                             <td><p class="text-right"><strong>Authorized signature</strong></p></td>
+                         </tr>
+                         <tr>
+                             <td><p><strong>____________________________<br/> <span t-field="o.employee_id"/></strong></p></td>
+                            <!--<td><p class="text-right"><strong>____________________________ <br/> Manager</strong></p></td>-->
+                            <td><p class="text-right"><strong>____________________________ <br/> <span t-field="o.employee_id.parent_id"/></strong></p></td>
+                         </tr>
+                     </table>
+                 </div>
+             </xpath>
+        </template>
+    </data>
+</odoo>

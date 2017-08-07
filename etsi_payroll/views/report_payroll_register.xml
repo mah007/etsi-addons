@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_payroll_register">
+          <t t-call="report.html_container">
+              <!--<t t-call="report.external_layout">-->
+              <!--<t t-call="etsi_payroll.custom_layout_header">-->
+                  <t t-foreach="docs" t-as="o">
+                      <div class="page">
+                          <br/>
+                          <h3 style="vertical-align:middle;text-align:center">PAYROLL REGISTER</h3>
+                          <p style="vertical-align:middle;text-align:center"><span t-esc="company"/> <br/> <span t-esc="period"/></p>
+
+                          <table style="border:1px solid;width:100%;">
+                                        <thead>
+                                            <tr style="height:50px;border:1px solid">
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Name</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Basic</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Overtime</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Other INC<br/>Taxable</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Gross</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Absence</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">SSS</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Philhealth</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Pagibig</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">WTax</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Cash<br/>Advance</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Other INC<br/>Non-taxable</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Adjustment</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Net</th>
+                                            </tr>
+                                        </thead>
+                                      <tbody>
+
+                                          <tr t-foreach="payslip" t-as="t" style="height:35px;border:1px solid">
+                                                <td style="vertical-align:middle;text-align:left;border:1px solid;padding:5px"><span t-esc="t['name']"/></td>
+                                                <td style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['basic'])"/></td>
+                                                <td style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['overtime'])"/></td>
+                                                <td style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['other_tax'])"/></td>
+                                                <td style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['gross'])"/></td>
+                                                <td style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['absent'])"/></td>
+                                                <td style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['sss'])"/></td>
+                                                <td style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['philhealth'])"/></td>
+                                                <td style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['pagibig'])"/></td>
+                                                <td style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['tax'])"/></td>
+                                                <td style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['cash_advance'])"/></td>
+                                                <td style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['other_ntax'])"/></td>
+                                                <td style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['adjustment'])"/></td>
+                                                <th style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['net'])"/></th>
+                                          </tr>
+                                          <tr t-foreach="payslip_sum" t-as="t" style="height:35px;border:1px solid">
+                                                <th style="vertical-align:middle;text-align:left;border:1px solid;padding:5px">TOTAL</th>
+                                                <th style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['sum_basic'])"/></th>
+                                                <th style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['sum_overtime'])"/></th>
+                                                <th style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['sum_other_tax'])"/></th>
+                                                <th style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['sum_gross'])"/></th>
+                                                <th style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['sum_absent'])"/></th>
+                                                <th style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['sum_sss'])"/></th>
+                                                <th style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['sum_philhealth'])"/></th>
+                                                <th style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['sum_pagibig'])"/></th>
+                                                <th style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['sum_tax'])"/></th>
+                                                <th style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['sum_cash_advance'])"/></th>
+                                                <th style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['sum_other_ntax'])"/></th>
+                                                <th style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['sum_adjustment'])"/></th>
+                                                <th style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"><span t-esc="'%.2f'%(t['sum_net'])"/></th>
+                                          </tr>
+                                      </tbody>
+                                  </table>
+                      </div>
+                  </t>
+              <!--</t>-->
+          </t>
+    </template>
+</odoo>
