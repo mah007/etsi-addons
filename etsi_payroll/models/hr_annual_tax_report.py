@@ -11,7 +11,7 @@ class AnnualTaxReport(models.Model):
         return results
 
     annual_company_id = fields.Many2one('res.partner', string='Company')
-    year_selection = fields.Selection(_get_years, string="Select Year")
+    year_selection = fields.Selection(_get_years, string="Select Year", required=True)
 
 
 

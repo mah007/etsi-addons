@@ -49,7 +49,7 @@ class CompanyInfo(models.AbstractModel):
             'doc_model': model,
             'data': data,
             'docs': docs,
-            'company_employees': annual_tax
-            # 'comp_name': comp_id[1], #other ways
+            'company_employees': annual_tax,
+            'comp_name': annual_company_id[1],
         }
         return self.env['report'].render('etsi_payroll.report_annual_tax_template', docargs)

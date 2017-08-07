@@ -55,12 +55,12 @@
                                             <tr style="height:50px">
                                             <th style="vertical-align:middle;text-align:center;border:2px solid">Employee Name</th>
                                             <th style="vertical-align:middle;text-align:center;border:2px solid">Tax Code</th>
-                                            <th style="vertical-align:middle;text-align:right">Total Tax Amount</th>
+                                            <th style="vertical-align:middle;text-align:center">Total Tax Amount</th>
                                           </tr >
                                           <tr t-foreach="company_employees" t-as="employees" style="height:35px">
                                               <td t-esc="employees[0]" style="vertical-align:middle;text-align:left;border:2px solid;padding:5px"/>
                                               <td t-esc="employees[1]" style="vertical-align:middle;text-align:left;border:2px solid;padding:5px"/>
-                                              <td t-esc="employees[2]" style="vertical-align:middle;text-align:right:left;border:2px solid;padding:5px"/>
+                                              <td t-esc="employees[2]" style="vertical-align:middle;text-align:left;border:2px solid;padding:5px"/>
                                             <td />
                                           </tr>
                                     </table>
