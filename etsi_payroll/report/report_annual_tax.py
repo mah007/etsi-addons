@@ -27,16 +27,12 @@ class CompanyInfo(models.AbstractModel):
         else:
             year_selection = False
 
-        print year_selection
-
         res_comp = self.env['hr.employee'].search([('company_id', '=', annual_company_id[0])])
 
         annual_tax = []
         for e in res_comp:
             yr_start = datetime.strptime(year_selection, "%Y").date()
-            print yr_start
             yr_end = date(yr_start.year, 12, 31)
-            print yr_end
             res_payroll = self.env['hr.payslip.line'].search([('employee_id', '=', e.id),
                                                               ('code', '=', 'TAX'),
                                                               ('slip_id.state', '=', 'done'),
