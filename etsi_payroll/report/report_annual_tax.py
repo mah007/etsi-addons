@@ -50,6 +50,7 @@ class CompanyInfo(models.AbstractModel):
             'data': data,
             'docs': docs,
             'company_employees': annual_tax,
-            'comp_name': annual_company_id[1],
+            'company_name': annual_company_id[1],
+            'company_date': year_selection,
         }
         return self.env['report'].render('etsi_payroll.report_annual_tax_template', docargs)
