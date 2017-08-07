@@ -31,6 +31,7 @@
     'depends': ['hr_timesheet'],
     'data': [
              'report/report_timesheets.xml',
+             'report/report_attendance.xml',
              'wizard/timesheet_wizard.xml',
             ],
     'images': ['static/description/banner.jpg'],
