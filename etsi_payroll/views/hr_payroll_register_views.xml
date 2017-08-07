@@ -34,7 +34,16 @@
             <field name="target">new</field>
         </record>
 
-
+        <!--Annual Tax Report-->
+        <!--<record id="action_print_annual_tax_report" model="ir.actions.act_window">-->
+            <!--<field name="name">Annual Tax Report</field>-->
+            <!--<field name="res_model">hr.payroll.annual.tax.report</field>-->
+            <!--<field name="type">ir.actions.act_window</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">form</field>-->
+            <!--<field name="view_id" ref="annual_tax_report_form" />-->
+            <!--<field name="target">new</field>-->
+        <!--</record>-->
 
 
         <menuitem name="Reports"
@@ -61,7 +70,10 @@
               action="hr_payroll.action_contribution_register_form"
               parent="submenu_report_reg"/>
 
-
+        <!--<menuitem name="Annual Tax Report"-->
+              <!--id="print_annual_tax_report"-->
+              <!--action="action_print_annual_tax_report"-->
+              <!--parent="submenu_report_reg"/>-->
 
         <record id="paperformat_styles" model="report.paperformat">
 		    <field name="name">Payroll Register</field>

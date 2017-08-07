@@ -1,0 +1,75 @@
+<odoo>
+    <data>
+        <report
+            id="report_annual_tax"
+            model="hr.payroll.annual.tax.report"
+            string="Company Payroll Report"
+            name="etsi_payroll.report_annual_tax_template"
+            file="etsi_payroll.report_annual_tax_template"
+            report_type="qweb-pdf"
+        />
+
+        <template id="external_layout_annual_tax" inherit_id="report.external_layout" primary="True">
+            <xpath expr="//t[@t-call='report.external_layout_header']" position="attributes">
+                <attribute name="t-call">etsi_payroll.external_layout_header_annual_tax</attribute>
+            </xpath>
+            <xpath expr="//t[@t-call='report.external_layout_footer']" position="attributes">
+                <attribute name="t-call">etsi_payroll.external_layout_footer_annual_tax</attribute>
+            </xpath>
+        </template>
+
+        <template id="external_layout_header_annual_tax" inherit_id="report.external_layout_header" primary="True">
+            <xpath expr="//div[@class='col-xs-9 text-right']" position="replace">
+                <div class="col-xs-9 text-right"
+                      t-field="company.partner_id"
+                      t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                <div class="col-xs-9 text-right" t-field="company.rml_header1"/>
+            </xpath>
+            <xpath expr="//div[@name='company_address']" position="replace"/>
+        </template>
+         <template id="external_layout_footer_annual_tax" inherit_id="report.external_layout_footer" primary="True">
+             <xpath expr="//div[@class='text-center']" position="attributes">
+                  <attribute name="style">border-top: 1px dashed black;</attribute>
+             </xpath>
+            <xpath expr="//ul[1]" position="replace"/>
+            <xpath expr="//ul[2]" position="replace"/>
+        </template>
+
+        <template id="report_annual_tax_template">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="etsi_payroll.external_layout_annual_tax">
+                        <div class="page">
+                            <html style="100%">
+                                <head>
+                                    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+                                    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+                                    <title>Annual Tax Report</title>
+
+                                </head>
+                                <body>
+                                    <h1 class="text-center">Annual Tax Report</h1>
+                                    <br/>
+                                    <p><b>Company : </b><span t-esc="comp_name"/></p>
+                                        <table style="border:2px solid;width:100%;">
+                                            <tr style="height:50px">
+                                            <th style="vertical-align:middle;text-align:center;border:2px solid">Employee Name</th>
+                                            <th style="vertical-align:middle;text-align:center;border:2px solid">Tax Code</th>
+                                            <th style="vertical-align:middle;text-align:center;border:2px solid">Total Tax Amount</th>
+                                          </tr >
+                                          <tr t-foreach="company_employees" t-as="employees" style="height:35px">
+                                              <td t-esc="employees[0]" style="vertical-align:middle;text-align:left;border:2px solid;padding:5px"/>
+                                              <td t-esc="employees[1]" style="vertical-align:middle;text-align:left;border:2px solid;padding:5px"/>
+                                              <td t-esc="employees[2]" style="vertical-align:middle;text-align:left;border:2px solid;padding:5px"/>
+                                            <td />
+                                          </tr>
+                                    </table>
+                                </body>
+                            </html>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

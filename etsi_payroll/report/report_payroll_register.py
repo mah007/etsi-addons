@@ -17,8 +17,9 @@ class ReportPayrollRegister(models.AbstractModel):
         print 'to', docs.to_date
         print 'compnay', docs.company
 
-        date_from = datetime.strptime(docs.from_date, "%Y-%m-%d").date()
-        date_to = datetime.strptime(docs.to_date, "%Y-%m-%d").date()
+        date_from = datetime.strptime(docs.from_date, "%m-%d-%Y").date()
+        date_to = datetime.strptime(docs.to_date, "%m-%d-%Y").date()
+
 
         payslip = self.env['hr.payslip'].search([('company_id','=',docs.company.id),
                                                        ('date_from', '>=', date_from),
