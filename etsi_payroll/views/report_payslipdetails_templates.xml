@@ -17,18 +17,6 @@
             <field name="dpi">90</field>
 		</record>
 
-
-
-         <!--<report paperformat="paperformat_payslip"/>-->
-            <!--id="action_etsi_report_payslip"-->
-            <!--inherit_id ="hr_payroll.action_report_payslip"-->
-            <!--model="hr.payslip"-->
-            <!--string="Payslip"-->
-            <!--report_type="qweb-pdf"-->
-            <!--name="hr_payroll.report_payslip"-->
-            <!--file="hr_payroll.report_payslip"-->
-
-
          <template id="external_layout_custom_payslip_details" inherit_id="report.external_layout" primary="True">
             <xpath expr="//t[@t-call='report.external_layout_header']" position="attributes">
                 <attribute name="t-call">etsi_payroll.external_layout_header_payslip</attribute>
@@ -71,12 +59,6 @@
                  <attribute name="style">width:100%; margin-bottom:10px</attribute>
             </xpath>
 
-
-            <!--<xpath expr="//table[2]" position="attributes">-->
-                 <!--<attribute name="class">""</attribute>-->
-                 <!--<attribute name="style">width:100%; border-bottom:1pt solid black; border-top:1pt solid black</attribute>-->
-            <!--</xpath>-->
-
             <xpath expr="//tr[2]" position="replace">
                 <attribute name="Address"></attribute>
             </xpath>
@@ -91,3 +73,9 @@
         </template>
     </data>
 </odoo>
+
+
+            <!--<xpath expr="//table[2]" position="attributes">-->
+                 <!--<attribute name="class">""</attribute>-->
+                 <!--<attribute name="style">width:100%; border-bottom:1pt solid black; border-top:1pt solid black</attribute>-->
+            <!--</xpath>-->
