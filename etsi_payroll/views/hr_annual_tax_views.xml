@@ -33,7 +33,7 @@
             <field name="target">new</field>
         </record>
 
-         <menuitem name="Annual Tax Report"
+         <menuitem name="Annual Tax"
               id="print_annual_tax_report"
               action="action_print_annual_tax_report"
               parent="menu_hr_payroll_report_root"/>
