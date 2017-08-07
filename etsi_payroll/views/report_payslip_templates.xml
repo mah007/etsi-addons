@@ -26,7 +26,7 @@
             <!--file="hr_payroll.report_payslip"-->
             <!--paperformat="paperformat_payslip"/>-->
 
-         <template id="external_layout_custom_payslip" inherit_id="report.external_layout" primary="True">
+        <template id="external_layout_custom_payslip" inherit_id="report.external_layout" primary="True">
             <xpath expr="//t[@t-call='report.external_layout_header']" position="attributes">
                 <attribute name="t-call">etsi_payroll.external_layout_header_payslip</attribute>
             </xpath>
@@ -44,8 +44,7 @@
             </xpath>
             <xpath expr="//div[@name='company_address']" position="replace"/>
         </template>
-
-        <template id="external_layout_footer_payslip" inherit_id="report.external_layout_footer" primary="True">
+         <template id="external_layout_footer_payslip" inherit_id="report.external_layout_footer" primary="True">
              <xpath expr="//div[@class='text-center']" position="attributes">
                   <attribute name="style">border-top: 1px dashed black;</attribute>
              </xpath>
