@@ -22,28 +22,25 @@ class CompanyInfo(models.AbstractModel):
 
         res_comp = self.env['hr.employee'].search([('company_id', '=', annual_company_id[0])])
 
+        annual_tax = []
         for e in res_comp:
             res_payroll = self.env['hr.payslip.line'].search([('employee_id', '=', e.id), ('code', '=', 'TAX')])
+            print res_payroll
             tax_sum = 0
+            tax_name = ''
 
-            annual_tax = []
             for res_tax in res_payroll:
                 tax_sum += res_tax.amount
-
-            annual_tax.append((res_tax.employee_id, res_payroll[0].code, tax_sum))
-
-            return annual_tax
-
-
-
-        data.update({'company_employee': res_comp})
-
+                tax_name = res_tax.code
+            annual_tax.append((e.name, tax_name, tax_sum))
+            print annual_tax
 
         docargs = {
             'doc_ids':context['active_ids'],
             'doc_model': model,
             'data': data,
             'docs': docs,
-            # 'comp_name': comp_id[1], #other ways
+            'company_employees': annual_tax,
+            'comp_name': annual_company_id[1],
         }
         return self.env['report'].render('etsi_payroll.report_annual_tax_template', docargs)
