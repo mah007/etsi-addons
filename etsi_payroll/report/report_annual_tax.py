@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, exceptions
 from datetime import datetime, date
 
 class CompanyInfo(models.AbstractModel):
@@ -15,20 +15,18 @@ class CompanyInfo(models.AbstractModel):
             if data['form']['annual_company_id']:
                 annual_company_id = data['form']['annual_company_id']
             else:
-                annual_company_id = False
+                raise exceptions.ValidationError("Invalid Company")
         else:
-            annual_company_id = False
+            raise exceptions.ValidationError("Invalid Company")
 
         if 'year_selection' in data['form']:
             if data['form']['year_selection']:
                 year_selection = data['form']['year_selection']
             else:
-                year_selection = False
+                raise exceptions.ValidationError("Invalid Year")
         else:
-            year_selection = False
-
+            raise exceptions.ValidationError("Invalid Year")
         res_comp = self.env['hr.employee'].search([('company_id', '=', annual_company_id[0])])
-
         annual_tax = []
         for e in res_comp:
             yr_start = datetime.strptime(year_selection,'%Y').date()
