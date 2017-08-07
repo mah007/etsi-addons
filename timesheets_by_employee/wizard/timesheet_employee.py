@@ -37,3 +37,16 @@ class EmployeeTimesheet(models.TransientModel):
         data['form'] = self.read(['employee', 'from_date', 'to_date'])[0]
         return self.env['report'].get_action(self, 'timesheets_by_employee.report_timesheets', data=data)
 
+
+
+class AttendanceSummaryWizard(models.TransientModel):
+    _name = 'attendance.summary.wizard'
+
+    company = fields.Many2one('res.partner', string="Company", required=True, domain=[('is_company', '=', True)])
+    from_date = fields.Date(string="Starting Date")
+    to_date = fields.Date(string="Ending Date")
+
+    def print_attendance(self, data):
+        data = {}
+        data['form'] = self.read(['company','from_date', 'to_date'])[0]
+        return self.env['report'].get_action(self, 'timesheets_by_employee.report_attendance', data=data)
