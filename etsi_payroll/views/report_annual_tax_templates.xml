@@ -43,8 +43,11 @@
                                             <th>Employees</th>
                                             <!--<th>Supervisor</th>-->
                                           </tr>
-                                          <tr t-foreach="data['company_employee']" t-as="employees">
-                                            <td t-esc="employees.employee_id.name "/>
+                                          <tr t-foreach="company_employees" t-as="employees">
+                                              <td t-esc="employees[0]"/>
+                                              <td t-esc="employees[1]"/>
+                                              <td t-esc="employees[2]"/>
+                                            <td />
                                           </tr>
                                     </table>
                                 </body>
