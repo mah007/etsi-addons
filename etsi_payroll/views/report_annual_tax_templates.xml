@@ -1,20 +1,5 @@
 <odoo>
     <data>
-
-        <record id="paperformat_styles" model="report.paperformat">
-		    <field name="name">Payroll Register</field>
-		    <field name="default" eval="True"/>
-		    <field name="format">Legal</field>
-		    <field name="orientation">Landscape</field>
-		    <field name="margin_top">10</field>
-		    <field name="margin_bottom">10</field>
-		    <field name="margin_left">20</field>
-		    <field name="margin_right">20</field>
-		    <field name="header_line" eval="False"/>
-		    <field name="header_spacing">3</field>
-		    <field name="dpi">80</field>
-		</record>
-
         <report
             id="report_annual_tax"
             model="hr.payroll.annual.tax.report"
@@ -22,7 +7,6 @@
             name="etsi_payroll.report_annual_tax_template"
             file="etsi_payroll.report_annual_tax_template"
             report_type="qweb-pdf"
-            paperformat="paperformat_styles"
         />
         <template id="report_annual_tax_template">
             <t t-call="report.html_container">
@@ -37,16 +21,19 @@
 
                                 </head>
                                 <body>
-                                    <h1>Annual Tax Report</h1>
-                                        <table style="width:100%">
-                                            <tr>
-                                            <th>Employees</th>
-                                            <!--<th>Supervisor</th>-->
-                                          </tr>
-                                          <tr t-foreach="company_employees" t-as="employees">
-                                              <td t-esc="employees[0]"/>
-                                              <td t-esc="employees[1]"/>
-                                              <td t-esc="employees[2]"/>
+                                    <h1 class="text-center">Annual Tax Report</h1>
+                                    <br/>
+                                    <p><b>Company : </b><span t-esc="comp_name"/></p>
+                                        <table style="border:2px solid;width:100%;">
+                                            <tr style="height:50px">
+                                            <th style="vertical-align:middle;text-align:center;border:2px solid">Employee Name</th>
+                                            <th style="vertical-align:middle;text-align:center;border:2px solid">Tax Code</th>
+                                            <th style="vertical-align:middle;text-align:center;border:2px solid">Total Tax Amount</th>
+                                          </tr >
+                                          <tr t-foreach="company_employees" t-as="employees" style="height:35px">
+                                              <td t-esc="employees[0]" style="vertical-align:middle;text-align:left;border:2px solid;padding:5px"/>
+                                              <td t-esc="employees[1]" style="vertical-align:middle;text-align:left;border:2px solid;padding:5px"/>
+                                              <td t-esc="employees[2]" style="vertical-align:middle;text-align:left;border:2px solid;padding:5px"/>
                                             <td />
                                           </tr>
                                     </table>
@@ -56,7 +43,6 @@
                     </t>
                 </t>
             </t>
-
         </template>
     </data>
 </odoo>
