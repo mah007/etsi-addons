@@ -48,7 +48,7 @@
 
                                 </head>
                                 <body>
-                                    <h1 class="text-center">Annual Tax Report</h1>
+                                    <h3 class="text-center">TAX Annual Report</h3>
                                     <br/>
                                         <table style="width:67%;">
                                             <tr style="height:20px">
@@ -69,9 +69,9 @@
                                             <th style="vertical-align:middle;text-align:center;border:1px solid">Total Tax Amount</th>
                                           </tr >
                                           <tr t-foreach="company_employees" t-as="employees" style="height:35px">
-                                              <td t-esc="employees[0]" style="vertical-align:middle;text-align:left;border:1px solid;padding:5px"/>
-                                              <td t-esc="employees[1]" style="vertical-align:middle;text-align:left;border:1px solid;padding:5px"/>
-                                              <td t-esc="employees[2]" style="vertical-align:middle;text-align:left;padding:5px"/>
+                                              <td t-esc="employees[0]" style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"/>
+                                              <td t-esc="employees[1]" style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"/>
+                                              <td t-esc="employees[2]" style="vertical-align:middle;text-align:right;padding:5px"/>
                                             <td />
                                           </tr>
                                     </table>
