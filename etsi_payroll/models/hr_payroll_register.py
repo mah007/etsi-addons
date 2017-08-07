@@ -1,6 +1,7 @@
 from odoo import models, fields
 
 
+
 class EmployeeTimesheet(models.TransientModel):
     _name = 'hr.payroll.register'
 

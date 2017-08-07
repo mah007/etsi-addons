@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from datetime import datetime, date
 
 class CompanyInfo(models.AbstractModel):
     _name = 'report.etsi_payroll.report_annual_tax_template'
@@ -13,29 +14,37 @@ class CompanyInfo(models.AbstractModel):
         if 'annual_company_id' in data['form']:
             if data['form']['annual_company_id']:
                 annual_company_id = data['form']['annual_company_id']
-                # comp_name = data['form']['comp_id'][1] OTHER WAYS
             else:
                 annual_company_id = False
-
         else:
             annual_company_id = False
 
+        if 'year_selection' in data['form']:
+            if data['form']['year_selection']:
+                year_selection = data['form']['year_selection']
+            else:
+                year_selection = False
+        else:
+            year_selection = False
+
+
         res_comp = self.env['hr.employee'].search([('company_id', '=', annual_company_id[0])])
-
         for e in res_comp:
-            res_payroll = self.env['hr.payslip.line'].search([('employee_id', '=', e.id), ('code', '=', 'TAX')])
+            yr_start = datetime.strptime(year_selection, "%Y").date()
+            yr_end = date(yr_start.year, 12, 31)
+            res_payroll = self.env['hr.payslip.line'].search([('employee_id', '=', e.id),
+                                                              ('code', '=', 'TAX'),
+                                                              ('slip_id.state', '=', 'done'),
+                                                              ('slip_id.date_from', '>=', yr_start),
+                                                              ('slip_id.date_to', '<=', yr_end)])
             tax_sum = 0
-
             annual_tax = []
             for res_tax in res_payroll:
                 tax_sum += res_tax.amount
-
-            annual_tax.append((e.name, res_payroll[0].code, tax_sum))
-
-
-        print annual_tax
-        # data.update({'company_employee': annual_tax})
-
+            if res_payroll:
+                annual_tax.append((e.name, res_payroll[0].code, tax_sum))
+            else:
+                annual_tax.append(('', '', ''))
 
         docargs = {
             'doc_ids':context['active_ids'],
