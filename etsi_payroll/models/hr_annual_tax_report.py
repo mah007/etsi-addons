@@ -10,8 +10,8 @@ class AnnualTaxReport(models.Model):
         results = [(str(x), str(x)) for x in range(this_year - 40, this_year + 1)]
         return results
 
-    annual_company_id = fields.Many2one('res.partner', string='Company')
-    year_selection = fields.Selection(_get_years, string="Select Year", required=True)
+    annual_company_id = fields.Many2one('res.partner', string='Company',required=True, domain=[('is_company','=', True)], )
+    year_selection = fields.Selection(_get_years, string="Select Year", required=True, default='2017',)
 
 
 
