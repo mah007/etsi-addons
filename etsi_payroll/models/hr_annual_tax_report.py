@@ -4,6 +4,8 @@ from datetime import datetime, timedelta
 class AnnualTaxReport(models.Model):
     _name = 'hr.payroll.annual.tax.report'
 
+    employee_id = fields.Many2one('hr.employee', string="Employee")
+
     def _get_years(self):
         this_year = datetime.today().year
 
