@@ -31,7 +31,7 @@ class CompanyInfo(models.AbstractModel):
 
         annual_tax = []
         for e in res_comp:
-            yr_start = datetime.strptime(year_selection, "%Y").date()
+            yr_start = datetime.strptime(year_selection,'%Y').date()
             yr_end = date(yr_start.year, 12, 31)
             res_payroll = self.env['hr.payslip.line'].search([('employee_id', '=', e.id),
                                                               ('code', '=', 'TAX'),
