@@ -27,6 +27,8 @@ class CompanyInfo(models.AbstractModel):
         else:
             raise exceptions.ValidationError("Invalid Year")
         res_comp = self.env['hr.employee'].search([('company_id', '=', annual_company_id[0])])
+
+        taxes_sum = 0.00
         annual_tax = []
         for e in res_comp:
             yr_start = datetime.strptime(year_selection,'%Y').date()
@@ -41,6 +43,8 @@ class CompanyInfo(models.AbstractModel):
                 tax_sum += res_tax.amount
             if res_payroll:
                 annual_tax.append((e.name, res_payroll[0].code, tax_sum))
+                for tax_sum in res_tax:
+                    taxes_sum += tax_sum.amount
 
         docargs = {
             'doc_ids':context['active_ids'],
@@ -50,5 +54,6 @@ class CompanyInfo(models.AbstractModel):
             'company_employees': annual_tax,
             'company_name': annual_company_id[1],
             'company_date': year_selection,
+            'company_annual_tax': taxes_sum,
         }
         return self.env['report'].render('etsi_payroll.report_annual_tax_template', docargs)
