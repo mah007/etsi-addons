@@ -43,7 +43,6 @@ class CompanyInfo(models.AbstractModel):
                 tax_sum += res_tax.amount
             if res_payroll:
                 annual_tax.append((e.name, res_payroll[0].code, tax_sum))
-
             taxes_sum += tax_sum
 
         docargs = {
