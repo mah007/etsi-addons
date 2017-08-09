@@ -43,7 +43,7 @@
         'data/payroll.philhealth.matrix.csv',
         'data/payroll.pagibig.matrix.csv',
         'data/payroll.tax.period.csv',
-        # 'data/payroll.tax.status.csv',
+        'data/payroll.tax.status.csv',
         'data/payroll.tax.exemption.csv',
         'data/payroll.tax.income.range.csv',
         # 'data/payroll.ot.day.type.xml',

@@ -84,6 +84,8 @@
             <tree string="Tax Status" editable="True">
                 <field name="stat_code"/>
                 <field name="name"/>
+                <field name="personal_exemp"/>
+                <field name="additional_exemp"/>
             </tree>
         </field>
     </record>
@@ -289,7 +291,7 @@
               action="action_hr_payroll_config_tax_income_range"/>
 
     <menuitem id="menu_hr_payroll_config_annual_tax_due"
-              name="Annual Tax DUe"
+              name="Annual Tax Due"
               sequence="4"
               parent="menu_hr_payroll_config_tax"
               action="action_hr_payroll_config_annual_tax_due"/>
