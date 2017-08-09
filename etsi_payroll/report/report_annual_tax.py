@@ -61,7 +61,6 @@ class CompanyInfo(models.AbstractModel):
                     pgibig += r.amount
                 if r.code == 'OINTAX':
                     ntax += r.amount
-
             total_deduc = grss - (sss + phealth + pgibig + ntax)
             net_taxable_comp = total_deduc - exemp
             print net_taxable_comp
@@ -75,6 +74,7 @@ class CompanyInfo(models.AbstractModel):
                 annual_tax.append((e.name, tax_name, tax_sum, total_deduc))
 
 
+
         docargs = {
             'doc_ids':context['active_ids'],
             'doc_model': model,
@@ -83,7 +83,6 @@ class CompanyInfo(models.AbstractModel):
             'company_employees': annual_tax,
             'company_name': annual_company_id,
             'company_date': year_selection,
-
-
         }
+
         return self.env['report'].render('etsi_payroll.report_annual_tax_template', docargs)
