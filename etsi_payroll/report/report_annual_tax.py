@@ -38,14 +38,32 @@ class CompanyInfo(models.AbstractModel):
                                                               ('slip_id.date_from', '>=', yr_start),
                                                               ('slip_id.date_to', '<=', yr_end)])
             tax_sum = 0
-            tax_name = ''
+            bsic = 0.0
+            sss = 0.0
+            phealth = 0.0
+            pgibig = 0.0
+            ntax = 0.0
             for r in res_payroll:
                 if r.code == 'TAX':
                     tax_sum += r.amount
                     tax_name = r.code
+                if r.code == 'BASIC':
+                    bsic = r.amount
+                if r.code == 'SSS':
+                    sss = r.amount
+                if r.code == 'PHILHEALTH':
+                    phealth = r.amount
+                if r.code == 'PAGIBIG':
+                    pgibig = r.amount
+                if r.code == 'OINTAX':
+                    ntax = r.amount
+
+            total_deduc = bsic - (sss + phealth + pgibig + ntax)
+            # print 'total_deduc',total_deduc
+
             if res_payroll:
-                annual_tax.append((e.name, tax_name, tax_sum))
-            taxes_sum += tax_sum
+                annual_tax.append((e.name, tax_name, tax_sum, total_deduc))
+
 
         docargs = {
             'doc_ids':context['active_ids'],
@@ -55,6 +73,7 @@ class CompanyInfo(models.AbstractModel):
             'company_employees': annual_tax,
             'company_name': annual_company_id[1],
             'company_date': year_selection,
-            'company_annual_tax': taxes_sum,
+
+
         }
         return self.env['report'].render('etsi_payroll.report_annual_tax_template', docargs)

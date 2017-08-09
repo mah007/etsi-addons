@@ -115,6 +115,20 @@
         </field>
     </record>
 
+    <record id="annual_tax_exemption_view" model="ir.ui.view">
+        <field name="name">annual_tax_exemption.tree</field>
+        <field name="model">annual.tax.exemption</field>
+        <field name="arch" type="xml">
+            <!--<tree string="Tax Period" editable="True">-->
+                <!--<field name="period_ids"/>-->
+                <!--<field name="exemp_ids"/>-->
+                <!--<field name="stat_ids"/>-->
+                <!--<field name="income_min"/>-->
+                <!--<field name="income_max"/>-->
+            <!--</tree>-->
+        </field>
+    </record>
+
 
     <!--actions-->
     <record id="action_hr_payroll_config_sss_matrix" model="ir.actions.act_window">
@@ -204,6 +218,19 @@
             <!--<field name="view_id">etsi_payroll.etsi_payroll_partner_form</field>-->
         </record>
 
+     <record id="action_hr_payroll_config_annual_tax_exemption" model="ir.actions.act_window">
+        <field name="name">Annual Tax Exemption</field>
+        <field name="res_model">annual.tax.exemption</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create"> Create Annual Tax Exemption...
+            </p>
+        </field>
+    </record>
+
+
+
      <menuitem id="menu_hr_payroll_config_company"
               name="Company"
               parent="hr_payroll.menu_hr_payroll_configuration"
@@ -262,6 +289,13 @@
               sequence="3"
               parent="menu_hr_payroll_config_tax"
               action="action_hr_payroll_config_tax_income_range"/>
+
+    <menuitem id="menu_hr_payroll_config_annual_tax_exemption"
+              name="Annual Tax Exemption"
+              sequence="4"
+              parent="menu_hr_payroll_config_tax"
+              action="action_hr_payroll_config_annual_tax_exemption"/>
+
 
 
     <!--<menuitem id="menu_hr_payroll_config_sss_matrix"-->
