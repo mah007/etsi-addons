@@ -64,15 +64,16 @@ class CompanyInfo(models.AbstractModel):
 
             total_deduc = grss - (sss + phealth + pgibig + ntax)
             net_taxable_comp = total_deduc - exemp
-            print net_taxable_comp
+
             res_tax_due = self.env['payroll.tax.due'].search([('range_min', '<', net_taxable_comp),
                                                               ('range_max', '>=', net_taxable_comp)])
             for t in res_tax_due:
                 tax_due = t.tax_due_amount + ((net_taxable_comp - t.excess)*t.rate)
-                print 'tax_due',tax_due
+
+                tax_refund = tax_due - tax_sum
 
             if res_payroll:
-                annual_tax.append((e.name, tax_name, tax_sum, total_deduc))
+                annual_tax.append((e.name, tax_name, tax_sum, total_deduc, net_taxable_comp, tax_due, tax_refund))
 
 
         docargs = {
