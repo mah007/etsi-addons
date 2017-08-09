@@ -42,6 +42,8 @@ class CompanyInfo(models.AbstractModel):
             exemp = e.tin_type.personal_exemp + e.tin_type.additional_exemp
 
             tax_sum = 0
+            tax_refund = 0.0
+            tax_due = 0.0
             grss = 0.0
             sss = 0.0
             phealth = 0.0
