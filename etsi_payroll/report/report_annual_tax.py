@@ -26,7 +26,8 @@ class CompanyInfo(models.AbstractModel):
                 raise exceptions.ValidationError("Invalid Year")
         else:
             raise exceptions.ValidationError("Invalid Year")
-        res_comp = self.env['hr.employee'].search([('company_id', '=', annual_company_id[0])])
+        res_comp = self.env['hr.employee'].search([('address_id', '=', annual_company_id[0])])
+        print res_comp
 
         taxes_sum = 0.00
         annual_tax = []
@@ -43,7 +44,6 @@ class CompanyInfo(models.AbstractModel):
                 tax_sum += res_tax.amount
             if res_payroll:
                 annual_tax.append((e.name, res_payroll[0].code, tax_sum))
-
             taxes_sum += tax_sum
 
         docargs = {

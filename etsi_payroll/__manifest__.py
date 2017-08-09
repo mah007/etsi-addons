@@ -49,6 +49,7 @@
         # 'data/payroll.ot.day.type.xml',
         'data/payroll.contribution.register.xml',
         'data/payroll.salary.rule.xml',
+        # 'data/res.partner.csv',
 
     ],
     # only loaded in demonstration mode
