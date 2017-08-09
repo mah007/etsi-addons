@@ -1,5 +1,20 @@
 <odoo>
     <data>
+
+        <record id="paperformat_styles" model="report.paperformat">
+		    <field name="name">Payroll Register</field>
+		    <field name="default" eval="True"/>
+		    <field name="format">Legal</field>
+		    <field name="orientation">Landscape</field>
+		    <field name="margin_top">10</field>
+		    <field name="margin_bottom">10</field>
+		    <field name="margin_left">20</field>
+		    <field name="margin_right">20</field>
+		    <field name="header_line" eval="False"/>
+		    <field name="header_spacing">3</field>
+		    <field name="dpi">80</field>
+		</record>
+
         <report
             id="report_annual_tax"
             model="hr.payroll.annual.tax.report"
@@ -7,6 +22,7 @@
             name="etsi_payroll.report_annual_tax_template"
             file="etsi_payroll.report_annual_tax_template"
             report_type="qweb-pdf"
+            paperformat="paperformat_styles"
         />
 
         <template id="external_layout_annual_tax" inherit_id="report.external_layout" primary="True">
@@ -73,12 +89,20 @@
                                                 <th style="vertical-align:middle;text-align:center;border:1px solid">Tax Code</th>
                                                 <th style="vertical-align:middle;text-align:center;border:1px solid">Total Tax Amount</th>
                                                 <th style="vertical-align:middle;text-align:center;border:1px solid">Total Taxable Compensation</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Net Taxable Compensation</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Total Tax Due</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Tax Refund for the Year</th>
+
+
                                             </tr >
                                             <tr t-foreach="company_employees" t-as="employees" style="height:35px;border:1px solid;">
                                                 <td t-esc="employees[0]" style="vertical-align:middle;text-align:left;border:1px solid;padding:5px"/>
                                                 <td t-esc="employees[1]" style="vertical-align:middle;text-align:center;border:1px solid;padding:5px"/>
                                                 <td t-esc="employees[2]" style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"/>
                                                 <td t-esc="employees[3]" style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"/>
+                                                <td t-esc="employees[4]" style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"/>
+                                                <td t-esc="employees[5]" style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"/>
+                                                <td t-esc="employees[6]" style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"/>
                                             </tr>
                                     </table>
                                 </body>
