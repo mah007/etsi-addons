@@ -289,7 +289,7 @@
               action="action_hr_payroll_config_tax_income_range"/>
 
     <menuitem id="menu_hr_payroll_config_annual_tax_due"
-              name="Annual Tax DUe"
+              name="Annual Tax Due"
               sequence="4"
               parent="menu_hr_payroll_config_tax"
               action="action_hr_payroll_config_annual_tax_due"/>
