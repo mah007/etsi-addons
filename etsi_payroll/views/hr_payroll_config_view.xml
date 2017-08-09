@@ -115,17 +115,17 @@
         </field>
     </record>
 
-    <record id="annual_tax_exemption_view" model="ir.ui.view">
-        <field name="name">annual_tax_exemption.tree</field>
-        <field name="model">annual.tax.exemption</field>
+    <record id="tax_due_tree_view" model="ir.ui.view">
+        <field name="name">tax_due.tree</field>
+        <field name="model">payroll.tax.due</field>
         <field name="arch" type="xml">
-            <!--<tree string="Tax Period" editable="True">-->
-                <!--<field name="period_ids"/>-->
-                <!--<field name="exemp_ids"/>-->
-                <!--<field name="stat_ids"/>-->
-                <!--<field name="income_min"/>-->
-                <!--<field name="income_max"/>-->
-            <!--</tree>-->
+            <tree string="Tax Due" editable="True">
+                <field name="range_min"/>
+                <field name="range_max"/>
+                <field name="tax_due_amount"/>
+                <field name="rate"/>
+                <field name="excess"/>
+            </tree>
         </field>
     </record>
 
@@ -208,6 +208,17 @@
         </field>
     </record>
 
+    <record id="action_hr_payroll_config_annual_tax_due" model="ir.actions.act_window">
+        <field name="name">Annual Tax Due</field>
+        <field name="res_model">payroll.tax.due</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create"> Create Annual Tax Due...
+            </p>
+        </field>
+    </record>
+
      <record id="action_payroll_config_company" model="ir.actions.act_window">
             <field name="name">Payroll Company</field>
             <field name="type">ir.actions.act_window</field>
@@ -217,19 +228,6 @@
             <field name="domain">[('is_company','=',True)]</field>
             <!--<field name="view_id">etsi_payroll.etsi_payroll_partner_form</field>-->
         </record>
-
-     <record id="action_hr_payroll_config_annual_tax_exemption" model="ir.actions.act_window">
-        <field name="name">Annual Tax Exemption</field>
-        <field name="res_model">annual.tax.exemption</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="oe_view_nocontent_create"> Create Annual Tax Exemption...
-            </p>
-        </field>
-    </record>
-
-
 
      <menuitem id="menu_hr_payroll_config_company"
               name="Company"
@@ -290,12 +288,11 @@
               parent="menu_hr_payroll_config_tax"
               action="action_hr_payroll_config_tax_income_range"/>
 
-    <menuitem id="menu_hr_payroll_config_annual_tax_exemption"
-              name="Annual Tax Exemption"
+    <menuitem id="menu_hr_payroll_config_annual_tax_due"
+              name="Annual Tax DUe"
               sequence="4"
               parent="menu_hr_payroll_config_tax"
-              action="action_hr_payroll_config_annual_tax_exemption"/>
-
+              action="action_hr_payroll_config_annual_tax_due"/>
 
 
     <!--<menuitem id="menu_hr_payroll_config_sss_matrix"-->
