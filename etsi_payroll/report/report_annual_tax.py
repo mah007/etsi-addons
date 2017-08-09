@@ -38,7 +38,7 @@ class CompanyInfo(models.AbstractModel):
                                                               ('slip_id.date_from', '>=', yr_start),
                                                               ('slip_id.date_to', '<=', yr_end)])
             tax_sum = 0
-            gross = 0.0
+            bsic = 0.0
             sss = 0.0
             phealth = 0.0
             pgibig = 0.0
@@ -47,8 +47,8 @@ class CompanyInfo(models.AbstractModel):
                 if r.code == 'TAX':
                     tax_sum += r.amount
                     tax_name = r.code
-                if r.code == 'GROSS':
-                    gross = r.amount
+                if r.code == 'BASIC':
+                    bsic = r.amount
                 if r.code == 'SSS':
                     sss = r.amount
                 if r.code == 'PHILHEALTH':
@@ -58,7 +58,7 @@ class CompanyInfo(models.AbstractModel):
                 if r.code == 'OINTAX':
                     ntax = r.amount
 
-            total_deduc = gross - (sss + phealth + pgibig + ntax)
+            total_deduc = bsic - (sss + phealth + pgibig + ntax)
             # print 'total_deduc',total_deduc
 
             if res_payroll:
