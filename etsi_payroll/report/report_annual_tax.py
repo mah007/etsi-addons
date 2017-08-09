@@ -29,6 +29,7 @@ class CompanyInfo(models.AbstractModel):
         res_comp = self.env['hr.employee'].search([('address_id', '=', annual_company_id[0])])
 
         taxes_sum = 0.00
+        exemp = 0.00
         annual_tax = []
         for e in res_comp:
             yr_start = datetime.strptime(year_selection, '%Y').date()
@@ -37,6 +38,9 @@ class CompanyInfo(models.AbstractModel):
                                                               ('slip_id.state', '=', 'done'),
                                                               ('slip_id.date_from', '>=', yr_start),
                                                               ('slip_id.date_to', '<=', yr_end)])
+
+            exemp = e.tin_type.personal_exemp + e.tin_type.additional_exemp
+
             tax_sum = 0
             grss = 0.0
             sss = 0.0
@@ -59,7 +63,13 @@ class CompanyInfo(models.AbstractModel):
                     ntax += r.amount
 
             total_deduc = grss - (sss + phealth + pgibig + ntax)
-
+            net_taxable_comp = total_deduc - exemp
+            print net_taxable_comp
+            res_tax_due = self.env['payroll.tax.due'].search([('range_min', '<', net_taxable_comp),
+                                                              ('range_max', '>=', net_taxable_comp)])
+            for t in res_tax_due:
+                tax_due = t.tax_due_amount + ((net_taxable_comp - t.excess)*t.rate)
+                print 'tax_due',tax_due
 
             if res_payroll:
                 annual_tax.append((e.name, tax_name, tax_sum, total_deduc))
