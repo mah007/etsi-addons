@@ -23,6 +23,28 @@
             </field>
         </record>
 
+        <record id="attendance_report_view" model="ir.ui.view">
+            <field name="name">Attendance Wizard</field>
+            <field name="model">attendance.summary.wizard</field>
+            <field name="arch" type="xml">
+               <form>
+                   <group>
+                       <group string="Select Company">
+                                <field name="company"/>
+                        </group>
+                       <group string="Select Date">
+                                <field name="from_date" required="1"/>
+                                <field name="to_date" required="1"/>
+                        </group>
+                        <footer>
+                            <button string="Print Timesheet" name="print_attendance" type="object" class="btn-primary"/>
+                            <button string="Discard" class="btn-default" special="cancel"/>
+                        </footer>
+                    </group>
+               </form>
+            </field>
+        </record>
+
         <record id="action_print_timesheet_wizard" model="ir.actions.act_window">
             <field name="name">Generate Timesheet Report</field>
             <field name="res_model">timesheet.wizard</field>
@@ -33,7 +55,19 @@
             <field name="target">new</field>
         </record>
 
+         <record id="action_print_attendance_wizard" model="ir.actions.act_window">
+            <field name="name">Generate Attendance Report</field>
+            <field name="res_model">attendance.summary.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="attendance_report_view"/>
+            <field name="target">new</field>
+        </record>
+
         <menuitem name="Print Timesheets" id="print_timesheets" action="action_print_timesheet_wizard" parent="hr_timesheet.menu_timesheets_reports"/>
+        <menuitem name="Attendance Summary" id="print_attendance" action="action_print_attendance_wizard" parent="hr_timesheet.menu_timesheets_reports"/>
+
 
          <record id="paperformat_style" model="report.paperformat">
 		    <field name="name">Payroll Register</field>
@@ -58,6 +92,16 @@
             file="timesheets_by_employee.report_timesheets"
             menu="False"
             paperformat="paperformat_style"
+        />
+
+         <report
+            id="action_report_print_attendance"
+            model="attendance.summary.wizard"
+            report_type="qweb-pdf"
+            string="Attendance"
+            name="timesheets_by_employee.report_attendance"
+            file="timesheets_by_employee.report_attendance"
+            menu="False"
         />
     </data>
 </odoo>

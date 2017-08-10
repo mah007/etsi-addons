@@ -20,3 +20,4 @@
 #
 ##############################################################################
 import report_timesheets
+import report_attendance

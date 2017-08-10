@@ -1,0 +1,67 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="payroll_report_form">
+            <field name="name">payroll.report.form</field>
+            <field name="model">hr.payroll.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group string="Select Company">
+                            <field name="com_id" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+                        </group>
+                        <group string="Select Year">
+                            <field name="year_date" />
+                        </group>
+                         <footer>
+                             <button string="Print" name="print_company_annual_tax" type="object" class="btn-primary"/>
+                             <button string="Discard" class="btn-default" special="cancel"/>
+                        </footer>
+                    </group>
+                </form>
+            </field>
+
+        </record>
+
+        <record id="action_print_payroll_report" model="ir.actions.act_window">
+            <field name="name">Generate Annual Tax Report</field>
+            <field name="res_model">hr.payroll.report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="payroll_report_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem name="Annual Tax"
+              id="print_annual_tax"
+              action="action_print_payroll_report"
+              parent="submenu_report_reg"/>
+
+        <record id="paperformat_styles" model="report.paperformat">
+		    <field name="name">Payroll Register</field>
+		    <field name="default" eval="True"/>
+		    <field name="format">Legal</field>
+		    <field name="orientation">Landscape</field>
+		    <field name="margin_top">10</field>
+		    <field name="margin_bottom">10</field>
+		    <field name="margin_left">20</field>
+		    <field name="margin_right">20</field>
+		    <field name="header_line" eval="False"/>
+		    <field name="header_spacing">3</field>
+		    <field name="dpi">80</field>
+		</record>
+
+         <report
+            id="action_report_print_payroll_register"
+            model="hr.payroll.register"
+            report_type="qweb-pdf"
+            string="Company Annual Tax Report"
+            name="etsi_payroll.report_annual_tax_report"
+            file="etsi_payroll.report_annual_tax_report"
+            menu="False"
+            paperformat="paperformat_styles"
+        />
+
+    </data>
+</odoo>

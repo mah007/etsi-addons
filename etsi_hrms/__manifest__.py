@@ -23,7 +23,7 @@
     'depends': [
         'php_localization',
         'sale',
-        'etsi_base',
+        # 'etsi_base',
         'hr_family',
         'hr_experience',
         'hr_holidays',

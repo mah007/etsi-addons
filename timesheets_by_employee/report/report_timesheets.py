@@ -91,7 +91,7 @@ class ReportTimesheet(models.AbstractModel):
                 #     pytz.utc.localize(datetime.strptime(rec.date, df)).astimezone(local),
                 #     "%Y-%m-%d")
 
-                official_date =  datetime.strptime(rec.date, "%Y-%m-%d").date()
+                official_date = datetime.strptime(rec.date, "%Y-%m-%d").date()
                 check_in_date = datetime.strptime(check_in, "%Y-%m-%d %H:%M:%S").date()
                 check_out_date = datetime.strptime(check_out, "%Y-%m-%d %H:%M:%S").date()
                 check_in_time = datetime.strptime(check_in, "%Y-%m-%d %H:%M:%S").time()
@@ -99,11 +99,13 @@ class ReportTimesheet(models.AbstractModel):
 
                 _time_in =  check_in_time.strftime("%H:%M")
                 _time_out = check_out_time.strftime("%H:%M")
+                _off_date = official_date.strftime("%m-%d-%Y")
 
                 if official_date == check_in_date:
                     print 'DATE', rec.date
                     val = {'employee': rec.employee_id.name,
-                            'date': rec.date,
+                            # 'date': rec.date,
+                            'date': _off_date,
                             'check_in': _time_in,
                             'check_out': _time_out,
                             'duty_hours': rec.duty_hours,
@@ -119,7 +121,8 @@ class ReportTimesheet(models.AbstractModel):
             if restday == False:
                 print 'DATE', rec.date
                 val = {'employee': rec.employee_id.name,
-                       'date': rec.date,
+                       # 'date': rec.date,
+                       'date': _off_date,
                        'check_in': '',
                        'check_out': '',
                        'duty_hours': rec.duty_hours,
@@ -166,6 +169,12 @@ class ReportTimesheet(models.AbstractModel):
         elif docs.from_date:
             period = " To " + str(docs.to_date)
 
+        _from_date = datetime.strptime(docs.from_date,"%Y-%m-%d").date()
+        _to_date = datetime.strptime(docs.to_date, "%Y-%m-%d").date()
+
+        __from_date = _from_date.strftime("%m-%d-%Y")
+        __to_date = _to_date.strftime("%m-%d-%Y")
+
         docargs = {
            'doc_ids': self.ids,
            'doc_model': self.model,
@@ -173,6 +182,8 @@ class ReportTimesheet(models.AbstractModel):
            'timesheets': timesheets[0],
            'total': timesheets[1],
            'company': docs.employee[0].company_id.name,
+            'from_date': __from_date,
+            'to_date': __to_date,
            # 'manager_name': docs.employee[0].parent_id.name,
            'identification': identification,
            'period': period,

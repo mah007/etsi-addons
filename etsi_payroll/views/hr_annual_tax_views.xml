@@ -33,10 +33,10 @@
             <field name="target">new</field>
         </record>
 
-         <menuitem name="Annual Tax Report"
+         <menuitem name="Annual Tax"
               id="print_annual_tax_report"
               action="action_print_annual_tax_report"
-              parent="submenu_report_reg"/>
+              parent="menu_hr_payroll_report_root"/>
 
         <record id="paperformat_styles" model="report.paperformat">
 		    <field name="name">Payroll Register</field>
