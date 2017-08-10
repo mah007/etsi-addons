@@ -28,7 +28,6 @@ class CompanyInfo(models.AbstractModel):
             raise exceptions.ValidationError("Invalid Year")
         res_comp = self.env['hr.employee'].search([('address_id', '=', annual_company_id[0])])
 
-        taxes_sum = 0.00
         exemp = 0.00
         annual_tax = []
         for e in res_comp:
@@ -40,7 +39,7 @@ class CompanyInfo(models.AbstractModel):
                                                               ('slip_id.date_to', '<=', yr_end)])
 
             exemp = e.tin_type.personal_exemp + e.tin_type.additional_exemp
-
+            tax_name = ' '
             tax_sum = 0
             tax_refund = 0.0
             tax_due = 0.0
@@ -74,6 +73,15 @@ class CompanyInfo(models.AbstractModel):
                 tax_refund = tax_due - tax_sum
 
             if res_payroll:
+                if net_taxable_comp < 0:
+                    net_taxable_comp = 0.0
+                else:
+                    net_taxable_comp = net_taxable_comp
+                if tax_refund < 0:
+                    tax_refund = 0.0
+                else:
+                    tax_refund = tax_refund
+
                 annual_tax.append((e.name, tax_name, tax_sum, total_deduc, net_taxable_comp, tax_due, tax_refund))
 
 
