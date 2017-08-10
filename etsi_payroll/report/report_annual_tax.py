@@ -26,7 +26,7 @@ class CompanyInfo(models.AbstractModel):
                 raise exceptions.ValidationError("Invalid Year")
         else:
             raise exceptions.ValidationError("Invalid Year")
-        res_comp = self.env['hr.employee'].search([('address_id', '=', annual_company_id[0])])
+        res_comp = self.env['hr.contract'].search([('partner_id', '=', annual_company_id[0])])
 
         exemp = 0.00
         annual_tax = []
@@ -61,7 +61,7 @@ class CompanyInfo(models.AbstractModel):
                 if r.code == 'OINTAX':
                     ntax += r.amount
             total_deduc = grss - (sss + phealth + pgibig + ntax)
-            exemp = e.tin_type.personal_exemp + e.tin_type.additional_exemp
+            exemp = e.employee_id.tin_type.personal_exemp + e.employee_id.tin_type.additional_exemp
             net_taxable_comp = total_deduc - exemp
 
             res_tax_due = self.env['payroll.tax.due'].search([('range_min', '<', net_taxable_comp),
@@ -81,7 +81,7 @@ class CompanyInfo(models.AbstractModel):
                 else:
                     tax_refund = tax_refund
 
-                annual_tax.append((e.name, tax_name, tax_sum, total_deduc, net_taxable_comp, tax_due, tax_refund))
+                annual_tax.append((e.employee_id.name, tax_name, tax_sum, total_deduc, net_taxable_comp, tax_due, tax_refund))
 
 
 
