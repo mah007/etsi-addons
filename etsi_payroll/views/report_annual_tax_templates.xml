@@ -60,11 +60,10 @@
                                 <head>
                                     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
                                     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-                                    <title>Annual Tax Report</title>
-
+                                    <title>Annual Tax Report</title><br/><br/><br/>
                                 </head>
                                 <body>
-                                    <h3 class="text-center">TAX Annual Report</h3>
+                                    <h3 class="text-center">Annual Tax Report</h3>
                                     <br/>
                                         <table style="width:67%;">
                                             <tr style="height:20px">
