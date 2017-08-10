@@ -37,8 +37,6 @@ class CompanyInfo(models.AbstractModel):
                                                               ('slip_id.state', '=', 'done'),
                                                               ('slip_id.date_from', '>=', yr_start),
                                                               ('slip_id.date_to', '<=', yr_end)])
-
-            exemp = e.tin_type.personal_exemp + e.tin_type.additional_exemp
             tax_name = ' '
             tax_sum = 0
             tax_refund = 0.0
@@ -63,6 +61,7 @@ class CompanyInfo(models.AbstractModel):
                 if r.code == 'OINTAX':
                     ntax += r.amount
             total_deduc = grss - (sss + phealth + pgibig + ntax)
+            exemp = e.tin_type.personal_exemp + e.tin_type.additional_exemp
             net_taxable_comp = total_deduc - exemp
 
             res_tax_due = self.env['payroll.tax.due'].search([('range_min', '<', net_taxable_comp),
