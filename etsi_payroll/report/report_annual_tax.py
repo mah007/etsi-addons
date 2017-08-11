@@ -31,9 +31,10 @@ class CompanyInfo(models.AbstractModel):
         exemp = 0.00
         annual_tax = []
         for e in res_comp:
+            print e.employee_id
             yr_start = datetime.strptime(year_selection, '%Y').date()
             yr_end = date(yr_start.year, 12, 31)
-            res_payroll = self.env['hr.payslip.line'].search([('employee_id', '=', e.id),
+            res_payroll = self.env['hr.payslip.line'].search([('employee_id', '=', e.employee_id.id),
                                                               ('slip_id.state', '=', 'done'),
                                                               ('slip_id.date_from', '>=', yr_start),
                                                               ('slip_id.date_to', '<=', yr_end)])
