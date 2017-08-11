@@ -4,12 +4,15 @@ from datetime import datetime
 class AnnualTaxReport(models.Model):
     _name = 'hr.payroll.annual.tax.report'
 
+    def _get_years(self):
+        this_year = datetime.today().year
 
-    this_year = datetime.today().year
-    range_of_years = range(this_year - 40, this_year + 1)
-    descending_range = sorted(range_of_years, reverse=True)
-    _get_years = [(str(x), str(x)) for x in descending_range]
-    current_year = str(this_year)
+        results = sorted([(str(x), str(x)) for x in range(this_year - 40, this_year + 1)], reverse=True)
+
+        return results
+
+    current_year = str(datetime.today().year)
+
     year_selection = fields.Selection(_get_years, string="Select Year", default=current_year)
 
     annual_company_id = fields.Many2one('res.partner', string='Company',required=True, domain=[('is_company','=', True)])
