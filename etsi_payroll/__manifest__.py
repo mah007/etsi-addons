@@ -46,6 +46,7 @@
         'data/payroll.tax.status.csv',
         'data/payroll.tax.exemption.csv',
         'data/payroll.tax.income.range.csv',
+        'data/payroll.tax.due.csv',
         # 'data/payroll.ot.day.type.xml',
         'data/payroll.contribution.register.xml',
         'data/payroll.salary.rule.xml',

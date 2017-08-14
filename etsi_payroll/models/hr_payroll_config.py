@@ -50,6 +50,8 @@ class Payroll_Tax_Status(models.Model):
 
     stat_code = fields.Char(string="Code")
     name = fields.Char(string="Description")
+    personal_exemp = fields.Float(string="Personal Exemption")
+    additional_exemp = fields.Float(string="Additional Exemption")
 
 class Payroll_Tax_Exemption(models.Model):
     _name = 'payroll.tax.exemption'
@@ -71,6 +73,16 @@ class Payroll_Tax_Income_Range(models.Model):
     stat_ids = fields.Many2one('payroll.tax.status', string="Status")
     income_min = fields.Float(string="Minimum Income")
     income_max = fields.Float(string="Maximum Income")
+
+class Payroll_Tax_Due(models.Model):
+    _name = 'payroll.tax.due'
+    _description = 'Annual Tax Due'
+
+    range_min = fields.Float(string="Over")
+    range_max = fields.Float(string="But not Over")
+    tax_due_amount = fields.Float(string="Amount")
+    rate = fields.Float(string="Rate(%)")
+    excess = fields.Float(string="of Excess Over")
 
 # class Payroll_OT_Day_Type(models.Model):
 #     _name = 'payroll.ot.day.type'

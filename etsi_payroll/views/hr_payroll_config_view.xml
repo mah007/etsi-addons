@@ -84,6 +84,8 @@
             <tree string="Tax Status" editable="True">
                 <field name="stat_code"/>
                 <field name="name"/>
+                <field name="personal_exemp"/>
+                <field name="additional_exemp"/>
             </tree>
         </field>
     </record>
@@ -111,6 +113,20 @@
                 <field name="stat_ids"/>
                 <field name="income_min"/>
                 <field name="income_max"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="tax_due_tree_view" model="ir.ui.view">
+        <field name="name">tax_due.tree</field>
+        <field name="model">payroll.tax.due</field>
+        <field name="arch" type="xml">
+            <tree string="Tax Due" editable="True">
+                <field name="range_min"/>
+                <field name="range_max"/>
+                <field name="tax_due_amount"/>
+                <field name="rate"/>
+                <field name="excess"/>
             </tree>
         </field>
     </record>
@@ -194,6 +210,17 @@
         </field>
     </record>
 
+    <record id="action_hr_payroll_config_annual_tax_due" model="ir.actions.act_window">
+        <field name="name">Annual Tax Due</field>
+        <field name="res_model">payroll.tax.due</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create"> Create Annual Tax Due...
+            </p>
+        </field>
+    </record>
+
      <record id="action_payroll_config_company" model="ir.actions.act_window">
             <field name="name">Payroll Company</field>
             <field name="type">ir.actions.act_window</field>
@@ -262,6 +289,12 @@
               sequence="3"
               parent="menu_hr_payroll_config_tax"
               action="action_hr_payroll_config_tax_income_range"/>
+
+    <menuitem id="menu_hr_payroll_config_annual_tax_due"
+              name="Annual Tax Due"
+              sequence="4"
+              parent="menu_hr_payroll_config_tax"
+              action="action_hr_payroll_config_annual_tax_due"/>
 
 
     <!--<menuitem id="menu_hr_payroll_config_sss_matrix"-->

@@ -1,0 +1,91 @@
+<odoo>
+    <data>
+
+        <!-- pettycash request tree view -->
+        <record model="ir.ui.view" id="pettycash_request_tree_view">
+            <field name="name">pettycash.request.tree.view</field>
+            <field name="model">account.pettycash.request</field>
+            <field name="arch" type="xml">
+
+                <tree>
+                   <field name = "employee_requested_id"/>
+                    <field name = "dept_id"/>
+                    <field name = "job_position_id"/>
+                    <field name = "amount"/>
+                    <field name="reason"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- pettycash request form view-->
+        <record model="ir.ui.view" id="pettycash_request_form_view">
+            <field name="name">pettycash.request.tree.view</field>
+            <field name="model">account.pettycash.request</field>
+            <field name="arch" type="xml">
+
+                <form>
+                    <header>
+                        <button name="action_draft" type="object" string="Send to draft" states="confirmed,approved"/>
+                        <button name="action_confirm" type="object" string="Confirm" states="draft" class="oe_highlight"/>
+                        <button name="action_approve" type="object" string="Mark as Approve" states="confirmed" class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+
+                    <sheet>
+                        <group>
+                            <group>
+
+                                <field name = "employee_requested_id"/>
+                                <field name = "dept_id"/>
+                                <field name = "job_position_id"/>
+                                <field name = "amount"/>
+                            </group>
+
+                            <group>
+                                <field name = "date_requested"/>
+                            </group>
+                        </group>
+
+                         <notebook>
+                             <page string = "Reason">
+                                <field name="reason"/>
+                            </page>
+
+                             <page string="Items">
+                                <field name="lines_ids">
+                                     <tree editable = "bottom">
+                                         <field name = "product_id"/>
+                                         <field name = "cost"/>
+                                         <field name = "quantity"/>
+                                     </tree>
+                                 </field>
+                             </page>
+                         </notebook>
+
+                    </sheet>
+                </form>
+
+            </field>
+        </record>
+
+        <!--pettycash request action-->
+        <record model="ir.actions.act_window" id="pettycash_request_action">
+            <field name="name">Petty Cash Request</field>
+            <field name="res_model">account.pettycash.request</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name = "help" type = "html">
+                <p class = "os_view_nocontent_create"> Create your first petty cash
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+            id = "pettycash_request_menu"
+            name = "Petty Cash Request"
+            action = "pettycash_request_action"
+            parent = "account.menu_finance_entries"
+        />
+
+    </data>
+</odoo>
