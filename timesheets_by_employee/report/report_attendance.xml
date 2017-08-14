@@ -2,8 +2,8 @@
 <odoo>
     <template id="report_attendance">
       <t t-call="report.html_container">
-          <!--<t t-call="report.external_layout">-->
-          <t t-call="etsi_base.external_layout_custom_base">
+          <t t-call="report.external_layout">
+          <!--<t t-call="etsi_base.external_layout_custom_base">-->
               <t t-foreach="docs" t-as="o">
                   <div class="page">
                       <br/><br/>
