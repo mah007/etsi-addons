@@ -62,11 +62,14 @@ class CompanyInfo(models.AbstractModel):
                 if r.code == 'OINTAX':
                     ntax += r.amount
             total_deduc = grss - (sss + phealth + pgibig + ntax)
-            exemp = e.employee_id.tin_type.personal_exemp + e.employee_id.tin_type.additional_exemp
+            res_tax_exemp = self.env['payroll.tax.due.status'].search([('tax_stat_code', '=', e.employee_id.tin_type.stat_code)])
+            for ex in res_tax_exemp:
+                exemp = ex.personal_exemp + ex.additional_exemp
+
             net_taxable_comp = total_deduc - exemp
 
             res_tax_due = self.env['payroll.tax.due'].search([('range_min', '<', net_taxable_comp),
-                                                              ('range_max', '>=', net_taxable_comp)])
+                                                             ('range_max', '>=', net_taxable_comp)])
             for t in res_tax_due:
                 tax_due = t.tax_due_amount + ((net_taxable_comp - t.excess)*t.rate)
 
