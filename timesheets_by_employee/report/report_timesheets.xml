@@ -33,7 +33,7 @@
 			<!--<h3>TIMESHEET</h3>-->
             <!--<span t-esc="period"/>-->
 			<!--&lt;!&ndash;<span> as of </span>&ndash;&gt;-->
-			<!--&lt;!&ndash;<span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/>&ndash;&gt;-->
+			<!--<span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/>-->
     	<!--</div>-->
     	<!--</div>-->
     	<!--</div>-->
@@ -78,7 +78,8 @@
                           <!--<t t-call="timesheets_by_employee.custom_layout_header">-->
                             <br/><br/><br/>
                           <h3 style="vertical-align:middle;text-align:center">TIMESHEET</h3>
-                          <p style="vertical-align:middle;text-align:center"><span t-esc="period"/></p>
+                          <!--<p style="vertical-align:middle;text-align:center"><span t-esc="period"/></p>-->
+                          <p style="vertical-align:middle;text-align:center">From <span t-esc="from_date"/> to <span t-esc="to_date"/></p>
                           <div class="row">
                               <div class="mt32 mb32">
                                   <table style="width:80%;">
@@ -116,6 +117,7 @@
                                                 <th style="vertical-align:middle;text-align:center;border:1px solid">Auth Overtime Hours</th>
                                                 <th style="vertical-align:middle;text-align:center;border:1px solid">Actual Overtime Hours</th>
                                                 <th style="vertical-align:middle;text-align:center;border:1px solid">Actual Worked Hours</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Remarks</th>
                                             </tr>
                                         </thead>
                                       <tbody>
@@ -127,6 +129,7 @@
                                                 <td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="t['auth_ot']"/></td>
                                                 <td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="t['actual_ot']"/></td>
                                                 <td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="t['actual_worked_hours']"/></td>
+                                              <td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="t['remark']"/></td>
                                           </tr>
 
                                          <tr style="border:1px solid">

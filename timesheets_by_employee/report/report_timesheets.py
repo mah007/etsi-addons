@@ -70,7 +70,13 @@ class ReportTimesheet(models.AbstractModel):
             total += r.unit_amount
             records.append(vals)
 
+        period = {'date_from': docs.from_date,
+                  'date_to': docs.to_date}
+
+
+        print 'timesheet_sum', timesheet_sum
         for rec in timesheet_sum:
+            remark = ''
 
             restday = False
             for res in attendance:
@@ -91,7 +97,7 @@ class ReportTimesheet(models.AbstractModel):
                 #     pytz.utc.localize(datetime.strptime(rec.date, df)).astimezone(local),
                 #     "%Y-%m-%d")
 
-                official_date =  datetime.strptime(rec.date, "%Y-%m-%d").date()
+                official_date = datetime.strptime(rec.date, "%Y-%m-%d").date()
                 check_in_date = datetime.strptime(check_in, "%Y-%m-%d %H:%M:%S").date()
                 check_out_date = datetime.strptime(check_out, "%Y-%m-%d %H:%M:%S").date()
                 check_in_time = datetime.strptime(check_in, "%Y-%m-%d %H:%M:%S").time()
@@ -99,11 +105,13 @@ class ReportTimesheet(models.AbstractModel):
 
                 _time_in =  check_in_time.strftime("%H:%M")
                 _time_out = check_out_time.strftime("%H:%M")
+                _off_date = official_date.strftime("%m-%d-%Y")
 
                 if official_date == check_in_date:
                     print 'DATE', rec.date
                     val = {'employee': rec.employee_id.name,
-                            'date': rec.date,
+                            # 'date': rec.date,
+                            'date': _off_date,
                             'check_in': _time_in,
                             'check_out': _time_out,
                             'duty_hours': rec.duty_hours,
@@ -112,6 +120,7 @@ class ReportTimesheet(models.AbstractModel):
                             'auth_ot':rec.auth_ot,
                             'actual_ot': rec.actual_ot,
                             'diff':rec.diff,
+                            'remark':rec.remarks,
                             }
                     restday = True
                     print '>>>',restday
@@ -119,7 +128,8 @@ class ReportTimesheet(models.AbstractModel):
             if restday == False:
                 print 'DATE', rec.date
                 val = {'employee': rec.employee_id.name,
-                       'date': rec.date,
+                       # 'date': rec.date,
+                       'date': _off_date,
                        'check_in': '',
                        'check_out': '',
                        'duty_hours': rec.duty_hours,
@@ -128,11 +138,16 @@ class ReportTimesheet(models.AbstractModel):
                        'auth_ot': rec.auth_ot,
                        'actual_ot': rec.actual_ot,
                        'diff': rec.diff,
+                       'remark' : rec.remarks,
                        }
                 print '>>>', restday
+
+
+
                 analysis.append(val)
 
         print 'analysis', analysis
+
         emp = self.env['hr.employee'].search([('user_id', '=', docs.employee[0].id)])
         return [records, total, analysis, emp]
 
@@ -140,6 +155,9 @@ class ReportTimesheet(models.AbstractModel):
     def render_html(self, docids, data=None):
         """we are overwriting this function because we need to show values from other models in the report
         we pass the objects in the docargs dictionary"""
+
+
+
 
         self.model = self.env.context.get('active_model')
         docs = self.env[self.model].browse(self.env.context.get('active_id'))
@@ -166,6 +184,12 @@ class ReportTimesheet(models.AbstractModel):
         elif docs.from_date:
             period = " To " + str(docs.to_date)
 
+        _from_date = datetime.strptime(docs.from_date,"%Y-%m-%d").date()
+        _to_date = datetime.strptime(docs.to_date, "%Y-%m-%d").date()
+
+        __from_date = _from_date.strftime("%m-%d-%Y")
+        __to_date = _to_date.strftime("%m-%d-%Y")
+
         docargs = {
            'doc_ids': self.ids,
            'doc_model': self.model,
@@ -173,6 +197,8 @@ class ReportTimesheet(models.AbstractModel):
            'timesheets': timesheets[0],
            'total': timesheets[1],
            'company': docs.employee[0].company_id.name,
+            'from_date': __from_date,
+            'to_date': __to_date,
            # 'manager_name': docs.employee[0].parent_id.name,
            'identification': identification,
            'period': period,

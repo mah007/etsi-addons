@@ -72,6 +72,24 @@ class Payroll_Tax_Income_Range(models.Model):
     income_min = fields.Float(string="Minimum Income")
     income_max = fields.Float(string="Maximum Income")
 
+class Payroll_Tax_Due(models.Model):
+    _name = 'payroll.tax.due'
+    _description = 'Annual Tax Due'
+
+    range_min = fields.Float(string="Over")
+    range_max = fields.Float(string="But not Over")
+    tax_due_amount = fields.Float(string="Amount")
+    rate = fields.Float(string="Rate(%)")
+    excess = fields.Float(string="of Excess Over")
+
+class Payroll_Tax_Due_Status(models.Model):
+    _name = 'payroll.tax.due.status'
+    _description = 'Tax Due Status'
+
+    tax_stat_code = fields.Char(string="Code")
+    personal_exemp = fields.Float(string="Personal Exemption")
+    additional_exemp = fields.Float(string="Additional Exemption")
+
 # class Payroll_OT_Day_Type(models.Model):
 #     _name = 'payroll.ot.day.type'
 #     _description = 'Payroll Overtime Day Type'

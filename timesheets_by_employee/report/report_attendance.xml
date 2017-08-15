@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_attendance">
+      <t t-call="report.html_container">
+          <t t-call="report.external_layout">
+          <!--<t t-call="etsi_base.external_layout_custom_base">-->
+              <t t-foreach="docs" t-as="o">
+                  <div class="page">
+                      <br/><br/>
+                      <h3 style="vertical-align:middle;text-align:center">ATTENDANCE SUMMARY</h3>
+                      <p style="vertical-align:middle;text-align:center"><strong><span t-esc="o.company.name"/></strong></p>
+                      <p style="vertical-align:middle;text-align:center"><span t-esc="period"/></p>
+                       <div class="row">
+                              <div class="mt32 mb32">
+                                  <table style="border:1px solid;width:100%;">
+                                      <thead>
+                                            <tr style="border:1px solid">
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid;padding:5px">Employee</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid;padding:5px">Total<br/>Absent</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid;padding:5px">Total Min.<br/>Late</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid;padding:5px">Total Min.<br/>Undertime</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid;padding:5px">Remarks</th>
+                                            </tr>
+                                        </thead>
+                                      <tbody>
+                                          <tr t-foreach="attendance" t-as="t" style="border:1px solid">
+                                              <td style="vertical-align:middle;text-align:left;border:1px solid;padding:5px"><span t-esc="t['employee']"/></td>
+                                              <td style="vertical-align:middle;text-align:center;border:1px solid;padding:5px"><span t-esc="t['absent']"/></td>
+                                              <td style="vertical-align:middle;text-align:center;border:1px solid;padding:5px"><span t-esc="t['late']"/></td>
+                                              <td style="vertical-align:middle;text-align:center;border:1px solid;padding:5px"><span t-esc="t['undertime']"/></td>
+                                              <td style="vertical-align:middle;text-align:center;border:1px solid;padding:5px"/>
+                                          </tr>
+                                      </tbody>
+                                  </table>
+                                   <!--<table style="border:1px solid;width:100%;height=100px">-->
+                                       <!--<tr>-->
+                                           <!--<td style="border:1px solid;height=100px">Recommendation:</td>-->
+                                           <!--<td/>-->
+                                           <!--<td/>-->
+                                       <!--</tr>-->
+                                  <!--</table>-->
+                                 <div>
+                                     <table width="100%" style="margin-top:30px">
+                                         <tr>
+                                              <td><p><strong>Recommendation:</strong></p></td>
+                                         </tr>
+                                         <tr>
+                                             <td> <br/><br/><br/></td>
+                                         </tr>
+                                         <tr>
+                                              <td style="border-bottom:1pt solid black"/>
+                                                <td style="border-bottom:1pt solid black"/>
+                                         </tr>
+                                         <tr>
+                                             <td> <br/><br/><br/></td>
+                                         </tr>
+                                         <tr>
+                                             <td><p><strong>Prepared By</strong></p></td>
+                                             <td><p class="text-right"><strong>Approved By</strong></p></td>
+                                         </tr>
+                                         <tr>
+                                             <td><p><strong>____________________________<br/></strong></p></td>
+                                            <td><p class="text-right"><strong>____________________________ <br/> Manager</strong></p></td>
+                                            <!--<td><p class="text-right"><strong>____________________________ <br/> <span t-field="o.employee_id.parent_id"/></strong></p></td>-->
+                                         </tr>
+                                     </table>
+                                 </div>
+                              </div>
+                       </div>
+                  </div>
+              </t>
+          </t>
+      </t>
+    </template>
+</odoo>
