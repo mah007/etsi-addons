@@ -4,12 +4,12 @@ import psycopg2 as p
 class BankAdvice(models.Model):
     _name = 'hr.bank.advice'
 
-    name = fields.Many2one('res.partner', string="Company",)
-    bank = fields.Many2one('res.bank', string="Bank")
-    date_from = fields.Date(string="Date From")
-    date_to = fields.Date(string="Date To")
-    bank_acct = fields.Many2one('res.partner.bank', string="Bank Account")
-    bank_advice_line_ids = fields.One2many('hr.bank.advice.line', 'bank_advice_id', string="Bank Advice Line ID")
+    name = fields.Many2one('res.partner', string="Company", required=True)
+    bank = fields.Many2one('res.bank', string="Bank", required=True)
+    date_from = fields.Date(string="Date From", required=True)
+    date_to = fields.Date(string="Date To", required=True)
+    bank_acct = fields.Many2one('res.partner.bank', string="Bank Account", required=True)
+    bank_advice_line_ids = fields.One2many('hr.bank.advice.line', 'bank_advice_id', string="Bank Advice Line")
 
     @api.onchange('name')
     def onchange_name(self):
@@ -123,13 +123,13 @@ class HrBankAdviceLine(models.Model):
     _name = 'hr.bank.advice.line'
 
     payslip_line = fields.Many2one('hr.payslip.line', string='Payslip Line', store=True)
-    emp_id = fields.Many2one('hr.employee', string="Employee ID", store=True)
+    emp_id = fields.Many2one('hr.employee', string="Employee Name", store=True)
     bank_account = fields.Many2one('res.partner.bank', string="Bank Account", store=True)
     bank = fields.Many2one('res.bank', string="Bank", store=True)
     salary = fields.Float(string="Salary")
     date_from = fields.Date(string="Date From")
     date_to = fields.Date(string="Date To")
-    bank_advice_id = fields.Many2one('hr.bank.advice', string="Bank Advice ID")
+    bank_advice_id = fields.Many2one('hr.bank.advice', string="Bank Advice")
 
 # class EmployeeBankAcct(models.Model):
 #     _name = 'hr.employee.bank.acct'
