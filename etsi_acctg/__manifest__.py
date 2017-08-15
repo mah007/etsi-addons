@@ -27,6 +27,7 @@
         # 'security/ir.model.access.csv',
         'views/pettycash_request_views.xml',
         'views/payroll_advance_salary_views.xml',
+        'views/cash_advance_request_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
