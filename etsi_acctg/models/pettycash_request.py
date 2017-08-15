@@ -62,25 +62,6 @@ class AccountPettyCashLine (models.Model):
 	#Return the values to update it in the view.
 	return res
 
-    @api.onchange('product_id')  # eto yung ginagawa kapag yung sa student, yung mga natake nya ng course is
-    def onchange_prod_id(self):  # hindi na magdidisplay, ang magdidisplay na lang is yung mga course na
-        prod_id = self.product_id.id  # hindi pa nya natetake
-
-        self.env.cr.execute(
-            'SELECT product_id from product_to where product_id = %s' % prod_id)
-        res = self.env.cr.fetchall()
-        # fetch huhugutin nya lahat don sa query
-
-        print res
-        product_id = []
-
-        for rec in res:
-            print 'rec', rec
-            product_id.append(rec[0])
-
-        print 'course_ids', product_id
-        return {'domain': {'product_id': [('id', 'not in', product_id)]}}
-
 
 
 
