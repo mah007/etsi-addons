@@ -20,6 +20,7 @@
 #
 ##############################################################################
 
+
 import pytz
 import time
 from datetime import datetime, timedelta, date
@@ -102,6 +103,47 @@ class HrTimesheetSheet(models.Model):
         return leaves
 
     @api.multi
+    def count_holiday(self, date_line):
+        df = DEFAULT_SERVER_DATETIME_FORMAT
+        user_tz = self.env.user.tz or str(pytz.utc)
+        local = pytz.timezone(user_tz)
+        holiday_obj = self.env['hr.holidays.public.line']
+        print 'date_line_holiday', date_line.date()
+        # start_leave_period = end_leave_period = False
+        # if period.get('date_from') and period.get('date_to'):
+        #     start_leave_period = period.get('date_from')
+        #     end_leave_period = period.get('date_to')
+
+        holiday = ''
+        holiday_ids = holiday_obj.search([('date','=',date_line.date())])
+        if holiday_ids:
+            holiday = True
+        return holiday
+        #
+        # leaves = []
+        # for leave in holiday_ids:
+        #     date_from_leave = datetime.strftime(
+        #         pytz.utc.localize(datetime.strptime(leave.date_from, df)).astimezone(local), "%Y-%m-%d %H:%M:%S")
+        #     date_to_leave = datetime.strftime(pytz.utc.localize(datetime.strptime(leave.date_to, df)).astimezone(local),
+        #                                       "%Y-%m-%d %H:%M:%S")
+        #
+        #     leave_date_from = datetime.strptime(date_from_leave,
+        #                                         '%Y-%m-%d %H:%M:%S')
+        #     leave_date_to = datetime.strptime(date_to_leave,
+        #                                       '%Y-%m-%d %H:%M:%S')
+        #     leave_dates = list(rrule.rrule(rrule.DAILY,
+        #                                    dtstart=parser.parse(
+        #                                        date_from_leave),
+        #                                    until=parser.parse(date_to_leave)))
+        #     for date in leave_dates:
+        #         if date.strftime('%Y-%m-%d') == date_from.strftime('%Y-%m-%d'):
+        #             leaves.append(
+        #                 (leave_date_from, leave_date_to, leave.number_of_days))
+        #             break
+        #
+        # return leaves
+
+    @api.multi
     def get_overtime(self, start_date):
         for sheet in self:
             if sheet.state == 'done':
@@ -138,9 +180,9 @@ class HrTimesheetSheet(models.Model):
             ('date_end', '>=', self.date_to),
             ('date_end', '=', None)
         ])
-        if not contract_ids:
-            raise ValidationError('No contract created for the assigned employee')
-
+        # if not contract_ids:
+        #     raise ValidationError('No contract created for the assigned employee')
+        work_type = ''
         for contract in contract_ids:
             work_type = contract.working_hours.work_type
 
@@ -387,14 +429,17 @@ class HrTimesheetSheet(models.Model):
             else:
                 dh = calendar_obj.get_working_hours_of_date(start_dt=date_from,resource_id=self.employee_id.id)
             leaves = self.count_leaves(date_from, self.employee_id.id, period)
-            if not leaves:
-                if not dh:
-                    dh = 0.00
-                duty_hours += dh
-            else:
-                if leaves[-1] and leaves[-1][-1]:
-                    if float(leaves[-1][-1]) == (-0.5):
-                        duty_hours += dh / 2
+            holiday = self.count_holiday(date_from)
+            if not holiday:
+                if not leaves:
+                    if not dh:
+                        dh = 0.00
+                    duty_hours += dh
+                else:
+                    if leaves[-1] and leaves[-1][-1]:
+                        if float(leaves[-1][-1]) == (-0.5):
+                            duty_hours += dh / 2
+        print 'duty_hours', duty_hours
         return duty_hours
 
     @api.multi
@@ -464,7 +509,12 @@ class HrTimesheetSheet(models.Model):
                     dh = sheet.calculate_duty_hours(date_from=date_line,
                                                     period=period,
                                                     )
+                    print 'dh', dh
                     leaves = self.count_leaves(date_line, self.employee_id.id, period)
+                    holiday = self.count_holiday(date_line)
+
+
+
                     worked_hours = 0.0
                     for att in sheet.period_ids:
                         if att.name == date_line.strftime('%Y-%m-%d'):
@@ -472,6 +522,7 @@ class HrTimesheetSheet(models.Model):
 
 
                     contract_ids = self.get_contract(employee_id, date_line)
+                    work_type = ''
                     for contract in contract_ids:
                         attendance_obj = self.env['hr.attendance']
                         work_type = contract.working_hours.work_type or False
@@ -481,7 +532,7 @@ class HrTimesheetSheet(models.Model):
                     work_current_month_diff += diff
                     summary_ids = self.env['hr_timesheet.summary'].search([('date', '=', date_line.strftime('%Y-%m-%d')), ('sheet_id', '=', sheet.id)])
                     get_date = date_line.strftime(date_format)
-                    get_duty_hours_from_to = self.get_duty_hours_from_to(leaves, employee_id, date_line)
+                    get_duty_hours_from_to = self.get_duty_hours_from_to(leaves, holiday, employee_id, date_line)
                     get_worked_hours = self.get_worked_hours(employee_id, date_line,get_duty_hours_from_to)
                     get_authorized_ot = self.get_authorized_ot(employee_id, date_line)
                     if sheet.auto_overtime:
@@ -496,8 +547,9 @@ class HrTimesheetSheet(models.Model):
                             get_actual_worked_hours = rec.actual_worked_hours
                     else:
                         get_actual_worked_hours = get_worked_hours['actual_wh']
-                    print 'date_line', date_line
-                    get_remarks = self.get_remarks(leaves, diff, get_actual_worked_hours, get_worked_hours, get_actual_ot, dh, worked_hours)
+                    get_late = self.get_late(date_line, self.employee_id.id, sheet)
+                    get_ut = self.get_undertime(date_line, self.employee_id.id, sheet)
+                    get_remarks = self.get_remarks(date_line, leaves, diff, get_actual_worked_hours, get_worked_hours, get_actual_ot, dh, worked_hours, get_late, get_ut, holiday)
                     get_core_hours = self.get_core_hours(employee_id, date_line)
 
                     if dh <= 0:
@@ -554,7 +606,7 @@ class HrTimesheetSheet(models.Model):
                         res_atndnce_summary = atndance_summary_obj.search([('date', '=', date_line.strftime(date_format)), ('employee_id', '=', employee_id)])
                         args = {'sheet_id':self.id,'date': date_line.strftime(date_format), 'employee_id': employee_id, 'duty_hours': dh,
                                                         'worked_hours': worked_hours,'diff': diff, 'auth_ot': get_authorized_ot['ot_hour'], 'actual_ot': get_actual_ot,
-                                                        'actual_worked_hours': get_actual_worked_hours}
+                                                        'actual_worked_hours': get_actual_worked_hours,'late_hours':get_late,'ut_hours':get_ut,'remarks':get_remarks}
 
                         # if not sheet.auto_import:
                         if work_type == 'daily':
@@ -642,6 +694,128 @@ class HrTimesheetSheet(models.Model):
                 return res
 
     @api.multi
+    def get_late(self, date_line, employee_id, sheet):
+        contract_ids = self.get_contract(employee_id, date_line)
+        get_date =  date_line.strftime('%Y-%m-%d')
+        print 'get_date', get_date
+        dtf = DEFAULT_SERVER_DATETIME_FORMAT
+        user_tz = self.env.user.tz or str(pytz.utc)
+        local = pytz.timezone(user_tz)
+
+        late = 0
+
+        for contract in contract_ids:
+            calendar_id = contract.working_hours.id
+            policy_group_id = contract.policy_id.id
+            work_type = contract.working_hours.work_type
+            if policy_group_id:
+                policy_group_id = contract.policy_id.id
+
+                self.env.cr.execute(
+                    "SELECT group_id, absence_id from hr_policy_group_absence_rel where group_id = \'%s\'" % policy_group_id)
+                res = self.env.cr.fetchall()
+
+                absence_ids = []
+                for rec in res:
+                    absence_ids.append(rec[1])
+
+                res_absence_policy = self.env['hr.policy.absence'].browse(absence_ids[0])
+                if res_absence_policy:
+                    absence_line_ids = self.env['hr.policy.line.absence'].search([('use_late', '=', True),('policy_id', '=', res_absence_policy.id)])
+                    for absence_line in absence_line_ids:
+                        grace_period = absence_line.active_after
+
+                        if work_type == 'daily' or work_type == 'flexi':
+                            calendar_atndnce_ids = self.env['resource.calendar.attendance'].search([('calendar_id', '=', calendar_id)])
+                        else:
+                            dayweek = date_line.weekday()
+                            calendar_atndnce_ids = self.env['resource.calendar.attendance'].search([('calendar_id', '=', calendar_id), ('dayofweek', '=', dayweek)])
+
+                        for calendar_atndnce in calendar_atndnce_ids:
+                            duty_hr_from = calendar_atndnce.hour_from
+
+                            res_attndnce = self.env['hr.attendance'].search([('employee_id', '=', employee_id),
+                                                                           ('sheet_id', '=', sheet.id)])
+                            if res_attndnce:
+                                attendance_ids = res_attndnce.filtered(lambda r: r.check_in and datetime.strftime(pytz.utc.localize(datetime.strptime(r.check_in, dtf)).astimezone(local),'%Y-%m-%d') == get_date)
+                                for attendance in attendance_ids:
+                                    get_check_in = datetime.strftime(pytz.utc.localize(datetime.strptime(attendance.check_in, dtf)).astimezone(local), "%H:%M")
+                                    check_in_time = datetime.strptime(get_check_in + ':00', "%H:%M:%S") - datetime.strptime('00:00:00', "%H:%M:%S")
+                                    check_in_ttf = seconds(check_in_time) / 3600
+                                    if  check_in_ttf > duty_hr_from:
+                                        diff = check_in_ttf - duty_hr_from
+                                        if diff > grace_period:
+                                            late = diff -grace_period
+                    return late
+
+    @api.multi
+    def get_undertime(self, date_line, employee_id, sheet):
+        contract_ids = self.get_contract(employee_id, date_line)
+        get_date = date_line.strftime('%Y-%m-%d')
+        print 'get_date', get_date
+        dtf = DEFAULT_SERVER_DATETIME_FORMAT
+        user_tz = self.env.user.tz or str(pytz.utc)
+        local = pytz.timezone(user_tz)
+
+        ut = 0
+
+        for contract in contract_ids:
+            calendar_id = contract.working_hours.id
+            policy_group_id = contract.policy_id.id
+            work_type = contract.working_hours.work_type
+            if policy_group_id:
+                policy_group_id = contract.policy_id.id
+
+                self.env.cr.execute(
+                    "SELECT group_id, absence_id from hr_policy_group_absence_rel where group_id = \'%s\'" % policy_group_id)
+                res = self.env.cr.fetchall()
+
+                absence_ids = []
+                for rec in res:
+                    absence_ids.append(rec[1])
+
+                res_absence_policy = self.env['hr.policy.absence'].browse(absence_ids[0])
+                if res_absence_policy:
+                    absence_line_ids = self.env['hr.policy.line.absence'].search(
+                        [('use_late', '=', True), ('policy_id', '=', res_absence_policy.id)])
+                    for absence_line in absence_line_ids:
+                        grace_period = absence_line.active_after
+
+                        if work_type == 'daily' or work_type == 'flexi':
+                            calendar_atndnce_ids = self.env['resource.calendar.attendance'].search(
+                                [('calendar_id', '=', calendar_id)])
+                        else:
+                            dayweek = date_line.weekday()
+                            calendar_atndnce_ids = self.env['resource.calendar.attendance'].search(
+                                [('calendar_id', '=', calendar_id), ('dayofweek', '=', dayweek)])
+
+                        for calendar_atndnce in calendar_atndnce_ids:
+                            duty_hr_to = calendar_atndnce.hour_to
+
+                            res_attndnce = self.env['hr.attendance'].search([('employee_id', '=', employee_id),
+                                                                             ('sheet_id', '=', sheet.id)])
+                            if res_attndnce:
+                                attendance_ids = res_attndnce.filtered(lambda r: r.check_in and datetime.strftime(
+                                    pytz.utc.localize(datetime.strptime(r.check_in, dtf)).astimezone(local),
+                                    '%Y-%m-%d') == get_date)
+                                for attendance in attendance_ids:
+                                    if attendance.check_out:
+                                        get_check_out = datetime.strftime(pytz.utc.localize(datetime.strptime(attendance.check_out, dtf)).astimezone(local), "%H:%M")
+                                        check_out_time = datetime.strptime(get_check_out + ':00', "%H:%M:%S") - datetime.strptime('00:00:00', "%H:%M:%S")
+                                        check_out_ttf = seconds(check_out_time) / 3600
+                                        if  duty_hr_to > check_out_ttf:
+                                            diff =  duty_hr_to - check_out_ttf
+                                            if diff > grace_period:
+                                                ut = diff - grace_period
+                    return ut
+
+
+
+
+
+
+
+    @api.multi
     def get_contract(self, emp_id, date_line):
         contract_obj = self.env['hr.contract']
         contract_ids = contract_obj.search([
@@ -649,17 +823,21 @@ class HrTimesheetSheet(models.Model):
             ('date_start', '<=', date_line),
             '|',
             ('date_end', '>=', date_line),
-            ('date_end', '=', None)
+            ('date_end', '=', None),
+            ('state','not in', ('terminate','close'))
+
         ])
 
         return contract_ids
 
     @api.multi
-    def get_duty_hours_from_to(self, leaves, emp_id, date_line):
+    def get_duty_hours_from_to(self, leaves, holiday, emp_id, date_line):
         contract_obj = self.env['hr.contract']
         contract_ids = self.get_contract(emp_id, date_line)
-        if not contract_ids:
-            raise ValidationError('No contract created for the assigned employee')
+        calendar_atndnce_ids = []
+        work_type = ''
+        # if not contract_ids:
+        #     raise ValidationError('No contract created for the assigned employee')
         duty_hours_from = ''
         duty_hours_to = ''
         df_ctr = 0
@@ -677,7 +855,8 @@ class HrTimesheetSheet(models.Model):
                 dayweek = date_line.weekday()
                 calendar_atndnce_ids = self.env['resource.calendar.attendance'].search(
                     [('calendar_id', '=', calendar_id), ('dayofweek', '=', dayweek)])
-            if not leaves:
+            # if not leaves and not holiday:
+            if not holiday:
                 for rec in calendar_atndnce_ids:
                     if rec.hour_from:
                         if df_ctr > 0:
@@ -705,8 +884,8 @@ class HrTimesheetSheet(models.Model):
     def get_core_hours(self, emp_id, date_line):
         contract_obj = self.env['hr.contract']
         contract_ids = self.get_contract(emp_id, date_line)
-        if not contract_ids:
-            raise ValidationError('No contract created for the assigned employee')
+        # if not contract_ids:
+        #     raise ValidationError('No contract created for the assigned employee')
         core_hours_from = ''
         core_hours_to = ''
         cf_ctr = 0
@@ -987,7 +1166,6 @@ class HrTimesheetSheet(models.Model):
         overtime_det_ids =  get_authorized_ot['overtime_det_ids']
         for overtime in overtime_det_ids:
             ot_id = self.env['hr.overtime.det'].browse(overtime)
-            print 'ot_start', ot_id.overtime_id.start_date
             ftt_start_time = attendance_obj.float_time_convert(ot_id.start_time)
             get_start_time = datetime.strptime(ftt_start_time + ':00', "%H:%M:%S")
             ot_start_time = datetime.strftime(get_start_time , "%H:%M:%S")
@@ -1045,34 +1223,44 @@ class HrTimesheetSheet(models.Model):
 
         return get_ot
 
-
     @api.multi
-    def get_remarks(self, leaves, diff, actual_wh, get_wh, get_actual_ot, dh, wh):
-        attendance_ids =  get_wh['attendance_ids']
+    def get_remarks(self, date_line, leaves, diff, actual_wh, get_wh, get_actual_ot, dh, wh, late, get_ut, holiday):
+        attendance_ids = get_wh['attendance_ids']
         remark = ''
+        cur_date =  datetime.strptime(datetime.today().strftime('%Y-%m-%d'),'%Y-%m-%d')
+        get_date =  datetime.strptime(date_line.strftime('%Y-%m-%d'),'%Y-%m-%d')
 
-        if wh > 0:
-            if diff < 0:
-                remark = 'UT'
-            elif diff >= 0:
-                if get_actual_ot > 0:
-                    remark = 'OT'
-                elif actual_wh < dh:
+        if get_date <= cur_date:
+            if wh > 0:
+                if late > 0 and get_ut > 0:
+                    if get_ut > 0:
+                        remark = 'LATE/UT'
+                elif late > 0 and get_ut <= 0:
+                    remark = 'LATE'
+                elif get_ut > 0 and late <= 0:
                     remark = 'UT'
+                elif diff >= 0:
+                    if get_actual_ot > 0:
+                        remark = 'OT'
+                    # elif actual_wh < dh:
+                    #     remark = 'UT'
 
-        elif leaves:
-            remark = 'LEA'
+            elif leaves:
+                remark = 'LEA'
 
-        elif dh <= 0:
-            remark = ''
+            elif holiday:
+                remark = 'HOLI'
 
-        elif attendance_ids:
-            if attendance_ids.check_in and not attendance_ids.check_out:
-                remark = 'NO CO'
-            elif not attendance_ids.check_in and attendance_ids.check_out:
-                remark = 'NO CI'
-        else:
-            remark = 'ABS'
+            elif dh <= 0:
+                remark = ''
+
+            elif attendance_ids:
+                if attendance_ids.check_in and not attendance_ids.check_out:
+                    remark = 'NO CO'
+                elif not attendance_ids.check_in and attendance_ids.check_out:
+                    remark = 'NO CI'
+            else:
+                remark = 'ABS'
         return remark
 
     @api.multi

@@ -38,23 +38,5 @@
               action="action_print_annual_tax_report"
               parent="menu_hr_payroll_report_root"/>
 
-        <record id="paperformat_styles" model="report.paperformat">
-		    <field name="name">Payroll Register</field>
-		    <field name="default" eval="True"/>
-		    <field name="format">Legal</field>
-		    <field name="orientation">Landscape</field>
-		    <field name="margin_top">10</field>
-		    <field name="margin_bottom">10</field>
-		    <field name="margin_left">20</field>
-		    <field name="margin_right">20</field>
-		    <field name="header_line" eval="False"/>
-		    <field name="header_spacing">3</field>
-		    <field name="dpi">80</field>
-		</record>
-
-
-
-
-
     </data>
 </odoo>
