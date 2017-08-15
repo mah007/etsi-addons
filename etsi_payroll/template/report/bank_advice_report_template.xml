@@ -40,12 +40,15 @@
                                 <body>
                                     <br/><br/><br/><br/><br/>
                                     <center><h3>Bank Advices</h3></center>
-                                    <b>Company Name: </b><t t-esc="doc.name.name"/><br/>
                                     <b>Bank Name: </b><t t-esc="doc.bank.name"/><br/>
                                     <b>Account Number: </b><t t-esc="doc.bank_acct.acc_number"/><br/>
-                                    <b>Date From: </b><t t-esc="doc.date_from"/>
-                                    <b>Date To: </b><t t-esc="doc.date_to"/>
                                     <br/><br/>
+                                    <div>Dear Sir/Ma'am,</div>
+                                    <br/>
+                                    <div><b>Advice from salary from <t t-esc="doc.date_from"/> to <t t-esc="doc.date_to"/></b></div>
+                                    <br/>
+                                    <div>Please make the payroll transfer from above account number to the below mentioned account number towards employee salaries:</div>
+                                    <br/>
                                     <table>
                                         <tr>
                                             <th>Employee Name</th>
@@ -53,6 +56,7 @@
                                             <th>Account Number</th>
                                             <th>Salary</th>
                                         </tr>
+
                                         <t t-foreach="doc.bank_advice_line_ids" t-as="line">
                                             <tr>
                                                 <td class="employee_name"><p t-esc="line.emp_id.name"/></td>
@@ -61,7 +65,18 @@
                                                 <td><p t-esc="line.salary"/></td>
                                             </tr>
                                         </t>
+                                        <tr>
+                                            <td style="border:none"></td>
+                                            <td style="border:none"></td>
+                                            <td><b>Total</b></td>
+                                            <td><p t-esc="total_salary"/> </td>
+                                        </tr>
                                     </table>
+                                    <br/><br/><br/><br/><br/>
+                                    <div>Yours Sincerely</div>
+                                    <t t-esc="doc.name.name"/><br/><br/>
+                                    <div>Authorized Signature</div>
+
                                 </body>
                             </html>
                         </div>
