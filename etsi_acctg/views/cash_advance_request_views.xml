@@ -1,31 +1,24 @@
 <odoo>
     <data>
-
-        <menuitem
-            id = "request_menu"
-            name = "Request"
-            parent = "account.menu_finance"
-        />
-
-        <!-- pettycash request tree view -->
-        <record model="ir.ui.view" id="pettycash_request_tree_view">
-            <field name="name">pettycash.request.tree.view</field>
-            <field name="model">account.pettycash.request</field>
+    <!-- cash advance request tree view -->
+        <record model="ir.ui.view" id="cash_advance_request_tree_view">
+            <field name="name">cash.advance.request.tree.view</field>
+            <field name="model">cash.advance.request</field>
             <field name="arch" type="xml">
 
                 <tree>
                    <field name = "employee_requested_id"/>
                     <field name = "dept_id"/>
                     <field name = "job_position_id"/>
-                    <field name = "amount"/>
+                    <field name = "cash_amount"/>
                 </tree>
             </field>
         </record>
 
-        <!-- pettycash request form view-->
-        <record model="ir.ui.view" id="pettycash_request_form_view">
-            <field name="name">pettycash.request.form.view</field>
-            <field name="model">account.pettycash.request</field>
+        <!-- cash advance request form view-->
+        <record model="ir.ui.view" id="cash_advance_request_form_view">
+            <field name="name">cash.advance.request.form.view</field>
+            <field name="model">cash.advance.request</field>
             <field name="arch" type="xml">
 
                 <form>
@@ -43,7 +36,7 @@
                                 <field name = "employee_requested_id"/>
                                 <field name = "dept_id"/>
                                 <field name = "job_position_id"/>
-                                <field name = "amount"/>
+                                <field name = "cash_amount"/>
                             </group>
 
                             <group>
@@ -62,7 +55,7 @@
                                         <field name = "product_id" required = "1"/>
                                         <field name="quantity" on_change="on_change_total(quantity,cost)"/>
 		                                <field name="cost" on_change="on_change_total(quantity,cost)"/>
-                                        <field name = "totalCost" sum="total" />
+                                        <field name = "totalCost" sum = "total"/>
                                     </tree>
                                 </field>
                             </page>
@@ -73,22 +66,22 @@
             </field>
         </record>
 
-        <!--pettycash request action-->
-        <record model="ir.actions.act_window" id="pettycash_request_action">
-            <field name="name">Petty Cash Request</field>
-            <field name="res_model">account.pettycash.request</field>
+        <!--cash advance request action-->
+        <record model="ir.actions.act_window" id="cash_advance_request_action">
+            <field name="name">Cash Advance Request</field>
+            <field name="res_model">cash.advance.request</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name = "help" type = "html">
-                <p class = "os_view_nocontent_create"> Create your first petty cash
+                <p class = "os_view_nocontent_create"> Create your first cash advance request
                 </p>
             </field>
         </record>
 
         <menuitem
-            id = "pettycash_request_menu"
-            name = "Petty cash Request"
-            action = "pettycash_request_action"
+            id = "cash_advance_request_menu"
+            name = "Cash advance Request"
+            action = "cash_advance_request_action"
             parent = "request_menu"
         />
 
