@@ -24,7 +24,7 @@
 
     # always loaded
     'data': [
-        'views/asset_management_views.xml',
+        'views/asset_handover_views.xml',
         # 'security/ir.model.access.csv',
 
     ],

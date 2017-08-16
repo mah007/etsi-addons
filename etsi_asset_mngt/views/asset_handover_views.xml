@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+
+        <menuitem
+            id = "asset_mngt_main_menu"
+            name = "Asset Management"
+            />
+
+        <!--Handover action-->
+        <record model="ir.actions.act_window" id="handover_action">
+            <field name="name">Handover</field>
+            <field name="res_model">asset.management.handover</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+            id = "asset_mngt_menu"
+            name = "Asset Management"
+            parent = "asset_mngt_main_menu"
+            />
+
+        <menuitem
+        id = "asset_handover_menu"
+        name = "Asset Handover"
+        parent = "asset_mngt_menu"
+        action = "handover_action"
+        />
+
+    </data>
+</odoo>
