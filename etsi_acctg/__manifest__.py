@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'hr_expense', 'account_accountant'],
+    'depends': ['base', 'hr_expense', 'account_accountant', 'account','account_check_printing',],
 
     # always loaded
     'data': [
@@ -28,6 +28,7 @@
         'views/pettycash_request_views.xml',
         'views/payroll_advance_salary_views.xml',
         'views/cash_advance_request_views.xml',
+        'views/account_payment_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
