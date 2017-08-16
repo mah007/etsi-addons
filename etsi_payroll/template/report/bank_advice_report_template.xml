@@ -45,15 +45,13 @@
                                     <br/><br/>
                                     <div>Dear Sir/Ma'am,</div>
                                     <br/>
-                                    <div><b>Advice from salary from <t t-esc="doc.date_from"/> to <t t-esc="doc.date_to"/></b></div>
-                                    <br/>
-                                    <div>Please make the payroll transfer from above account number to the below mentioned account number towards employee salaries:</div>
+                                    <div>Please debit our account number from <b><t t-esc="doc.bank_acct.acc_number"/></b> and credit the following accounts as payment for they're payroll
+                                    <br/>for the period from <b><t t-esc="doc.date_from"/></b> to <b><t t-esc="doc.date_to"/></b>.</div>
                                     <br/>
                                     <table>
                                         <tr>
                                             <th>Sr. No</th>
                                             <th>Employee Name</th>
-                                            <th>Bank</th>
                                             <th>Account Number</th>
                                             <th>Salary</th>
                                         </tr>
@@ -63,13 +61,11 @@
                                             <tr>
                                                 <td><t t-esc="counter"/> </td>
                                                 <td class="employee_name"><p t-esc="line.emp_id.name"/></td>
-                                                <td><p t-esc="line.bank.name"/></td>
                                                 <td><p t-esc="line.bank_account.acc_number"/></td>
                                                 <td><p t-esc="line.salary"/></td>
                                             </tr>
                                         </t>
                                         <tr style="border:1px solid black">
-                                            <td style="border:none"></td>
                                             <td style="border:none"></td>
                                             <td style="border:none"></td>
                                             <td><b>Total</b></td>
