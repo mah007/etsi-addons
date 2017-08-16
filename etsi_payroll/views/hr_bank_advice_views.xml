@@ -81,7 +81,7 @@
 
         <!--Bank Advice Action View-->
         <record id="bank_advice_action_view" model="ir.actions.act_window">
-            <field name="name">Payment Advices</field>
+            <field name="name">Bank Advices</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">hr.bank.advice</field>
             <field name="view_type">form</field>

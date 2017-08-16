@@ -6,12 +6,12 @@ import psycopg2 as p
 class BankAdvice(models.Model):
     _name = 'hr.bank.advice'
 
-    name = fields.Many2one('res.partner', string="Company",)
-    bank = fields.Many2one('res.bank', string="Bank")
-    date_from = fields.Date(string="Date From")
-    date_to = fields.Date(string="Date To")
-    bank_acct = fields.Many2one('res.partner.bank', string="Bank Account")
-    bank_advice_line_ids = fields.One2many('hr.bank.advice.line', 'bank_advice_id', string="Bank Advice Line ID")
+    name = fields.Many2one('res.partner', string="Company", required=True)
+    bank = fields.Many2one('res.bank', string="Bank", required=True)
+    date_from = fields.Date(string="Date From", required=True)
+    date_to = fields.Date(string="Date To", required=True)
+    bank_acct = fields.Many2one('res.partner.bank', string="Bank Account", required=True)
+    bank_advice_line_ids = fields.One2many('hr.bank.advice.line', 'bank_advice_id', string="Bank Advice Line")
 
     @api.onchange('name')
     def onchange_name(self):
@@ -107,6 +107,26 @@ class BankAdvice(models.Model):
             'target': 'new',
             'context': ctx,
         }
+class HrBankAdviceReport(models.AbstractModel):
+    _name = 'report.etsi_payroll.bank_advice_line_report_temp'
+
+    @api.multi
+    def render_html(self, docids, data={}):
+        data = data if data is not None else {}
+        docs = self.env['hr.bank.advice'].browse(docids)
+        salary = 0
+        bank_advice_line_id = self.env['hr.bank.advice.line'].search([('bank_advice_id','=', docs.id)])
+        print 'self.id', self.id
+        for s in bank_advice_line_id:
+            salary += s.salary
+        print 'salary', salary
+        docargs = {
+            'doc_ids': docids,
+            'doc_mode': 'stud_course.professor',
+            'docs': docs,
+            'total_salary': salary,
+        }
+        return self.env['report'].render('etsi_payroll.bank_advice_line_report_temp', docargs)
 
     def main_gen(self):
         print 'enter success'
@@ -166,13 +186,13 @@ class HrBankAdviceLine(models.Model):
     _name = 'hr.bank.advice.line'
 
     payslip_line = fields.Many2one('hr.payslip.line', string='Payslip Line', store=True)
-    emp_id = fields.Many2one('hr.employee', string="Employee ID", store=True)
+    emp_id = fields.Many2one('hr.employee', string="Employee Name", store=True)
     bank_account = fields.Many2one('res.partner.bank', string="Bank Account", store=True)
     bank = fields.Many2one('res.bank', string="Bank", store=True)
     salary = fields.Float(string="Salary")
     date_from = fields.Date(string="Date From")
     date_to = fields.Date(string="Date To")
-    bank_advice_id = fields.Many2one('hr.bank.advice', string="Bank Advice ID")
+    bank_advice_id = fields.Many2one('hr.bank.advice', string="Bank Advice")
 
 # class EmployeeBankAcct(models.Model):
 #     _name = 'hr.employee.bank.acct'
