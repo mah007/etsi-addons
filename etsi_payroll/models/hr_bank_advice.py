@@ -107,26 +107,6 @@ class BankAdvice(models.Model):
             'target': 'new',
             'context': ctx,
         }
-class HrBankAdviceReport(models.AbstractModel):
-    _name = 'report.etsi_payroll.bank_advice_line_report_temp'
-
-    @api.multi
-    def render_html(self, docids, data={}):
-        data = data if data is not None else {}
-        docs = self.env['hr.bank.advice'].browse(docids)
-        salary = 0
-        bank_advice_line_id = self.env['hr.bank.advice.line'].search([('bank_advice_id','=', docs.id)])
-        print 'self.id', self.id
-        for s in bank_advice_line_id:
-            salary += s.salary
-        print 'salary', salary
-        docargs = {
-            'doc_ids': docids,
-            'doc_mode': 'stud_course.professor',
-            'docs': docs,
-            'total_salary': salary,
-        }
-        return self.env['report'].render('etsi_payroll.bank_advice_line_report_temp', docargs)
 
     def main_gen(self):
         print 'enter success'
@@ -168,6 +148,28 @@ class HrBankAdviceReport(models.AbstractModel):
         file = open(completeName, 'r')
         print file.read()
         file.close()
+
+class HrBankAdviceReport(models.AbstractModel):
+    _name = 'report.etsi_payroll.bank_advice_line_report_temp'
+
+    @api.multi
+    def render_html(self, docids, data={}):
+        data = data if data is not None else {}
+        docs = self.env['hr.bank.advice'].browse(docids)
+        salary = 0
+        bank_advice_line_id = self.env['hr.bank.advice.line'].search([('bank_advice_id','=', docs.id)])
+        print 'self.id', self.id
+        for s in bank_advice_line_id:
+            salary += s.salary
+        print 'salary', salary
+        docargs = {
+            'doc_ids': docids,
+            'doc_mode': 'stud_course.professor',
+            'docs': docs,
+            'total_salary': salary,
+        }
+        return self.env['report'].render('etsi_payroll.bank_advice_line_report_temp', docargs)
+
 
 class res_partner(models.Model):
     _inherit = 'res.partner'
