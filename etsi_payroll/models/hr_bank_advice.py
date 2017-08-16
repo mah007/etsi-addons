@@ -112,6 +112,49 @@ class BankAdvice(models.Model):
         #     'target': 'new',
         #     'context': ctx,
         # }
+        def main_gen(self):
+            print 'enter success'
+            # connection to database
+            conn = psycopg2.connect(database="Flexerp", user="flexerp", password="flexerp", host="localhost",
+                                    port="5432")
+
+            # naming/placing/opening of file
+            a = random.randint(1, 9999)
+            name = 'filename' + str(a * 7) + '.csv'
+            print '>>', a
+            completeName = os.path.join('/home/flexerp/Downloads', name)
+            file = open(completeName, 'w')
+
+            cur = conn.cursor()
+
+            cur.execute(
+                "SELECT hr_employee.name_related, res_partner_bank.acc_number, res_bank.name, salary FROM hr_employee, hr_bank_advice_line, res_partner_bank, res_bank WHERE hr_employee.id = hr_bank_advice_line.emp_id AND res_partner_bank.id = hr_bank_advice_line.bank_account AND res_bank.id = hr_bank_advice_line.bank AND bank_advice_id = %s" % self.id)
+            rows = cur.fetchall()
+            file.write("emp id,bank account id,bank,salary\n")
+            rows_count = 0
+            total_salary = 0
+
+            for row in rows:
+                file.write('"%s",' % row[0])
+                file.write("%s," % row[1])
+                file.write("%s," % row[2])
+                file.write("%s\n" % row[3])
+                rows_count += 1
+                total_salary += row[3]
+
+            file.write("Total Accounts,")
+            file.write("%s," % rows_count)
+            file.write("Total Salary,")
+            file.write("%s" % total_salary)
+
+            print ">", rows_count
+            print ">>", total_salary
+            conn.close()
+
+            file = open(completeName, 'r')
+            print file.read()
+            file.close()
+
 class HrBankAdviceReport(models.AbstractModel):
     _name = 'report.etsi_payroll.bank_advice_line_report_temp'
 
