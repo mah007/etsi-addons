@@ -51,21 +51,25 @@
                                     <br/>
                                     <table>
                                         <tr>
+                                            <th>Sr. No</th>
                                             <th>Employee Name</th>
                                             <th>Bank</th>
                                             <th>Account Number</th>
                                             <th>Salary</th>
                                         </tr>
-
+                                        <t t-set="counter" t-value="0"/>
                                         <t t-foreach="doc.bank_advice_line_ids" t-as="line">
+                                            <t t-set="counter" t-value="counter + 1"/>
                                             <tr>
+                                                <td><t t-esc="counter"/> </td>
                                                 <td class="employee_name"><p t-esc="line.emp_id.name"/></td>
                                                 <td><p t-esc="line.bank.name"/></td>
                                                 <td><p t-esc="line.bank_account.acc_number"/></td>
                                                 <td><p t-esc="line.salary"/></td>
                                             </tr>
                                         </t>
-                                        <tr>
+                                        <tr style="border:1px solid black">
+                                            <td style="border:none"></td>
                                             <td style="border:none"></td>
                                             <td style="border:none"></td>
                                             <td><b>Total</b></td>
