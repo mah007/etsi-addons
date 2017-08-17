@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+
+        <record model="ir.actions.act_window" id="return_action">
+            <field name="name">Asset Return</field>
+            <field name="res_model">asset.management.return</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+            id = "asset_return_menu"
+            name = "Asset Return"
+            parent = "asset_mngt_menu"
+            action = "return_action"
+            />
+
+    </data>
+</odoo>
