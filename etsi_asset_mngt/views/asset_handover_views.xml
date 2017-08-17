@@ -21,11 +21,11 @@
             />
 
         <menuitem
-        id = "asset_handover_menu"
-        name = "Asset Handover"
-        parent = "asset_mngt_menu"
-        action = "handover_action"
-        />
+            id = "asset_handover_menu"
+            name = "Asset Handover"
+            parent = "asset_mngt_menu"
+            action = "handover_action"
+            />
 
     </data>
 </odoo>
