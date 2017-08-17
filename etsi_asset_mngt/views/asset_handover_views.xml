@@ -19,6 +19,7 @@
             </field>
         </record>
 
+        <!--samplechanges-->
         <!--Hand over form view-->
         <record model="ir.ui.view" id="handover_form_view">
             <field name="name">handover.form.view</field>

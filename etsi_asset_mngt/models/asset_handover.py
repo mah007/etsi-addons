@@ -14,3 +14,4 @@ class AssetManagementHandover (models.Model):
     it_engineer = fields.Char (string = "IT Engineer")
     processed_by = fields.Char (string = "Processed by")
     internal_trans = fields.Char (string = "Internal Transfer")
+    # samplechanges
