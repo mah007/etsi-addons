@@ -6,6 +6,48 @@
             name = "Asset Management"
             />
 
+        <!--Hand over tree view-->
+        <record model="ir.ui.view" id="handover_tree_view">
+            <field name="name">handover.tree.view</field>
+            <field name="model">asset.management.handover</field>
+            <field name="arch" type="xml">
+
+                <tree>
+                    <field name = "company_id"/>
+                    <field name = "emp_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Hand over form view-->
+        <record model="ir.ui.view" id="handover_form_view">
+            <field name="name">handover.form.view</field>
+            <field name="model">asset.management.handover</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="company_id" placeholder="Company name"/>
+                                <field name="emp_id" placeholder="Employee's Name"/>
+                                <field name="emp_email"/>
+                                <field name="source_loc"/>
+                                <field name="destination_loc"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="transfer_type"/>
+                                <field name="it_engineer"/>
+                                <field name="processed_by"/>
+                                <field name="internal_trans"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
         <!--Handover action-->
         <record model="ir.actions.act_window" id="handover_action">
             <field name="name">Handover</field>
