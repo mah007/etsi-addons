@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "etsi_asset_mngt",
+    'name': "ETSI Asset Management",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -25,6 +25,8 @@
     # always loaded
     'data': [
         'views/asset_handover_views.xml',
+        'views/asset_return_views.xml',
+        'views/asset_config_views.xml'
         # 'security/ir.model.access.csv',
 
     ],
