@@ -22,8 +22,9 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <button name="generate_line" string="Generate Line" class="oe_highlights" type="object"/>
-                        <button name="send_email" string="Send Email" class="oe_highlights" type="object"/>
+                        <button name="generate_line" string="Generate Advice" class="oe_highlights" type="object" states="draft"/>
+                        <button name="send_email" string="Send Email" class="oe_highlights" type="object" states="confirmed"/>
+                        <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
                         <group>
@@ -42,7 +43,6 @@
                                 <tree>
                                     <field name="emp_id"/>
                                     <field name="bank_account"/>
-                                    <field name="bank"/>
                                     <field name="salary"/>
                                 </tree>
                                 <form>
@@ -50,7 +50,6 @@
                                         <group>
                                             <field name="emp_id"/>
                                             <field name="bank_account"/>
-                                            <field name="bank"/>
                                             <field name="salary"/>
                                         </group>
                                     </sheet>
@@ -85,6 +84,6 @@
             <field name="view_type">form</field>
         </record>
 
-        <menuitem id="bank_advice_menu" parent="hr_payroll.menu_hr_payroll_root" name="Payment Advices" action="bank_advice_action_view"/>
+        <menuitem id="bank_advice_menu" parent="hr_payroll.menu_hr_payroll_root" name="Bank Advices" action="bank_advice_action_view"/>
     </data>
 </odoo>

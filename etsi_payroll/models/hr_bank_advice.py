@@ -10,6 +10,10 @@ class BankAdvice(models.Model):
     date_to = fields.Date(string="Date To", required=True)
     bank_acct = fields.Many2one('res.partner.bank', string="Bank Account", required=True)
     bank_advice_line_ids = fields.One2many('hr.bank.advice.line', 'bank_advice_id', string="Bank Advice Line")
+    state = fields.Selection([
+        ('draft', "Draft"),
+        ('confirmed', "Confirmed"),
+        ('closed', "Closed")], default='draft')
 
     @api.onchange('name')
     def onchange_name(self):
@@ -27,6 +31,7 @@ class BankAdvice(models.Model):
         return {'domain':{'bank':[('id','in',bank_id_list)]},}
 
     def generate_line(self):
+        self.state = 'confirmed'
         selected_name = self.name.id
         date_from = self.date_from
         date_to = self.date_to
@@ -69,42 +74,87 @@ class BankAdvice(models.Model):
         # Find the e-mail template
         # template = self.env.ref('etsi_payroll.bank_advice_template')
         # You can also find the e-mail template like this:
-         # template = self.env['ir.model.data'].get_object('etsi_payroll', 'bank_advice_template')
+        template = self.env['ir.model.data'].get_object('etsi_payroll', 'bank_advice_template')
 
         # Send out the e-mail template to the user
-         # self.env['mail.template'].browse(template.id).send_mail(self.id)
-        self.ensure_one()
-        ir_model_data = self.env['ir.model.data']
-        try:
-            template_id = ir_model_data.get_object_reference('etsi_payroll', 'bank_advice_template')[1]
-        except ValueError:
-            template_id = False
-        try:
-            compose_form_id = ir_model_data.get_object_reference('mail', 'email_compose_message_wizard_form')[1]
-        except ValueError:
-            compose_form_id = False
+        self.env['mail.template'].browse(template.id).send_mail(self.id)
+        self.state = 'closed'
 
-        # user = self.env['res.bank'].browse(self.bank.id)
+        # self.ensure_one()
+        # ir_model_data = self.env['ir.model.data']
+        # try:
+        #     template_id = ir_model_data.get_object_reference('etsi_payroll', 'bank_advice_template')[1]
+        # except ValueError:
+        #     template_id = False
+        # try:
+        #     compose_form_id = ir_model_data.get_object_reference('mail', 'email_compose_message_wizard_form')[1]
+        # except ValueError:
+        #     compose_form_id = False
+        #
+        # # user = self.env['res.bank'].browse(self.bank.id)
+        #
+        # ctx = dict()
+        # ctx.update({
+        #     'default_model': 'hr.bank.advice',
+        #     'default_res_id': self.ids[0],
+        #     'default_use_template': bool(template_id),
+        #     'default_template_id': template_id,
+        #     'default_composition_mode': 'comment',
+        #     # 'default_partner_id': user.id,
+        # })
+        # return {
+        #     'type': 'ir.actions.act_window',
+        #     'view_type': 'form',
+        #     'view_mode': 'form',
+        #     'res_model': 'mail.compose.message',
+        #     'views': [(compose_form_id, 'form')],
+        #     'view_id': compose_form_id,
+        #     'target': 'new',
+        #     'context': ctx,
+        # }
+        def main_gen(self):
+            print 'enter success'
+            # connection to database
+            conn = psycopg2.connect(database="Flexerp", user="flexerp", password="flexerp", host="localhost",
+                                    port="5432")
 
-        ctx = dict()
-        ctx.update({
-            'default_model': 'hr.bank.advice',
-            'default_res_id': self.ids[0],
-            'default_use_template': bool(template_id),
-            'default_template_id': template_id,
-            'default_composition_mode': 'comment',
-            # 'default_partner_id': user.id,
-        })
-        return {
-            'type': 'ir.actions.act_window',
-            'view_type': 'form',
-            'view_mode': 'form',
-            'res_model': 'mail.compose.message',
-            'views': [(compose_form_id, 'form')],
-            'view_id': compose_form_id,
-            'target': 'new',
-            'context': ctx,
-        }
+            # naming/placing/opening of file
+            a = random.randint(1, 9999)
+            name = 'filename' + str(a * 7) + '.csv'
+            print '>>', a
+            completeName = os.path.join('/home/flexerp/Downloads', name)
+            file = open(completeName, 'w')
+
+            cur = conn.cursor()
+
+            cur.execute(
+                "SELECT hr_employee.name_related, res_partner_bank.acc_number, res_bank.name, salary FROM hr_employee, hr_bank_advice_line, res_partner_bank, res_bank WHERE hr_employee.id = hr_bank_advice_line.emp_id AND res_partner_bank.id = hr_bank_advice_line.bank_account AND res_bank.id = hr_bank_advice_line.bank AND bank_advice_id = %s" % self.id)
+            rows = cur.fetchall()
+            file.write("emp id,bank account id,bank,salary\n")
+            rows_count = 0
+            total_salary = 0
+
+            for row in rows:
+                file.write('"%s",' % row[0])
+                file.write("%s," % row[1])
+                file.write("%s," % row[2])
+                file.write("%s\n" % row[3])
+                rows_count += 1
+                total_salary += row[3]
+
+            file.write("Total Accounts,")
+            file.write("%s," % rows_count)
+            file.write("Total Salary,")
+            file.write("%s" % total_salary)
+
+            print ">", rows_count
+            print ">>", total_salary
+            conn.close()
+
+            file = open(completeName, 'r')
+            print file.read()
+            file.close()
+
 class HrBankAdviceReport(models.AbstractModel):
     _name = 'report.etsi_payroll.bank_advice_line_report_temp'
 
@@ -145,7 +195,7 @@ class HrBankAdviceLine(models.Model):
     payslip_line = fields.Many2one('hr.payslip.line', string='Payslip Line', store=True)
     emp_id = fields.Many2one('hr.employee', string="Employee Name", store=True)
     bank_account = fields.Many2one('res.partner.bank', string="Bank Account", store=True)
-    bank = fields.Many2one('res.bank', string="Bank", store=True)
+    # bank = fields.Many2one('res.bank', string="Bank", store=True)
     salary = fields.Float(string="Salary")
     date_from = fields.Date(string="Date From")
     date_to = fields.Date(string="Date To")
