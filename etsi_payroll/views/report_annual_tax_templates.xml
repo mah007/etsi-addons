@@ -86,20 +86,20 @@
                                             <tr style="height:50px">
                                                 <th style="vertical-align:middle;text-align:center;border:1px solid">Employee Name</th>
                                                 <th style="vertical-align:middle;text-align:center;border:1px solid">Tax Code</th>
-                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Total Tax Amount</th>
-                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Total Taxable Compensation</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Tax Income</th>
                                                 <th style="vertical-align:middle;text-align:center;border:1px solid">Net Taxable Compensation</th>
-                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Total Tax Due</th>
-                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Tax Refund for the Year</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Tax Withheld</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Tax Due</th>
+                                                <th style="vertical-align:middle;text-align:center;border:1px solid">Tax Refund</th>
 
 
                                             </tr >
                                             <tr t-foreach="company_employees" t-as="employees" style="height:35px;border:1px solid;">
                                                 <td t-esc="employees[0]" style="vertical-align:middle;text-align:left;border:1px solid;padding:5px"/>
                                                 <td t-esc="employees[1]" style="vertical-align:middle;text-align:center;border:1px solid;padding:5px"/>
-                                                <td t-esc="employees[2]" style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"/>
                                                 <td t-esc="employees[3]" style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"/>
                                                 <td t-esc="employees[4]" style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"/>
+                                                <td t-esc="employees[2]" style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"/>
                                                 <td t-esc="employees[5]" style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"/>
                                                 <td t-esc="employees[6]" style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"/>
                                             </tr>
