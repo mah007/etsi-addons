@@ -68,7 +68,7 @@
         </record>
 
         <record model="ir.actions.act_window" id="asset_change_location_action">
-            <field name="name">asset.change.location.action</field>
+            <field name="name">Asset Change Location</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">asset.location.change</field>
             <field name="view_type">form</field>
