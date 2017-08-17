@@ -24,6 +24,7 @@
                     <header>
                         <button name="generate_line" string="Generate Advice" class="oe_highlights" type="object" states="draft"/>
                         <button name="send_email" string="Send Email" class="oe_highlights" type="object" states="confirmed"/>
+                        <button name="main_gen" string="Create Text Filed" class="oe_highlights" type="object" states="closed"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
