@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "ETSI Asset Management",
+    'name': "evanscor_foodpark",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -20,24 +20,12 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'hr', 'stock'],
+    'depends': ['base','website','website_sale','point_of_sale','website_sale','account_accountant','purchase','website_customer','mrp','stock'],
 
     # always loaded
     'data': [
-        'views/asset_handover_views.xml',
-        'views/asset_return_views.xml',
-<<<<<<< HEAD
-        # 'views/asset_config_views.xml',
-        # 'views/warehouse_config_views.xml',
-        # 'views/asset_distribution_views.xml',
-        'views/asset_model_views.xml',
-        'views/asset_condition_views.xml'
-=======
-        'views/asset_config_views.xml',
->>>>>>> origin/master
         # 'security/ir.model.access.csv',
-        'views/asset_location_change.xml',
-
+        'views/product_template.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
