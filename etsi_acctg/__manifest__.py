@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'hr_expense', 'account_accountant', 'account','account_check_printing',],
+    'depends': ['base', 'hr_expense', 'account_accountant', 'account','account_check_printing','hr_payroll'],
 
     # always loaded
     'data': [
