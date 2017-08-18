@@ -1,0 +1,70 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="asset_distrib_tree_view">
+            <field name="name">asset.distrib.tree.view</field>
+            <field name="model">asset.distribution</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="asset_id"/>
+                    <field name="asset_condition"/>
+                    <field name="asset_distribution_date"/>
+                    <field name="asset_quantity"/>
+                    <field name="asset_wh_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="asset_distrib_form_view">
+            <field name="name">asset.distrib.form.view</field>
+            <field name="model">asset.distribution</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="asset_id"/>
+                                <field name="asset_condition"/>
+                                <field name="asset_distribution_date"/>
+                            </group>
+                            <group>
+                                <field name="asset_wh_id"/>
+                                <field name="asset_quantity"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="asset_distrib_search_view">
+            <field name="name">asset.distrib.search.view</field>
+            <field name="model">asset.distribution</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="asset_id"/>
+                    <field name="asset_condition"/>
+                    <field name="asset_distribution_date"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="asset_distrib_action">
+          <field name="name">Asset Distribution</field>
+          <field name="res_model">asset.distribution</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">tree,form,search</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocomment_create">Distribute Asset</p>
+            </field>
+        </record>
+
+        <menuitem
+            id = "asset_distrib_menu"
+            name = "Distribute Asset"
+            parent = "asset_config_main_menu"
+            action = "asset_distrib_action"
+            />
+
+    </data>
+</odoo>

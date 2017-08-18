@@ -1,6 +1,71 @@
 <odoo>
     <data>
 
+        <record model="ir.ui.view" id="return_tree_view">
+            <field name="name">return.tree.view</field>
+            <field name="model">asset.management.return</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name = "ret_company"/>
+                    <field name = "ret_emp"/>
+                    <field name = "ret_email"/>
+                    <field name = "ret_src_loc"/>
+                    <field name = "ret_des_loc"/>
+                    <field name = "ret_date"/>
+                    <field name = "ret_transfer_type"/>
+                    <field name = "ret_custodian"/>
+                    <field name = "ret_process_by"/>
+                    <field name = "ret_internal_trans"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="return_form_view">
+            <field name="name">return.form.view</field>
+            <field name="model">asset.management.return</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name = "ret_company"/>
+                                <field name = "ret_emp"/>
+                                <field name = "ret_email"/>
+                                <field name = "ret_src_loc"/>
+                                <field name = "ret_des_loc"/>
+                            </group>
+                            <group>
+                                <field name = "ret_date"/>
+                                <field name = "ret_transfer_type"/>
+                                <field name = "ret_custodian"/>
+                                <field name = "ret_process_by"/>
+                                <field name = "ret_internal_trans"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="return_search_view">
+            <field name="name">return.search.view</field>
+            <field name="model">asset.management.return</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name = "ret_company"/>
+                    <field name = "ret_emp"/>
+                    <field name = "ret_email"/>
+                    <field name = "ret_src_loc"/>
+                    <field name = "ret_des_loc"/>
+                    <field name = "ret_date"/>
+                    <field name = "ret_transfer_type"/>
+                    <field name = "ret_custodian"/>
+                    <field name = "ret_process_by"/>
+                    <field name = "ret_internal_trans"/>
+                </search>
+            </field>
+        </record>
+
         <record model="ir.actions.act_window" id="return_action">
             <field name="name">Asset Return</field>
             <field name="res_model">asset.management.return</field>
