@@ -10,8 +10,12 @@
                     <field name="name"/>
                     <field name="asset_model"/>
                     <field name="year"/>
+<<<<<<< HEAD
                     <field name="asset_condition"/>
                     <!--<field name="quantity"/>-->
+=======
+                    <field name="quantity"/>
+>>>>>>> 62d37fa05a0155dac51cdd1a7b0e47761ed7157f
                 </tree>
             </field>
         </record>
@@ -34,10 +38,15 @@
                             </group>
                             <group>
                                 <field name="year"/>
+<<<<<<< HEAD
                                 <field name="asset_condition"/>
                                 <!--<field name="quantity"/>-->
+=======
+                                <field name="quantity"/>
+>>>>>>> 62d37fa05a0155dac51cdd1a7b0e47761ed7157f
                             </group>
                         </group>
+                        <field name="asset_wh_ids" widget="many2many"/>
                     </sheet>
                 </form>
             </field>
@@ -52,8 +61,12 @@
                     <field name="name"/>
                     <field name="asset_model"/>
                     <field name="year"/>
+<<<<<<< HEAD
                     <field name="asset_condition"/>
                     <!--<field name="quantity"/>-->
+=======
+                    <field name="quantity"/>
+>>>>>>> 62d37fa05a0155dac51cdd1a7b0e47761ed7157f
                 </search>
             </field>
         </record>
@@ -70,7 +83,7 @@
 
         <menuitem
             id = "asset_config_main_menu"
-            name = "Asset Configuration"
+            name = "Configuration"
             parent = "asset_mngt_main_menu"
             />
 
