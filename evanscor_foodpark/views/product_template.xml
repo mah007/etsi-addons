@@ -1,5 +1,10 @@
 <odoo>
     <data>
+        <template id="products" inherit_id="website_sale.product">
+        <xpath expr="//div/div[@id='product_details']/p[@class='text-muted']" position="replace">
+            <p></p>
+        </xpath>
+    </template>
 
         <record id="prod_temp_form_view" model="ir.ui.view">
             <field name="name">prod.temp.form.view</field>
