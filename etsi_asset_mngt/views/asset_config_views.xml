@@ -75,7 +75,7 @@
           <field name="name">Asset</field>
           <field name="res_model">asset.config</field>
           <field name="view_type">form</field>
-          <field name="view_mode">tree,form,search</field>
+          <field name="view_mode">tree,search,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocomment_create">Create Asset</p>
             </field>
