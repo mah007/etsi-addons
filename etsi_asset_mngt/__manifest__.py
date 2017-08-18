@@ -20,25 +20,19 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-<<<<<<< HEAD
     'depends': ['base','hr'],
-=======
     'depends': ['base', 'hr', 'stock'],
->>>>>>> 62d37fa05a0155dac51cdd1a7b0e47761ed7157f
 
     # always loaded
     'data': [
         'views/asset_handover_views.xml',
         'views/asset_return_views.xml',
-<<<<<<< HEAD
         # 'views/asset_config_views.xml',
         # 'views/warehouse_config_views.xml',
         # 'views/asset_distribution_views.xml',
         'views/asset_model_views.xml',
-        'views/asset_condition_views.xml'
-=======
+        'views/asset_condition_views.xml',
         'views/asset_config_views.xml',
->>>>>>> origin/master
         # 'security/ir.model.access.csv',
         'views/asset_location_change.xml',
 

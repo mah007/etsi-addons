@@ -5,8 +5,6 @@ class AssetConfiguration(models.Model):
 
     serial_num = fields.Char(string="Serial #")
     name = fields.Char(string="Asset")
-    asset_model = fields.Char(string="Model")
-    year = fields.Date(string="Year")
     asset_model = fields.Many2one('asset.model', string="Model")
     year = fields.Date(string="Year")
     # asset_condition = fields.Selection([('1', 'BRAND NEW'),
