@@ -1,0 +1,65 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="asset_model_tree_view">
+            <field name="name">asset.model.tree.view</field>
+            <field name="model">asset.model</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="asset_model_form_view">
+            <field name="name">asset.model.form.view</field>
+            <field name="model">asset.model</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="asset_model_search_view">
+            <field name="name">asset.model.search.view</field>
+            <field name="model">asset.model</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="description"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="asset_model_action">
+          <field name="name">Asset Model</field>
+          <field name="res_model">asset.model</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">tree,form,search</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocomment_create">Asset Model</p>
+            </field>
+        </record>
+
+        <menuitem
+            id = "asset_config_main_menu"
+            name = "Configuration"
+            parent = "asset_mngt_main_menu"
+            />
+
+        <menuitem
+            id = "asset_model_menu"
+            name = "Asset Model"
+            parent = "asset_config_main_menu"
+            action = "asset_model_action"
+            />
+
+    </data>
+</odoo>

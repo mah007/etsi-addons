@@ -1,0 +1,83 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id= "asset_location_change_tree_view">
+            <field name="name">asset.location.change.tree.view</field>
+            <field name="model">asset.location.change</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="company_id"/>
+                    <field name="destination_wh_id"/>
+                    <field name="source_loc"/>
+                    <field name="destination_loc"/>
+                    <field name="date_now"/>
+                    <field name="transfer_type"/>
+                    <field name="it_engineer"/>
+                    <field name="processed_by"/>
+                    <field name="internal_transfer"/>
+                    <field name="assets"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id= "asset_location_change_form_view">
+            <field name="name">asset.location.change.form.view</field>
+            <field name="model">asset.location.change</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                 <field name="company_id"/>
+                                <field name="destination_wh_id"/>
+                                <field name="source_loc"/>
+                                <field name="destination_loc"/>
+                            </group>
+                            <group>
+                                <field name="date_now"/>
+                                <field name="transfer_type"/>
+                                <field name="it_engineer"/>
+                                <field name="processed_by"/>
+                                <field name="internal_transfer"/>
+                            </group>
+                        </group>
+                        <group string="Assets">
+                            <field name="assets"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id= "asset_location_change_search_view">
+            <field name="name">asset.location.change.search.view</field>
+            <field name="model">asset.location.change</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="company_id"/>
+                    <field name="destination_wh_id"/>
+                    <field name="source_loc"/>
+                    <field name="destination_loc"/>
+                    <field name="date_now"/>
+                    <field name="transfer_type"/>
+                    <field name="it_engineer"/>
+                    <field name="processed_by"/>
+                    <field name="internal_transfer"/>
+                    <field name="assets"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="asset_change_location_action">
+            <field name="name">Asset Change Location</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">asset.location.change</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree, form</field>
+        </record>
+
+        <menuitem id="hr_advantages_menu"
+              parent="asset_mngt_menu"
+              name="Asset Change Location"
+              action="asset_change_location_action"/>
+    </data>
+</odoo>
