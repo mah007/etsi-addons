@@ -7,11 +7,6 @@ class AssetConfiguration(models.Model):
     name = fields.Char(string="Asset")
     asset_model = fields.Char(string="Model")
     year = fields.Date(string="Year")
-    asset_condition = fields.Selection([('1', 'BRAND NEW'),
-                                        ('2', 'USED'),
-                                        ('3', 'DAMAGED')],
-                                       string="Asset Condition")
-    # quantity = fields.Float(string="Quantity")
     asset_model = fields.Many2one('asset.model', string="Model")
     year = fields.Date(string="Year")
     # asset_condition = fields.Selection([('1', 'BRAND NEW'),
