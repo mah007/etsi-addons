@@ -35,7 +35,6 @@
         'views/asset_config_views.xml',
         # 'security/ir.model.access.csv',
         'views/asset_location_change.xml',
-
     ],
     # only loaded in demonstration mode
     'demo': [
