@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <record id="bank_advice_template" model="mail.template">
+            <field name="name">bank.advice.template</field>
+            <field name="email_from">${object.bank_acct.company_id and object.bank_acct.company_id.email or ''}</field>
+            <field name="subject">Bank Advice</field>
+            <field name="email_to">${object.bank.email|safe}</field>
+            <field name="lang">${object.lang}</field>
+            <field name="model_id" ref="model_hr_bank_advice"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_template" ref="etsi_payroll.bank_advice_line"/>
+            <field name="report_name">Bank Advice</field>
+            <field name="body_html">
+                <![CDATA[
+                    <p>Dear ${(object.bank.name)},<br/><br/>
+	                Please find the attachment payment advice for above mentioned period and process for further payment process<br/>
+	                of our employee salary.<br/><br/><br/>
+
+	                Yours Sincerely<br/>
+                    ${(object.name.display_name)}
+	            ]]>
+            </field>
+        </record>
+    </data>
+</odoo>

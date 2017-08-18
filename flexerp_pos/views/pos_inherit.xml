@@ -1,0 +1,40 @@
+<odoo>
+    <data>
+
+        <!--<record id="pos_form_view" model="ir.ui.view">-->
+            <!--<field name="name">custom.form.view</field>-->
+            <!--<field name="model">res.partner</field>-->
+            <!--<field name="inherit_id" ref="website_sale.product"/>-->
+            <!--<field name="arch" type="xml">-->
+
+
+                <!--<p class="text-muted" position="attributes">-->
+                      <!--<attribute name="Invisible">False</attribute>-->
+                <!--</p>-->
+
+                <!--<xpath expr="//notebook/page[5]" position="after">-->
+                    <!--<page name="relationship" string="Relationship">-->
+                        <!--<group>-->
+                            <!--<field name="sup_ids" widget="many2many"/>-->
+                            <!--<field name="cus_ids" widget="many2many"/>-->
+                        <!--</group>-->
+                    <!--</page>-->
+
+
+            <!--</field>-->
+        <!--</record>-->
+
+        <template id="custom_website_sale_product" inherit_id="website_sale.product">
+
+
+            <xpath expr="//div/div[@id='product_details']/p[@class='text-muted']" position="replace">
+                <p></p>
+            </xpath>
+
+
+        </template>
+
+
+
+    </data>
+</odoo>

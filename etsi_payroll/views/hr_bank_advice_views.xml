@@ -1,0 +1,90 @@
+<odoo>
+    <data>
+        <!--Bank Advice Tree View-->
+        <record id="bank_advice_tree_views" model="ir.ui.view">
+            <field name="name">bank.advice.tree.view</field>
+            <field name="model">hr.bank.advice</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="bank"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="bank_acct"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Bank Advice Form View-->
+        <record id="bank_advice_form_views" model="ir.ui.view">
+            <field name="name">bank.advice.form.view</field>
+            <field name="model">hr.bank.advice</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="generate_line" string="Generate Advice" class="oe_highlights" type="object" states="draft"/>
+                        <button name="send_email" string="Send Email" class="oe_highlights" type="object" states="confirmed"/>
+                        <button name="main_gen" string="Create Text Filed" class="oe_highlights" type="object" states="closed"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" domain="[('is_company','=',True)]"/>
+                                <field name="bank"/>
+                            </group>
+                            <group>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <field name="bank_acct" domain="[('partner_id','=',name),('bank_id','=',bank)]"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="bank_advice_line_ids" readonly="True">
+                                <tree>
+                                    <field name="emp_id"/>
+                                    <field name="bank_account"/>
+                                    <field name="salary"/>
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <field name="emp_id"/>
+                                            <field name="bank_account"/>
+                                            <field name="salary"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Bank Advice Search View-->
+        <record id="bank_advice_search_views" model="ir.ui.view">
+            <field name="name">bank.advice.search.view</field>
+            <field name="model">hr.bank.advice</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="bank"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="bank_acct"/>
+                </search>
+            </field>
+        </record>
+
+        <!--Bank Advice Action View-->
+        <record id="bank_advice_action_view" model="ir.actions.act_window">
+            <field name="name">Bank Advices</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.bank.advice</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <menuitem id="bank_advice_menu" parent="hr_payroll.menu_hr_payroll_root" name="Bank Advices" action="bank_advice_action_view"/>
+    </data>
+</odoo>

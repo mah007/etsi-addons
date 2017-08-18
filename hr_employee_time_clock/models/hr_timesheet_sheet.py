@@ -92,12 +92,8 @@ class HrTimesheetSummary(models.Model):
     auth_ot = fields.Float(string="Authorized OT", digits=(16,2))
     actual_ot = fields.Float(string="Actual OT", digits=(16,2))
     actual_worked_hours = fields.Float(string="Actual Worked Hours", digits=(16,2))
+    late_hours = fields.Float(string="Late Hours", digits=(16,2))
+    ut_hours = fields.Float(string="Late Hours", digits=(16, 2))
+    remarks = fields.Char(string="Remarks")
     sheet_id = fields.Many2one('hr_timesheet_sheet.sheet', string="Sheet ID", ondelete='cascade')
-
-
-
-
-
-
-
 

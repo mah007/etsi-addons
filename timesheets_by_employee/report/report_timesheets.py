@@ -70,7 +70,13 @@ class ReportTimesheet(models.AbstractModel):
             total += r.unit_amount
             records.append(vals)
 
+        period = {'date_from': docs.from_date,
+                  'date_to': docs.to_date}
+
+
+        print 'timesheet_sum', timesheet_sum
         for rec in timesheet_sum:
+            remark = ''
 
             restday = False
             for res in attendance:
@@ -114,6 +120,7 @@ class ReportTimesheet(models.AbstractModel):
                             'auth_ot':rec.auth_ot,
                             'actual_ot': rec.actual_ot,
                             'diff':rec.diff,
+                            'remark':rec.remarks,
                             }
                     restday = True
                     print '>>>',restday
@@ -131,11 +138,16 @@ class ReportTimesheet(models.AbstractModel):
                        'auth_ot': rec.auth_ot,
                        'actual_ot': rec.actual_ot,
                        'diff': rec.diff,
+                       'remark' : rec.remarks,
                        }
                 print '>>>', restday
+
+
+
                 analysis.append(val)
 
         print 'analysis', analysis
+
         emp = self.env['hr.employee'].search([('user_id', '=', docs.employee[0].id)])
         return [records, total, analysis, emp]
 
@@ -143,6 +155,9 @@ class ReportTimesheet(models.AbstractModel):
     def render_html(self, docids, data=None):
         """we are overwriting this function because we need to show values from other models in the report
         we pass the objects in the docargs dictionary"""
+
+
+
 
         self.model = self.env.context.get('active_model')
         docs = self.env[self.model].browse(self.env.context.get('active_id'))
