@@ -5,7 +5,6 @@ class AssetConfiguration(models.Model):
 
     serial_num = fields.Char(string="Serial #")
     name = fields.Char(string="Asset")
-<<<<<<< HEAD
     asset_model = fields.Char(string="Model")
     year = fields.Date(string="Year")
     asset_condition = fields.Selection([('1', 'BRAND NEW'),
@@ -13,7 +12,6 @@ class AssetConfiguration(models.Model):
                                         ('3', 'DAMAGED')],
                                        string="Asset Condition")
     # quantity = fields.Float(string="Quantity")
-=======
     asset_model = fields.Many2one('asset.model', string="Model")
     year = fields.Date(string="Year")
     # asset_condition = fields.Selection([('1', 'BRAND NEW'),
@@ -53,4 +51,3 @@ class AssetCondition(models.Model):
 
     name = fields.Char(string="Name")
     description = fields.Text(string="Description")
->>>>>>> 62d37fa05a0155dac51cdd1a7b0e47761ed7157f
