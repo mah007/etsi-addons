@@ -5,14 +5,14 @@ from odoo.exceptions import ValidationError
 class AssetManagementHandover (models.Model):
     _name = 'asset.management.handover'
 
-    company_id = fields.Many2one ('res.partner', string = "Company")
-    emp_id = fields.Many2one ('hr.employee', string = "Employee")
+    company_id = fields.Many2one ('res.partner', string = "Company", required = True)
+    emp_id = fields.Many2one ('hr.employee', string = "Employee", required = True)
     emp_email = fields.Char (string = "Email", readonly = True, related = 'emp_id.user_id.login')
-    source_loc = fields.Char (string = "Source Location", readonly = True, related = 'company_id.name')
-    destination_loc = fields.Char (string = "Destination Location", readonly = True, related = 'emp_id.name')
+    source_loc = fields.Char (string = "Source Location", required = True)
+    destination_loc = fields.Char (string = "Destination Location", required = True)
     date = fields.Date (string = "Date", default = lambda *a: datetime.today())
     transfer_type = fields.Char (string = "Transfer type", default = "Asset Handover", readonly = True)
-    it_engineer_id = fields.Many2one ('res.users', string = "IT Engineer", readonly = True, default=lambda self: self.env.uid)
+    custodian_id = fields.Many2one ('res.users', string = "Custodian", readonly = True, default=lambda self: self.env.uid)
     processed_by = fields.Many2one ('hr.employee', string = "Processed by", readonly = True)
     internal_trans = fields.Char (string = "Internal Transfer", readonly = True)
 
@@ -42,7 +42,7 @@ class AssetManagementHandover (models.Model):
         self.state = 'cancel'
         self.processed_by = ''
 
-    config_ids = fields.One2many ('asset.config.inherit', 'config_id')
+    config_ids = fields.One2many ('asset.config.inherit', 'config_id', string = "Asset's List")
 
 
 class AssetConfigInherit (models.Model):
@@ -51,7 +51,7 @@ class AssetConfigInherit (models.Model):
     config_id = fields.Many2one ('asset.management.handover')
     asset_id = fields.Many2one('asset.config', string = "Asset", required = True)
     serial_num = fields.Char(string = "Serial #", related = 'asset_id.serial_num', readonly = True)
-    model = fields.Many2one (string = "Model", related = 'asset_id.asset_model', readonly = True)
+    model = fields.Many2one ('asset.model', string = "Model", required = True)
     asset_year  = fields.Date(string = "Year", related = 'asset_id.year', readonly = True)
-    condition = fields.Char (string = "Asset Condition", readonly = True)
-    quantity = fields.Char (string = "Quantity", default = "1")
+    condition = fields.Many2one ('asset.condition', string = "Asset Condition", required = True)
+    quantity = fields.Char (string = "Quantity", default = "1", required = True)

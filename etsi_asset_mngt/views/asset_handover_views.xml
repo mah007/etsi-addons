@@ -18,8 +18,9 @@
                     <field name = "company_id"/>
                     <field name = "source_loc"/>
                     <field name = "destination_loc"/>
-                    <field name = "it_engineer_id"/>
+                    <field name = "custodian_id"/>
                     <field name = "processed_by"/>
+                    <field name = "state"/>
                 </tree>
             </field>
         </record>
@@ -50,7 +51,7 @@
                             <group>
                                 <field name="date"/>
                                 <field name="transfer_type"/>
-                                <field name="it_engineer_id"/>
+                                <field name="custodian_id"/>
                                 <field name="processed_by"/>
                                 <field name="internal_trans"/>
                             </group>
@@ -71,13 +72,25 @@
             </field>
         </record>
 
+        <!--Handover search-->
+        <record model="ir.ui.view" id="asset_handover_search_view">
+            <field name="name">asset.handover.search.view</field>
+            <field name="model">asset.management.handover</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name = "emp_id"/>
+                    <field name = "company_id"/>
+                </search>
+            </field>
+        </record>
+
 
         <!--Handover action-->
         <record model="ir.actions.act_window" id="handover_action">
             <field name="name">Handover</field>
             <field name="res_model">asset.management.handover</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,search</field>
             <field name="help" type="html">
                 <p class="oe_view_nocomment_create">Create your first handover</p>
             </field>

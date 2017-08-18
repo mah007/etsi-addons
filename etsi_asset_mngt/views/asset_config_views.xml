@@ -8,9 +8,8 @@
                 <tree>
                     <field name="serial_num"/>
                     <field name="name"/>
-                    <field name="asset_model"/>
+                    <!--<field name="asset_model"/>-->
                     <field name="year"/>
-                    <field name="asset_condition"/>
                     <!--<field name="quantity"/>-->
                     <field name="quantity"/>
                 </tree>
@@ -31,16 +30,15 @@
                         <group string="Asset">
                             <group>
                                 <field name="name"/>
-                                <field name="asset_model"/>
+                                <!--<field name="asset_model"/>-->
                             </group>
                             <group>
                                 <field name="year"/>
-                                <field name="asset_condition"/>
                                 <!--<field name="quantity"/>-->
                                 <field name="quantity"/>
                             </group>
                         </group>
-                        <field name="asset_wh_ids" widget="many2many"/>
+                        <!--<field name="asset_wh_ids" widget="many2many"/>-->
                     </sheet>
                 </form>
             </field>
@@ -53,9 +51,8 @@
                 <search>
                     <field name="serial_num"/>
                     <field name="name"/>
-                    <field name="asset_model"/>
+                    <!--<field name="asset_model"/>-->
                     <field name="year"/>
-                    <field name="asset_condition"/>
                     <!--<field name="quantity"/>-->
                     <field name="quantity"/>
                 </search>
