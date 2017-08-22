@@ -1,10 +1,11 @@
 from odoo import fields, api, models
+from odoo.exceptions import ValidationError
 
 class AssetLocationChange(models.Model):
     _name = 'asset.location.change'
 
     company_id = fields.Many2one('res.partner', string="Company")
-    destination_wh_id = fields.Char(string="Destination Warehouse")
+    destination_wh_id = fields.Many2one('warehouse.config',string="Destination Warehouse")
     source_loc = fields.Char(string="Source Location")
     destination_loc = fields.Char(string="Destination Location")
     date_now = fields.Date(string="Date")
@@ -15,9 +16,13 @@ class AssetLocationChange(models.Model):
     it_engineer = fields.Char(string="IT Engineer")
     processed_by = fields.Char(string="Processed by")
     internal_transfer =fields.Char(string="Internal Transfer")
-    assets_ids = fields.One2many('asset.config','asset_loc_change_id',string="Assets")
+    assets_ids = fields.One2many('asset.distribution','asset_loc_change_id',string="Assets")
+
+    @api.multi
+    def change_location(self):
+        raise ValidationError("YEHEY!")
 
 class AssetConfig(models.Model):
-    _inherit = 'asset.config'
+    _inherit = 'asset.distribution'
 
     asset_loc_change_id = fields.Many2one('asset.location.change', string="Asset Location Change")
