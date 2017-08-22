@@ -20,8 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','hr'],
-    'depends': ['base', 'hr', 'stock'],
+    'depends': ['base', 'hr', 'stock', 'asset'],
 
     # always loaded
     'data': [
@@ -32,9 +31,10 @@
         # 'views/asset_distribution_views.xml',
         'views/asset_model_views.xml',
         'views/asset_condition_views.xml',
-        'views/asset_config_views.xml',
+        # 'views/asset_config_views.xml',
         # 'security/ir.model.access.csv',
         'views/asset_location_change.xml',
+        'views/asset_asset_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
