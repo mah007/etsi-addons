@@ -14,7 +14,7 @@ class AssetManagementHandover (models.Model):
     custodian_id = fields.Many2one ('res.users', string = "Custodian", readonly = True, default=lambda self: self.env.uid)
     processed_by = fields.Many2one ('hr.employee', string = "Processed by", readonly = True)
     internal_trans = fields.Char (string = "Internal Transfer", readonly = True)
-    line_ids = fields.One2many('asset.handover.line', 'line_id', string="Asset's List")
+    line_ids = fields.One2many('asset.handover.line', 'line_id')
 
     state = fields.Selection ([
         ('draft', "Draft"),
@@ -44,9 +44,9 @@ class AssetHandoverLine (models.Model):
     _name = 'asset.handover.line'
 
     line_id = fields.Many2one ('asset.management.handover')
-    # asset_id = fields.Many2one('asset.config', string = "Asset", required = True)
-    # serial_num = fields.Char(string = "Serial #", related = 'asset_id.serial_num', readonly = True)
-    # model = fields.Many2one ('asset.model', string = "Model", required = True)
-    # asset_year = fields.Date(string = "Year", related = 'asset_id.year', readonly = True)
-    # condition = fields.Many2one ('asset.condition', string = "Asset Condition", required = True)
-    # quantity = fields.Char (string = "Quantity", default = "1", required = True)
+    name = fields.Many2one('asset.asset', string = "Asset", required = True)
+    asset_number = fields.Char(string = "Asset number", related = 'name.asset_number', readonly = True)
+    model = fields.Many2one ('asset.model', string = "Model", required = True)
+    purchase_date = fields.Date(string = "Purchase date", related = 'name.purchase_date', readonly = True)
+    condition = fields.Many2one ('asset.condition', string = "Asset Condition", required = True)
+    quantity = fields.Char (string = "Quantity", default = "1", required = True)

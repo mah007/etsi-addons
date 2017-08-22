@@ -58,12 +58,12 @@
 
                             <field name="line_ids">
                                 <tree editable="bottom">
-                                    <!--<field name="serial_num"/>-->
-                                    <!--<field name="asset_id"/>-->
-                                    <!--<field name="model"/>-->
-                                    <!--<field name="asset_year"/>-->
-                                    <!--<field name="condition"/>-->
-                                    <!--<field name="quantity"/>-->
+                                    <field name="asset_number"/>
+                                    <field name="name"/>
+                                    <field name="model"/>
+                                    <field name="purchase_date"/>
+                                    <field name="condition"/>
+                                    <field name="quantity"/>
                                 </tree>
                             </field>
                         </group>

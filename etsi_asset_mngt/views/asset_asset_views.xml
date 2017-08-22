@@ -1,6 +1,20 @@
 <odoo>
     <data>
 
+        <record id="custom_asset_tree_view" model="ir.ui.view">
+            <field name="name">custom.asset.tree.view</field>
+            <field name="model">asset.asset</field>
+            <field name="inherit_id" ref="asset.assets_tree_view"></field>
+            <field name="arch" type="xml">
+                <field name="criticality" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>
+                <field name="user_id" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>
+            </field>
+        </record>
+
         <record id="custom_asset_form_view" model="ir.ui.view">
             <field name="name">custom.asset.form.view</field>
             <field name="model">asset.asset</field>
@@ -16,20 +30,6 @@
                     <attribute name="invisible">True</attribute>
                 </field>
                 <field name="active" position="attributes">
-                    <attribute name="invisible">True</attribute>
-                </field>
-            </field>
-        </record>
-
-        <record id="custom_asset_tree_view" model="ir.ui.view">
-            <field name="name">custom.asset.tree.view</field>
-            <field name="model">asset.asset</field>
-            <field name="inherit_id" ref="asset.assets_tree_view"></field>
-            <field name="arch" type="xml">
-                <field name="criticality" position="attributes">
-                    <attribute name="invisible">True</attribute>
-                </field>
-                <field name="user_id" position="attributes">
                     <attribute name="invisible">True</attribute>
                 </field>
             </field>
