@@ -26,6 +26,7 @@
     # always loaded
     'data': [
         'views/asset_handover_views.xml',
+        'reports/templates/asset_handover_rep_temp.xml',
         'views/asset_return_views.xml',
         # 'views/asset_config_views.xml',
         # 'views/warehouse_config_views.xml',
