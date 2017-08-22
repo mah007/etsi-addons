@@ -15,9 +15,9 @@ class AssetLocationChange(models.Model):
     it_engineer = fields.Char(string="IT Engineer")
     processed_by = fields.Char(string="Processed by")
     internal_transfer =fields.Char(string="Internal Transfer")
-    assets_ids = fields.One2many('asset.config','asset_loc_change_id',string="Assets")
-
-class AssetConfig(models.Model):
-    _inherit = 'asset.config'
-
-    asset_loc_change_id = fields.Many2one('asset.location.change', string="Asset Location Change")
+#     assets_ids = fields.One2many('asset.config','asset_loc_change_id',string="Assets")
+#
+# class AssetConfig(models.Model):
+#     _inherit = 'asset.config'
+#
+    # asset_loc_change_id = fields.Many2one('asset.location.change', string="Asset Location Change")

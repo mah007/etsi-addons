@@ -14,7 +14,7 @@
                     <field name="it_engineer"/>
                     <field name="processed_by"/>
                     <field name="internal_transfer"/>
-                    <field name="assets_ids" widget="many2many"/>
+                    <!--<field name="assets_ids" widget="many2many"/>-->
                 </tree>
             </field>
         </record>
@@ -41,7 +41,7 @@
                             </group>
                         </group>
                         <group string="Assets">
-                            <field name="assets_ids" widget="many2many"/>
+                            <!--<field name="assets_ids" widget="many2many"/>-->
                         </group>
                     </sheet>
                 </form>
@@ -62,7 +62,7 @@
                     <field name="it_engineer"/>
                     <field name="processed_by"/>
                     <field name="internal_transfer"/>
-                    <field name="assets_ids"/>
+                    <!--<field name="assets_ids"/>-->
                 </search>
             </field>
         </record>
