@@ -44,9 +44,9 @@ class AssetHandoverLine (models.Model):
     _name = 'asset.handover.line'
 
     line_id = fields.Many2one ('asset.management.handover')
-    asset_id = fields.Many2one('asset.config', string = "Asset", required = True)
-    serial_num = fields.Char(string = "Serial #", related = 'asset_id.serial_num', readonly = True)
-    model = fields.Many2one ('asset.model', string = "Model", required = True)
-    asset_year = fields.Date(string = "Year", related = 'asset_id.year', readonly = True)
-    condition = fields.Many2one ('asset.condition', string = "Asset Condition", required = True)
-    quantity = fields.Char (string = "Quantity", default = "1", required = True)
+    # asset_id = fields.Many2one('asset.config', string = "Asset", required = True)
+    # serial_num = fields.Char(string = "Serial #", related = 'asset_id.serial_num', readonly = True)
+    # model = fields.Many2one ('asset.model', string = "Model", required = True)
+    # asset_year = fields.Date(string = "Year", related = 'asset_id.year', readonly = True)
+    # condition = fields.Many2one ('asset.condition', string = "Asset Condition", required = True)
+    # quantity = fields.Char (string = "Quantity", default = "1", required = True)
