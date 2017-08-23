@@ -92,10 +92,10 @@
                                             <tr t-foreach="cus_invoice" t-as="cus" style="height:35px;border:1px solid;">
                                                 <td t-esc="cus[0]" style="vertical-align:middle;text-align:left;border:1px solid;padding:5px"/>
                                                 <td t-esc="cus[1]" style="vertical-align:middle;text-align:center;border:1px solid;padding:5px"/>
-                                                <td t-esc="cus[3]" style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"/>
-                                                <td t-esc="cus[4]" style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"/>
-                                                <td t-esc="cus[2]" style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"/>
-                                                <td t-esc="cus[5]" style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"/>
+                                                <td t-esc="cus[2]" style="vertical-align:middle;text-align:center;border:1px solid;padding:5px"/>
+                                                <td t-esc="cus[3]" style="vertical-align:middle;text-align:center;border:1px solid;padding:5px"/>
+                                                <td t-esc="cus[4]" style="vertical-align:middle;text-align:center;border:1px solid;padding:5px"/>
+                                                <td t-esc="cus[5]" style="vertical-align:middle;text-align:center;border:1px solid;padding:5px"/>
                                                 <td t-esc="cus[6]" style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"/>
                                             </tr>
                                     </table>
