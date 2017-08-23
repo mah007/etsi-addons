@@ -26,15 +26,17 @@
     # always loaded
     'data': [
         'views/asset_handover_views.xml',
+        'reports/templates/asset_handover_rep_temp.xml',
         'views/asset_return_views.xml',
         # 'views/asset_config_views.xml',
         # 'views/warehouse_config_views.xml',
         # 'views/asset_distribution_views.xml',
         'views/asset_model_views.xml',
         'views/asset_condition_views.xml',
-        'views/asset_config_views.xml',
+        # 'views/asset_config_views.xml',
         # 'security/ir.model.access.csv',
         'views/asset_location_change.xml',
+        'views/asset_asset_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

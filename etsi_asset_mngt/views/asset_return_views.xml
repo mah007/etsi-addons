@@ -6,16 +6,14 @@
             <field name="model">asset.management.return</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name = "ret_company"/>
+                    <field name = "ret_date"/>
                     <field name = "ret_emp"/>
-                    <field name = "ret_email"/>
+                    <field name = "ret_company"/>
                     <field name = "ret_src_loc"/>
                     <field name = "ret_des_loc"/>
-                    <field name = "ret_date"/>
-                    <field name = "ret_transfer_type"/>
                     <field name = "ret_custodian"/>
                     <field name = "ret_process_by"/>
-                    <field name = "ret_internal_trans"/>
+                    <field name = "ret_transfer_type"/>
                 </tree>
             </field>
         </record>
@@ -28,8 +26,8 @@
                     <sheet>
                         <group>
                             <group>
-                                <field name = "ret_company"/>
-                                <field name = "ret_emp"/>
+                                <field name = "ret_company" domain="[('is_company','=',True)]"/>
+                                <field name = "ret_emp" domain="[('address_id', '=', ret_company)]"/>
                                 <field name = "ret_email"/>
                                 <field name = "ret_src_loc"/>
                                 <field name = "ret_des_loc"/>
@@ -41,6 +39,16 @@
                                 <field name = "ret_process_by"/>
                                 <field name = "ret_internal_trans"/>
                             </group>
+                            <!--<field name="ret_config_ids">-->
+                                <!--<tree editable="bottom">-->
+                                    <!--<field name="ret_serial_num"/>-->
+                                    <!--<field name="ret_asset_id"/>-->
+                                    <!--<field name="ret_model"/>-->
+                                    <!--<field name="ret_asset_year"/>-->
+                                    <!--<field name="ret_condition"/>-->
+                                    <!--<field name="ret_quantity"/>-->
+                                <!--</tree>-->
+                            <!--</field>-->
                         </group>
                     </sheet>
                 </form>

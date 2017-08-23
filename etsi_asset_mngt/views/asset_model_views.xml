@@ -50,7 +50,7 @@
 
         <menuitem
             id = "asset_config_main_menu"
-            name = "Configuration"
+            name = "Assets"
             parent = "asset_mngt_main_menu"
             />
 

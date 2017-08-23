@@ -14,7 +14,7 @@
 
                 <tree>
                     <field name = "date"/>
-                    <field name = "emp_id"/>
+                    <field name = "name"/>
                     <field name = "company_id"/>
                     <field name = "source_loc"/>
                     <field name = "destination_loc"/>
@@ -34,8 +34,8 @@
                 <form>
                     <header>
                         <button name="button_print" string="Print" type="object"/>
+                        <button name="button_email" string="Send by Mail" type="object"/>
                         <button name="button_transfer" string="Transfer" type="object" state="cancel"/>
-                        <button name="button_email" string="Send by mail" type="object"/>
                         <button name="button_cancel" string="Cancel" type="object"/>
                         <field name="state" widget="statusbar"/>
                     </header>
@@ -43,7 +43,7 @@
                         <group>
                             <group>
                                 <field name="company_id" placeholder="Company name" domain="[('is_company','=',True)]"/>
-                                <field name="emp_id" placeholder="Employee's Name"/>
+                                <field name="name" placeholder="Employee's Name"/>
                                 <field name="emp_email"/>
                                 <field name="source_loc"/>
                                 <field name="destination_loc"/>
@@ -56,12 +56,12 @@
                                 <field name="internal_trans"/>
                             </group>
 
-                            <field name="config_ids">
+                            <field name="line_ids">
                                 <tree editable="bottom">
-                                    <field name="serial_num"/>
-                                    <field name="asset_id"/>
+                                    <field name="asset_number"/>
+                                    <field name="name"/>
                                     <field name="model"/>
-                                    <field name="asset_year"/>
+                                    <field name="purchase_date"/>
                                     <field name="condition"/>
                                     <field name="quantity"/>
                                 </tree>
@@ -78,7 +78,7 @@
             <field name="model">asset.management.handover</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name = "emp_id"/>
+                    <field name = "name"/>
                     <field name = "company_id"/>
                 </search>
             </field>
