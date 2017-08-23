@@ -26,39 +26,37 @@
         />
 
 
-        <!--<template id="external_layout_annual_tax" inherit_id="report.external_layout" primary="True">-->
-            <!--<xpath expr="//t[@t-call='report.external_layout_header']" position="attributes">-->
-                <!--<attribute name="t-call">etsi_payroll.external_layout_header_annual_tax</attribute>-->
-            <!--</xpath>-->
-            <!--<xpath expr="//t[@t-call='report.external_layout_footer']" position="attributes">-->
-                <!--<attribute name="t-call">etsi_payroll.external_layout_footer_annual_tax</attribute>-->
-            <!--</xpath>-->
-        <!--</template>-->
+        <template id="external_layout_account_receivable" inherit_id="report.external_layout" primary="True">
+            <xpath expr="//t[@t-call='report.external_layout_header']" position="attributes">
+                <attribute name="t-call">evanscor_foodpark.external_layout_header_account_receivable</attribute>
+            </xpath>
+            <xpath expr="//t[@t-call='report.external_layout_footer']" position="attributes">
+                <attribute name="t-call">evanscor_foodpark.external_layout_footer_account_receivable</attribute>
+            </xpath>
+        </template>
 
-        <!--<template id="external_layout_header_annual_tax" inherit_id="report.external_layout_header" primary="True">-->
-            <!--<xpath expr="//div[@class='col-xs-9 text-right']" position="replace">-->
-                <!--<div class="col-xs-9 text-right"-->
-                      <!--t-field="company.partner_id"-->
-                      <!--t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;name&quot;], &quot;no_marker&quot;: true}"/>-->
-                <!--<div class="col-xs-9 text-right" t-field="company.rml_header1"/>-->
-            <!--</xpath>-->
-            <!--<xpath expr="//div[@name='company_address']" position="replace"/>-->
-        <!--</template>-->
-         <!--<template id="external_layout_footer_annual_tax" inherit_id="report.external_layout_footer" primary="True">-->
-             <!--<xpath expr="//div[@class='text-center']" position="attributes">-->
-                  <!--<attribute name="style">border-top: 1px dashed black;</attribute>-->
-             <!--</xpath>-->
-            <!--<xpath expr="//ul[1]" position="replace"/>-->
-            <!--<xpath expr="//ul[2]" position="replace"/>-->
-        <!--</template>-->
-        <!---->
-
+        <template id="external_layout_header_account_receivable" inherit_id="report.external_layout_header" primary="True">
+            <xpath expr="//div[@class='col-xs-9 text-right']" position="replace">
+                <div class="col-xs-9 text-right"
+                      t-field="company.partner_id"
+                      t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                <div class="col-xs-9 text-right" t-field="company.rml_header1"/>
+            </xpath>
+            <xpath expr="//div[@name='company_address']" position="replace"/>
+        </template>
+         <template id="external_layout_footer_account_receivable" inherit_id="report.external_layout_footer" primary="True">
+             <xpath expr="//div[@class='text-center']" position="attributes">
+                  <attribute name="style">border-top: 1px dashed black;</attribute>
+             </xpath>
+            <xpath expr="//ul[1]" position="replace"/>
+            <xpath expr="//ul[2]" position="replace"/>
+        </template>
 
         <template id="report_accounts_receivable_template">
             <t t-call="report.html_container">
                 <t t-foreach="docs" t-as="doc">
-                    <!--<t t-call="etsi_payroll.external_layout_annual_tax">-->
-                    <t t-call="report.external_layout">
+                    <t t-call="evanscor_foodpark.external_layout_account_receivable">
+                    <!--<t t-call="report.external_layout">-->
                         <div class="page">
                             <html style="100%">
                                 <head>
