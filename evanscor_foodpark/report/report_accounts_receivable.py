@@ -1,4 +1,5 @@
 from odoo import models, fields, api, exceptions
+from datetime import datetime
 
 class CompanyInfo(models.AbstractModel):
     _name = 'report.evanscor_foodpark.report_accounts_receivable_template'
@@ -25,7 +26,7 @@ class CompanyInfo(models.AbstractModel):
         remarks = 'On Process'
         for e in res_cus:
             total_paid = e.amount_total_signed - e.residual_signed
-            if e.date_invoice >= e.date_due and e.residual_signed != 0:
+            if str(datetime.today().date()) >= e.date_due and e.residual_signed != 0:
                 remarks = 'Late Payment'
 
             if res_cus:
