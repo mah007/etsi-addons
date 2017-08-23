@@ -44,6 +44,7 @@ class AssetHandoverLine (models.Model):
     _name = 'asset.handover.line'
 
     line_id = fields.Many2one ('asset.management.handover')
+    change_location_id = fields.Many2one('asset.location.change')
     name = fields.Many2one('asset.asset', string = "Asset", required = True)
     asset_number = fields.Char(string = "Asset number", related = 'name.asset_number', readonly = True)
     model = fields.Many2one ('asset.model', string = "Model", required = True)
