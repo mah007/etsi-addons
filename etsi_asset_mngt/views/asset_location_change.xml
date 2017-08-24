@@ -6,7 +6,7 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="company_id"/>
-                    <field name="destination_wh_id"/>
+                    <field name="employee_id"/>
                     <field name="source_loc"/>
                     <field name="destination_loc"/>
                     <field name="date_now"/>
@@ -24,11 +24,14 @@
             <field name="model">asset.location.change</field>
             <field name="arch" type="xml">
                 <form>
+                    <header>
+                        <button name="change_location" string="Change Location" type="object" class="oe_highlight"/>
+                    </header>
                     <sheet>
                         <group>
                             <group>
                                  <field name="company_id" domain="[('is_company','=',True)]"/>
-                                <field name="destination_wh_id"/>
+                                <field name="employee_id" domain="[('company_id','=',company_id)]"/>
                                 <field name="source_loc"/>
                                 <field name="destination_loc"/>
                             </group>
@@ -40,9 +43,16 @@
                                 <field name="internal_transfer"/>
                             </group>
                         </group>
-                        <group string="Assets">
-                            <!--<field name="assets_ids" widget="many2many"/>-->
-                        </group>
+                        <field name="change_location_ids" domain="[('id','=',654)]">
+                            <tree editable="bottom">
+                                <field name="asset_number"/>
+                                <field name="name"/>
+                                <field name="model"/>
+                                <field name="purchase_date"/>
+                                <field name="condition"/>
+                                <field name="quantity"/>
+                            </tree>
+                        </field>
                     </sheet>
                 </form>
             </field>
@@ -54,7 +64,7 @@
             <field name="arch" type="xml">
                 <search>
                     <field name="company_id"/>
-                    <field name="destination_wh_id"/>
+                    <field name="employee_id"/>
                     <field name="source_loc"/>
                     <field name="destination_loc"/>
                     <field name="date_now"/>

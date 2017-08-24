@@ -1,0 +1,50 @@
+<odoo>
+    <data>
+
+       <record model="ir.ui.view" id="acc_rec_rep_from_view">
+            <field name="name">acc.rec.rep.form.view</field>
+            <field name="model">accounts.receivable.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Accounts Receivable Report">
+                            <field name="customer_name"/>
+                            <field name="invoice_number">
+                                <tree>
+                                    <field name="number"/>
+                                    <field name="date_invoice"/>
+                                    <field name="date_due"/>
+                                    <field name="amount_total_signed" string="Total" sum="Total"/>
+                                    <field name="residual_signed" string="Amount Due" sum="Amount Due"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                   <footer>
+                       <button name="print_accounts_receivable_report" type="object" string="Print" class="oe_highlight"/>
+                       <button string="Cancel" special="cancel"/>
+                   </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window
+                name="Accounts Receivable Report"
+                res_model="accounts.receivable.report"
+                src_model="accounts.receivable.report"
+                view_mode="form"
+                id="acc_rec_rep_action"
+                view_id="acc_rec_rep_from_view"
+                target="new"
+        />
+
+        <menuitem
+                id="acc_rec_menu"
+                name="Accounts Receivable Report"
+                parent="account.menu_finance_reports"
+                action="acc_rec_rep_action"
+        />
+
+    </data>
+</odoo>

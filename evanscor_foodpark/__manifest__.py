@@ -20,12 +20,14 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','website','website_sale','point_of_sale','website_sale','account_accountant','purchase','website_customer','mrp','stock'],
+    'depends': ['base','website','website_sale','point_of_sale','website_sale','account_accountant','purchase','website_customer','mrp','report'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
         'views/product_template.xml',
+        'views/accounts_receivable_wizard_view.xml',
+        'views/accounts_receivable_wizard_temp.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
