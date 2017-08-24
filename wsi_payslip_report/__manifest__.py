@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "etsi_acctg",
+    'name': "WSI_payslip_report",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -20,18 +20,13 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'hr_expense', 'account_accountant', 'account','account_check_printing','hr_payroll'],
+    'depends': ['base'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/pettycash_request_views.xml',
-        'views/payroll_advance_salary_views.xml',
-        'views/cash_advance_request_views.xml',
-        'views/account_payment_views.xml',
-        'views/report_account_payment_template.xml',
-        'views/report_voucher_template.xml',
-
+        'views/views.xml',
+        'views/templates.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

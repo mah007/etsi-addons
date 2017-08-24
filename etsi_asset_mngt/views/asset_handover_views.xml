@@ -6,12 +6,95 @@
             name = "Asset Management"
             />
 
+        <!--Hand over tree view-->
+        <record model="ir.ui.view" id="handover_tree_view">
+            <field name="name">handover.tree.view</field>
+            <field name="model">asset.management.handover</field>
+            <field name="arch" type="xml">
+
+                <tree>
+                    <field name = "date"/>
+                    <field name = "issuer_company_id"/>
+                    <field name = "issuer_id"/>
+                    <field name = "source_loc"/>
+                    <field name = "destination_loc"/>
+                    <field name = "custodian_id"/>
+                    <field name = "processed_by"/>
+                    <field name = "state"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!--Hand over form view-->
+        <record model="ir.ui.view" id="handover_form_view">
+            <field name="name">handover.form.view</field>
+            <field name="model">asset.management.handover</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="button_email" string="Send by Mail" type="object"/>
+                        <button name="button_transfer" string="Transfer" type="object" state="cancel"/>
+                        <button name="button_cancel" string="Cancel" type="object"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="date"/>
+                                <field name="issuer_company_id" placeholder="Company name" domain="[('is_company','=',True)]"/>
+                                <field name="issuer_id" placeholder="Employee's Name" domain = "[('address_id', '=', issuer_company_id)]"/>
+                                <field name="source_loc" domain = "[('partner_id', '=', issuer_company_id)]"/>
+                                <field name="issuer_email"/>
+                            </group>
+                            <group>
+                                <field name="transfer_type"/>
+                                <field name="recipient_company_id" placeholder="Company name" domain="[('is_company','=',True)]"/>
+                                <field name="recipient_id" placeholder="Employee's Name" domain = "[('address_id', '=', recipient_company_id)]"/>
+                                <field name="destination_loc" domain = "[('partner_id', '=', recipient_company_id)]"/>
+                                <field name="custodian_id"/>
+                                <field name="processed_by"/>
+                            </group>
+
+                            <field name="lines_ids">
+                                <tree editable="bottom">
+                                    <field name="asset_name_id"/>
+                                    <field name="serial_number_id" domain = "[('model_id', '=', asset_name_id)]"/>
+                                    <field name="model"/>
+                                    <field name="condition_id"/>
+                                    <field name="state"/>
+                                    <field name="track_number"/>
+                                    <field name="asset_pic"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Handover search-->
+        <record model="ir.ui.view" id="asset_handover_search_view">
+            <field name="name">asset.handover.search.view</field>
+            <field name="model">asset.management.handover</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name = "issuer_id"/>
+                    <field name = "issuer_company_id"/>
+                </search>
+            </field>
+        </record>
+
+
         <!--Handover action-->
         <record model="ir.actions.act_window" id="handover_action">
             <field name="name">Handover</field>
             <field name="res_model">asset.management.handover</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,search</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocomment_create">Create your first handover</p>
+            </field>
         </record>
 
         <menuitem
@@ -21,11 +104,11 @@
             />
 
         <menuitem
-        id = "asset_handover_menu"
-        name = "Asset Handover"
-        parent = "asset_mngt_menu"
-        action = "handover_action"
-        />
+            id = "asset_handover_menu"
+            name = "Asset Handover"
+            parent = "asset_mngt_menu"
+            action = "handover_action"
+            />
 
     </data>
 </odoo>

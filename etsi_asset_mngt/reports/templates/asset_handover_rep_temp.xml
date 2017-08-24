@@ -1,0 +1,99 @@
+<odoo>
+    <data>
+        <record id="paperformat_handover" model="report.paperformat">
+            <field name="name">Handover</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">30</field>
+            <field name="margin_bottom">23</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+            id="handover_info_rep"
+            model="asset.management.handover"
+            string="Handover report"
+            name="etsi_asset_mngt.handover_info_temp"
+            file="etsi_asset_mngt.handover_info_temp"
+            report_type="qweb-pdf"
+            paperformat = "paperformat_handover"/>
+
+        <template id = "handover_info_temp">
+            <t t-call = "report.html_container">
+                <t t-foreach = "docs" t-as="doc">
+                    <!--<t t-call = "report.external_layout">-->
+                        <div class = "page">
+                            <div>
+                                <t t-if="res_company.logo">
+                                    <img t-att-src="'data:image/png;base64,%s' % res_company.logo" style="max-height: 50px;max-width: 200px;"/>
+                                </t>
+                                <html style = "100%">
+                                    <head>
+                                        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+                                        <meta http-equiv="content-type" content="text/html, charset=utf-8" />
+                                        <title>
+                                            Handover Information
+                                        </title>
+                                        <link rel = "stylesheet" href = "/etsi_asset_mngt/static/src/css/asset_handover_style.css"/>
+                                    </head>
+
+                                    <body>
+                                        <div>
+                                            <p><b>Printed on: &#160; </b> <span t-esc = "doc.date"/></p>
+                                            <center><h1>ASSET HANDOVER</h1></center>
+                                            <table style = "style1">
+                                                <tr>
+                                                    <th>Employee</th>
+                                                    <th>Custodian</th>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <p><b>Name:&#160;</b><span t-esc="doc.name.name"/></p>
+                                                        <p><b>Email:&#160;</b><span t-esc="doc.emp_email"/></p>
+                                                    </td>
+                                                    <td><span t-esc="doc.custodian_id.name"/></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+
+                                        <div>
+                                            <table style = "style1">
+                                                <tr>
+                                                    <th>Item type</th>
+                                                    <th>Model</th>
+                                                    <th>Serial Number</th>
+                                                    <th>Condition</th>
+                                                    <th>Quantity</th>
+                                                </tr>
+
+                                                <br/>
+                                            <t t-foreach="doc.lines_ids" t-as="lines">
+                                                <tr>
+                                                    <td> <p> <span t-esc="lines.name.name"/></p> </td>
+                                                    <td> <p> <span t-esc="lines.model.name"/></p> </td>
+                                                    <td> <p> <span t-esc="lines.serial_number"/> </p> </td>
+                                                    <td> <p> <span t-esc="lines.condition.name"/> </p> </td>
+                                                    <td> <p> <span t-esc="lines.quantity"/> </p> </td>
+                                                </tr>
+                                            </t>
+                                            </table>
+                                        </div>
+                                    </body>
+                                </html>
+                            </div>
+                        </div>
+                    <!--</t>-->
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>
