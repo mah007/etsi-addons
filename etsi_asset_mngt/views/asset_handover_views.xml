@@ -33,7 +33,6 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <button name="button_print" string="Print" type="object"/>
                         <button name="button_email" string="Send by Mail" type="object"/>
                         <button name="button_transfer" string="Transfer" type="object" state="cancel"/>
                         <button name="button_cancel" string="Cancel" type="object"/>
@@ -43,7 +42,7 @@
                         <group>
                             <group>
                                 <field name="company_id" placeholder="Company name" domain="[('is_company','=',True)]"/>
-                                <field name="name" placeholder="Employee's Name"/>
+                                <field name="name" placeholder="Employee's Name" domain = "[('address_id', '=', company_id)]"/>
                                 <field name="emp_email"/>
                                 <field name="source_loc"/>
                                 <field name="destination_loc"/>
@@ -56,9 +55,9 @@
                                 <field name="internal_trans"/>
                             </group>
 
-                            <field name="line_ids">
+                            <field name="lines_ids">
                                 <tree editable="bottom">
-                                    <field name="asset_number"/>
+                                    <field name="serial_number"/>
                                     <field name="name"/>
                                     <field name="model"/>
                                     <field name="purchase_date"/>
