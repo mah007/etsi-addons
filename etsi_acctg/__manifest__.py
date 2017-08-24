@@ -29,6 +29,9 @@
         'views/payroll_advance_salary_views.xml',
         'views/cash_advance_request_views.xml',
         'views/account_payment_views.xml',
+        'views/report_account_payment_template.xml',
+        'views/report_voucher_template.xml',
+
     ],
     # only loaded in demonstration mode
     'demo': [
