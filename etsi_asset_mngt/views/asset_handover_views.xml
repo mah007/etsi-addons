@@ -14,8 +14,8 @@
 
                 <tree>
                     <field name = "date"/>
-                    <field name = "name"/>
-                    <field name = "company_id"/>
+                    <field name = "issuer_company_id"/>
+                    <field name = "issuer_id"/>
                     <field name = "source_loc"/>
                     <field name = "destination_loc"/>
                     <field name = "custodian_id"/>
@@ -41,28 +41,30 @@
                     <sheet>
                         <group>
                             <group>
-                                <field name="company_id" placeholder="Company name" domain="[('is_company','=',True)]"/>
-                                <field name="name" placeholder="Employee's Name" domain = "[('address_id', '=', company_id)]"/>
-                                <field name="emp_email"/>
-                                <field name="source_loc"/>
-                                <field name="destination_loc"/>
+                                <field name="date"/>
+                                <field name="issuer_company_id" placeholder="Company name" domain="[('is_company','=',True)]"/>
+                                <field name="issuer_id" placeholder="Employee's Name" domain = "[('address_id', '=', issuer_company_id)]"/>
+                                <field name="source_loc" domain = "[('partner_id', '=', issuer_company_id)]"/>
+                                <field name="issuer_email"/>
                             </group>
                             <group>
-                                <field name="date"/>
                                 <field name="transfer_type"/>
+                                <field name="recipient_company_id" placeholder="Company name" domain="[('is_company','=',True)]"/>
+                                <field name="recipient_id" placeholder="Employee's Name" domain = "[('address_id', '=', recipient_company_id)]"/>
+                                <field name="destination_loc" domain = "[('partner_id', '=', recipient_company_id)]"/>
                                 <field name="custodian_id"/>
                                 <field name="processed_by"/>
-                                <field name="internal_trans"/>
                             </group>
 
                             <field name="lines_ids">
                                 <tree editable="bottom">
-                                    <field name="serial_number"/>
-                                    <field name="name"/>
+                                    <field name="asset_name_id"/>
+                                    <field name="serial_number_id" domain = "[('model_id', '=', asset_name_id)]"/>
                                     <field name="model"/>
-                                    <field name="purchase_date"/>
-                                    <field name="condition"/>
-                                    <field name="quantity"/>
+                                    <field name="condition_id"/>
+                                    <field name="state"/>
+                                    <field name="track_number"/>
+                                    <field name="asset_pic"/>
                                 </tree>
                             </field>
                         </group>
@@ -77,8 +79,8 @@
             <field name="model">asset.management.handover</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name = "name"/>
-                    <field name = "company_id"/>
+                    <field name = "issuer_id"/>
+                    <field name = "issuer_company_id"/>
                 </search>
             </field>
         </record>

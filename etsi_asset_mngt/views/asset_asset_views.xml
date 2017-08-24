@@ -14,7 +14,7 @@
                         <group>
                             <field name="serial_no_ids">
                                 <tree editable="top">
-                                    <field name="serial_no"/>
+                                    <field name="name" required = "1"/>
                                 </tree>
                             </field>
                         </group>
@@ -32,6 +32,12 @@
                 <p class="oe_view_nocomment_create">Assets</p>
             </field>
         </record>
+
+        <menuitem
+            id = "asset_config_main_menu"
+            name = "Assets"
+            parent = "asset_mngt_main_menu"
+            />
 
         <menuitem
             id = "custom_asset_asset_menu"

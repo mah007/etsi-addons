@@ -4,7 +4,7 @@ class AccountAssetAssetLine(models.Model):
     _name = 'account.asset.asset.line'
 
     serial_no_id = fields.Many2one('account.asset.asset',string="Serial Number")
-    serial_no = fields.Char(string="Serial Number")
+    name = fields.Char(string="Serial Number")
 
 class AccountAssetAsset(models.Model):
     _inherit = 'account.asset.asset'
