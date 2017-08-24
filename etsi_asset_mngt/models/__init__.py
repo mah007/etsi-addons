@@ -6,3 +6,4 @@ from . import asset_location_change
 from . import asset_return
 from . import asset_model
 from . import asset_condition
+from . import asset_asset

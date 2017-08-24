@@ -1,0 +1,59 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="wsi_payslip_report.list">
+      <field name="name">WSI_payslip_report list</field>
+      <field name="model">wsi_payslip_report.wsi_payslip_report</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="wsi_payslip_report.action_window">
+      <field name="name">WSI_payslip_report window</field>
+      <field name="res_model">wsi_payslip_report.wsi_payslip_report</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="wsi_payslip_report.action_server">
+      <field name="name">WSI_payslip_report server</field>
+      <field name="model_id" ref="model_wsi_payslip_report_wsi_payslip_report"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="WSI_payslip_report" id="wsi_payslip_report.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="wsi_payslip_report.menu_1" parent="wsi_payslip_report.menu_root"/>
+    <menuitem name="Menu 2" id="wsi_payslip_report.menu_2" parent="wsi_payslip_report.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="wsi_payslip_report.menu_1_list" parent="wsi_payslip_report.menu_1"
+              action="wsi_payslip_report.action_window"/>
+    <menuitem name="Server to list" id="wsi_payslip_report" parent="wsi_payslip_report.menu_2"
+              action="wsi_payslip_report.action_server"/>
+    -->
+  </data>
+</odoo>
