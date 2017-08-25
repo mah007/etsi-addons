@@ -1,4 +1,5 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo . exceptions import ValidationError
 
 class AccountPayment(models.Model):
     _inherit ='account.payment'
@@ -27,6 +28,22 @@ class AccountPayment(models.Model):
             'domain': [('id', 'in', [x.id for x in self.invoice_ids])],
             'target':'new',
     }
+
+
+
+    @api.multi
+    def get_check_voucher_sequence(self, compny_id):
+        res_seq = self.env['ir.sequence'].search([('is_checkvoucher','=',True),('partner_id', '=', compny_id)])
+
+        if res_seq:
+            code = res_seq.code
+            sequence = self.env['ir.sequence'].next_by_code(code)
+
+        else:
+            raise ValidationError("No Sequence created for the assigned company")
+
+        return sequence
+        print 'seq', sequence
 
     # @api.multi
     # def create_voucher(self):
@@ -70,4 +87,40 @@ class AccountPayment(models.Model):
 
     @api.multi
     def do_print_checks(self):
-          return self.env['report'].get_action(self, 'etsi_acctg.report_account_payment')
+        data = {}
+
+        data['ids'] = self.env.context.get('active_ids', [])
+        data['model'] = self.env.context.get('active_model', 'ir.ui.menu')
+        data['form'] = self.read(['next_check_number'])[0]
+        return self.env['report'].sudo().get_action(self, 'etsi_acctg.report_account_payment_template', data=data)
+
+    def create_voucher(self):
+        data = {}
+
+        data['ids'] = self.env.context.get('active_ids', [])
+        data['model'] = self.env.context.get('active_model', 'ir.ui.menu')
+        # data['form'] = self.read(['next_check_number'])[0]
+        # print 'data_form', data['form']
+        return self.env['report'].sudo().get_action(self, 'etsi_acctg.report_voucher_template', data=data)
+
+
+
+class CheckVoucherSequence(models.Model):
+    _inherit ='ir.sequence'
+
+    @api.model
+    def default_get(self, fields):
+        context = self.env.context
+        result = super(CheckVoucherSequence, self).default_get(fields)
+        print 'context', context
+        if context:
+            if 'check_voucher' in context:
+                if context['check_voucher']:
+                    result['is_checkvoucher'] = True
+        return result
+
+    partner_id = fields.Many2one('res.partner', string='Company')
+    is_checkvoucher = fields.Boolean(string='Check Voucher')
+
+    _sql_constraints = [
+        ('unique_code', 'unique (code)', "The sequence code must be unique")]

@@ -41,20 +41,51 @@
                                         <title>
                                             Handover Information
                                         </title>
-                                        <!--<link rel = "stylesheet" href = "/stud_course/static/src/css/student_info_styles.css"/>-->
+                                        <link rel = "stylesheet" href = "/etsi_asset_mngt/static/src/css/asset_handover_style.css"/>
                                     </head>
 
                                     <body>
-                                        <p><b>Printed on: &#160; </b> <span t-esc = "doc.date"/></p>
-                                        <center><h1>ASSET HANDOVER</h1></center>
-                                        <table>
-                                            <tr>
-                                                <th>Employee</th>
-                                                <th>Custodian</th>
-                                                <th></th>
-                                            </tr>
-                                        </table>
+                                        <div>
+                                            <p><b>Printed on: &#160; </b> <span t-esc = "doc.date"/></p>
+                                            <center><h1>ASSET HANDOVER</h1></center>
+                                            <table style = "style1">
+                                                <tr>
+                                                    <th>Employee</th>
+                                                    <th>Custodian</th>
+                                                </tr>
 
+                                                <tr>
+                                                    <td>
+                                                        <p><b>Name:&#160;</b><span t-esc="doc.name.name"/></p>
+                                                        <p><b>Email:&#160;</b><span t-esc="doc.emp_email"/></p>
+                                                    </td>
+                                                    <td><span t-esc="doc.custodian_id.name"/></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+
+                                        <div>
+                                            <table style = "style1">
+                                                <tr>
+                                                    <th>Item type</th>
+                                                    <th>Model</th>
+                                                    <th>Serial Number</th>
+                                                    <th>Condition</th>
+                                                    <th>Quantity</th>
+                                                </tr>
+
+                                                <br/>
+                                            <t t-foreach="doc.lines_ids" t-as="lines">
+                                                <tr>
+                                                    <td> <p> <span t-esc="lines.name.name"/></p> </td>
+                                                    <td> <p> <span t-esc="lines.model.name"/></p> </td>
+                                                    <td> <p> <span t-esc="lines.serial_number"/> </p> </td>
+                                                    <td> <p> <span t-esc="lines.condition.name"/> </p> </td>
+                                                    <td> <p> <span t-esc="lines.quantity"/> </p> </td>
+                                                </tr>
+                                            </t>
+                                            </table>
+                                        </div>
                                     </body>
                                 </html>
                             </div>
