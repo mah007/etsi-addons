@@ -73,12 +73,12 @@
         </record>
 
 
-        <menuitem
-            id="check_voucher_seq_menu"
-            name="Check Voucher Sequence"
-            action="check_voucher_seq_action"
-            parent="account.menu_finance_configuration"
-        />
+        <!--<menuitem-->
+            <!--id="check_voucher_seq_menu"-->
+            <!--name="Check Voucher Sequence"-->
+            <!--action="check_voucher_seq_action"-->
+            <!--parent="account.menu_finance_configuration"-->
+        <!--/>-->
 
     </data>
 </odoo>
