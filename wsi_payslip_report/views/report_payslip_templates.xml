@@ -1,0 +1,120 @@
+<odoo>
+    <data>
+
+        <template id="custom_etsi_payslip_template" inherit_id="etsi_payroll.etsi_payslip_template">
+
+            <xpath expr="//h3" position="before">
+                <b>WeSupport Incorporated</b>
+            </xpath>
+            <xpath expr="//h3" position="replace">
+                <p><b>Pay Slip</b></p>
+            </xpath>
+            <xpath expr="//tr[1]" position="replace">
+                <tr>
+                    <td>Cut Off Period:</td>
+                    <td><span t-field="o.date_from"/> - <span t-field="o.date_to"/></td>
+                    <td>Pay Date:</td>
+                    <td>-----------------------------------</td>
+                </tr>
+            </xpath>
+            <xpath expr="//tr[2]" position="replace">
+                <tr>
+                    <td>Name:</td>
+                    <td><span t-field="o.employee_id"/></td>
+                </tr>
+            </xpath>
+            <xpath expr="//tr[3]" position="replace">
+                <tr>
+                    <td>Client:</td>
+                    <td><span t-field="o.contract_id.partner_id.name"/></td>
+                </tr>
+            </xpath>
+
+            <xpath expr="//table[2]" position="attributes">
+                 <attribute name="class">""</attribute>
+                 <attribute name="style">width:100%; border:2pt solid black;</attribute>
+            </xpath>
+
+            <xpath expr="//table[2]" position="before">
+                <br/><br/>
+            </xpath>
+
+            <xpath expr="//table[2]/tr[1]" position="attributes">
+                 <attribute name="style">""</attribute>
+            </xpath>
+
+            <xpath expr="//table[2]/tr[1]/th[1]" position="attributes">
+                 <attribute name="style">padding:5px 0px 0px 5px;</attribute>
+            </xpath>
+
+            <xpath expr="//table[2]/tr[1]/th[5]" position="attributes">
+                 <attribute name="style">vertical-align:middle;text-align:right; padding:0px 5px 0px 0px;</attribute>
+            </xpath>
+
+            <xpath expr="//table[2]/tr[1]/th[3]" position="replace">
+                <th><p> </p></th>
+            </xpath>
+
+            <xpath expr="//table[2]/tr[2]/td[1]" position="attributes">
+                 <attribute name="style">padding:5px 0px 0px 5px;</attribute>
+            </xpath>
+
+            <xpath expr="//table[2]/tr[2]/td[5]" position="attributes">
+                 <attribute name="style">vertical-align:middle;text-align:right; padding:0px 5px 0px 0px;</attribute>
+            </xpath>
+
+            <xpath expr="//table[2]/tr[2]/td[3]" position="replace">
+                <td><p> </p></td>
+            </xpath>
+
+            <xpath expr="//table[2]/tr[3]" position="replace"/>
+                <!--<tr t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)"-->
+                    <!--t-as="line"-->
+                    <!--t-if="line.code == 'NET'">-->
+
+                    <!--<td style="vertical-align:middle;padding:0px 0px 5px 5px;"><span t-field="line.code"/></td>-->
+                    <!--<td><span t-field="line.name"/></td>-->
+                    <!--<td> </td>-->
+                    <!--<td style="vertical-align:middle;text-align:right"><span t-esc="line.amount"-->
+                                                                                 <!--t-esc-options="{&quot;widget&quot;: &quot;False&quot;}"/></td>-->
+                    <!--<td style="vertical-align:middle;text-align:right; padding:0px 5px 0px 0px;"><span t-esc="line.total"-->
+                                                                                 <!--t-esc-options="{&quot;widget&quot;: &quot;False&quot;}"/></td>-->
+                <!--</tr>-->
+            <xpath expr="//div/div[2]/table" position="attributes">
+                 <attribute name="style">""</attribute>
+             </xpath>
+
+            <xpath expr="//div/div[2]/table/tr[1]" position="replace">
+                <tr>
+                    <td style="vertical-align:middle; padding-left: 5px;"><p>Total Income:</p></td>
+                    <t t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)"
+                        t-as="line"
+                        t-if="line.code == 'GROSS'">
+
+                        <td style="vertical-align:middle;text-align:right; padding-right: 5px;"><b><span t-esc="line.total"/></b></td>
+                    </t>
+                </tr>
+            </xpath>
+
+            <xpath expr="//div/div[2]/table/tr[2]" position="replace">
+                <tr>
+                    <td style="vertical-align:middle; padding-left: 5px;"><p>Total Deduction:</p></td>
+                    <td style="vertical-align:middle;text-align:right; padding-right: 5px;"><b><span t-esc="total_deduction"/></b></td>
+                </tr>
+            </xpath>
+
+            <xpath expr="//div/div[2]/table/tr[2]" position="after">
+                <tr>
+                    <td style="vertical-align:middle; padding-left: 5px;"><p>Net Pay:</p></td>
+                    <t t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)"
+                        t-as="line"
+                        t-if="line.code == 'NET'">
+
+                        <td style="vertical-align:middle;text-align:right; padding-right: 5px;"><b><span t-esc="line.total"/></b></td>
+                    </t>
+                </tr>
+            </xpath>
+
+        </template>
+    </data>
+</odoo>
