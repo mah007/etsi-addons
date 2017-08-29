@@ -47,39 +47,40 @@
                  <attribute name="style">padding:5px 0px 0px 5px;</attribute>
             </xpath>
 
+            <xpath expr="//table[2]/tr[1]/th[1]" position="replace">
+                <th style="padding:5px 0px 0px 5px">Particular</th>
+            </xpath>
+
+            <xpath expr="//table[2]/tr[1]/th[2]" position="replace">
+                <th><p/></th>
+            </xpath>
+
             <xpath expr="//table[2]/tr[1]/th[5]" position="attributes">
                  <attribute name="style">vertical-align:middle;text-align:right; padding:0px 5px 0px 0px;</attribute>
             </xpath>
 
             <xpath expr="//table[2]/tr[1]/th[3]" position="replace">
-                <th><p> </p></th>
+                <th style="vertical-align:middle;text-align:right">Code</th>
             </xpath>
 
-            <xpath expr="//table[2]/tr[2]/td[1]" position="attributes">
-                 <attribute name="style">padding:5px 0px 0px 5px;</attribute>
+            <xpath expr="//table[2]/tr[2]/td[1]" position="replace">
+                <td style="padding:5px 0px 0px 5px;"><span t-field="line.name"/></td>
             </xpath>
 
             <xpath expr="//table[2]/tr[2]/td[5]" position="attributes">
                  <attribute name="style">vertical-align:middle;text-align:right; padding:0px 5px 0px 0px;</attribute>
             </xpath>
 
+            <xpath expr="//table[2]/tr[2]/td[2]" position="replace">
+                <td><p/></td>
+            </xpath>
+
             <xpath expr="//table[2]/tr[2]/td[3]" position="replace">
-                <td><p> </p></td>
+                <td style="vertical-align:middle;text-align:right"><span t-field="line.code"/></td>
             </xpath>
 
             <xpath expr="//table[2]/tr[3]" position="replace"/>
-                <!--<tr t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)"-->
-                    <!--t-as="line"-->
-                    <!--t-if="line.code == 'NET'">-->
 
-                    <!--<td style="vertical-align:middle;padding:0px 0px 5px 5px;"><span t-field="line.code"/></td>-->
-                    <!--<td><span t-field="line.name"/></td>-->
-                    <!--<td> </td>-->
-                    <!--<td style="vertical-align:middle;text-align:right"><span t-esc="line.amount"-->
-                                                                                 <!--t-esc-options="{&quot;widget&quot;: &quot;False&quot;}"/></td>-->
-                    <!--<td style="vertical-align:middle;text-align:right; padding:0px 5px 0px 0px;"><span t-esc="line.total"-->
-                                                                                 <!--t-esc-options="{&quot;widget&quot;: &quot;False&quot;}"/></td>-->
-                <!--</tr>-->
             <xpath expr="//div/div[2]/table" position="attributes">
                  <attribute name="style">""</attribute>
              </xpath>
