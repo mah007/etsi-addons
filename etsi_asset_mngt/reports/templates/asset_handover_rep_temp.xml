@@ -50,16 +50,27 @@
                                             <center><h1>ASSET HANDOVER</h1></center>
                                             <table style = "style1">
                                                 <tr>
-                                                    <th>Employee</th>
-                                                    <th>Custodian</th>
+                                                    <th>Issuer</th>
+                                                    <th>Recipient</th>
+                                                    <th>Handover order number</th>
                                                 </tr>
 
                                                 <tr>
                                                     <td>
-                                                        <p><b>Name:&#160;</b><span t-esc="doc.name.name"/></p>
-                                                        <p><b>Email:&#160;</b><span t-esc="doc.emp_email"/></p>
+                                                        <p><b>Company:&#160;</b><span t-esc="doc.issuer_company_id.name"/></p>
+                                                        <p><b>Name:&#160;</b><span t-esc="doc.issuer_id.name"/></p>
+                                                        <p><b>Source Location:&#160;</b><span t-esc="doc.source_loc.name"/></p>
                                                     </td>
-                                                    <td><span t-esc="doc.custodian_id.name"/></td>
+
+                                                    <td>
+                                                        <p><b>Company:&#160;</b><span t-esc="doc.recipient_company_id.name"/></p>
+                                                        <p><b>Name:&#160;</b><span t-esc="doc.recipient_id.name"/></p>
+                                                        <p><b>Email:&#160;</b><span t-esc="doc.recipient_email"/></p>
+                                                        <p><b>Destination Location:&#160;</b><span t-esc="doc.destination_loc.name"/></p>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="doc.name"/>
+                                                    </td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -71,17 +82,17 @@
                                                     <th>Model</th>
                                                     <th>Serial Number</th>
                                                     <th>Condition</th>
-                                                    <th>Quantity</th>
+                                                    <!--<th>Quantity</th>-->
                                                 </tr>
 
                                                 <br/>
                                             <t t-foreach="doc.lines_ids" t-as="lines">
                                                 <tr>
-                                                    <td> <p> <span t-esc="lines.name.name"/></p> </td>
-                                                    <td> <p> <span t-esc="lines.model.name"/></p> </td>
-                                                    <td> <p> <span t-esc="lines.serial_number"/> </p> </td>
-                                                    <td> <p> <span t-esc="lines.condition.name"/> </p> </td>
-                                                    <td> <p> <span t-esc="lines.quantity"/> </p> </td>
+                                                    <td> <p> <span t-esc="lines.asset_name_id.name"/></p> </td>
+                                                    <td> <p> <span t-esc="lines.serial_number_id"/></p> </td>
+                                                    <td> <p> <span t-esc="lines.model"/></p> </td>
+                                                    <td> <p> <span t-esc="lines.condition_id.name"/> </p> </td>
+                                                    <!--<td> <p> <span t-esc="lines.asset_pic"/> </p> </td>-->
                                                 </tr>
                                             </t>
                                             </table>
