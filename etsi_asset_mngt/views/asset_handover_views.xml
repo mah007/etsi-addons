@@ -21,7 +21,6 @@
                     <field name="recipient_company_id"/>
                     <field name="recipient_id"/>
                     <field name="destination_loc"/>
-                    <field name="custodian_id"/>
                     <field name="processed_by"/>
                     <field name="state"/>
                 </tree>
@@ -57,7 +56,6 @@
                                 <field name="issuer_company_id" placeholder="Company name" domain="[('is_company','=',True)]"/>
                                 <field name="issuer_id" placeholder="Employee's Name" domain = "[('address_id', '=', issuer_company_id)]"/>
                                 <field name="source_loc" domain = "[('partner_id', '=', issuer_company_id)]"/>
-                                 <field name="custodian_id"/>
                                 <field name="processed_by"/>
                             </group>
                             <group>

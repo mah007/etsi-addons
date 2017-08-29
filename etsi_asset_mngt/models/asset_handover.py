@@ -19,7 +19,7 @@ class AssetManagementHandover (models.Model):
 
     date = fields.Date (string = "Date", default = lambda *a: datetime.today())
     transfer_type = fields.Char (string = "Transfer type", default = "Asset Handover", readonly = True)
-    custodian_id = fields.Many2one ('res.users', string = "Custodian", readonly = True, default=lambda self: self.env.uid)
+    # custodian_id = fields.Many2one ('res.users', string = "Custodian", readonly = True, default=lambda self: self.env.uid)
     processed_by = fields.Many2one ('hr.employee', string = "Processed by", readonly = True)
     lines_ids = fields.One2many('asset.management.handover.lines', 'lines_id', string = " ")
 
