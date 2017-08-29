@@ -26,6 +26,7 @@
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
+        'views/handover_seq_views.xml',
         'views/asset_handover_views.xml',
         'reports/templates/asset_handover_rep_temp.xml',
         'views/asset_return_views.xml',
