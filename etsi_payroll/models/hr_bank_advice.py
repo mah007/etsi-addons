@@ -4,6 +4,7 @@ import random,os
 
 class BankAdvice(models.Model):
     _name = 'hr.bank.advice'
+    _inherit = 'mail.thread'
 
     name = fields.Many2one('res.partner', string="Company", required=True)
     bank = fields.Many2one('res.bank', string="Bank", required=True)
@@ -75,44 +76,45 @@ class BankAdvice(models.Model):
         # Find the e-mail template
         # template = self.env.ref('etsi_payroll.bank_advice_template')
         # You can also find the e-mail template like this:
-        template = self.env['ir.model.data'].get_object('etsi_payroll', 'bank_advice_template')
+        #  template = self.env['ir.model.data'].get_object('etsi_payroll', 'bank_advice_template')
 
         # Send out the e-mail template to the user
-        self.env['mail.template'].browse(template.id).send_mail(self.id)
-        self.state = 'closed'
+        #  self.env['mail.template'].browse(template.id).send_mail(self.id)
+        # self.state = 'closed'
 
-        # self.ensure_one()
-        # ir_model_data = self.env['ir.model.data']
-        # try:
-        #     template_id = ir_model_data.get_object_reference('etsi_payroll', 'bank_advice_template')[1]
-        # except ValueError:
-        #     template_id = False
-        # try:
-        #     compose_form_id = ir_model_data.get_object_reference('mail', 'email_compose_message_wizard_form')[1]
-        # except ValueError:
-        #     compose_form_id = False
-        #
-        # # user = self.env['res.bank'].browse(self.bank.id)
-        #
-        # ctx = dict()
-        # ctx.update({
-        #     'default_model': 'hr.bank.advice',
-        #     'default_res_id': self.ids[0],
-        #     'default_use_template': bool(template_id),
-        #     'default_template_id': template_id,
-        #     'default_composition_mode': 'comment',
-        #     # 'default_partner_id': user.id,
-        # })
-        # return {
-        #     'type': 'ir.actions.act_window',
-        #     'view_type': 'form',
-        #     'view_mode': 'form',
-        #     'res_model': 'mail.compose.message',
-        #     'views': [(compose_form_id, 'form')],
-        #     'view_id': compose_form_id,
-        #     'target': 'new',
-        #     'context': ctx,
-        # }
+        self.ensure_one()
+        ir_model_data = self.env['ir.model.data']
+        try:
+            template_id = ir_model_data.get_object_reference('etsi_payroll', 'bank_advice_template')[1]
+        except ValueError:
+            template_id = False
+        try:
+            compose_form_id = ir_model_data.get_object_reference('mail', 'email_compose_message_wizard_form')[1]
+        except ValueError:
+            compose_form_id = False
+
+        # user = self.env['res.bank'].browse(self.bank.id)
+
+        ctx = dict()
+        ctx.update({
+            'default_model': 'hr.bank.advice',
+            'default_res_id': self.ids[0],
+            'default_use_template': bool(template_id),
+            'default_template_id': template_id,
+            'default_composition_mode': 'comment',
+            'default_partner_id': 1,
+        })
+        return {
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'mail.compose.message',
+            'views': [(compose_form_id, 'form')],
+            'view_id': compose_form_id,
+            'target': 'new',
+            'context': ctx,
+        }
+
     def main_gen(self):
         self.state = 'draft'
         print 'enter success'
@@ -199,15 +201,6 @@ class HrBankAdviceLine(models.Model):
     bank_account = fields.Many2one('res.partner.bank', string="Bank Account", store=True)
     # bank = fields.Many2one('res.bank', string="Bank", store=True)
     salary = fields.Float(string="Salary")
-    date_from = fields.Date(string="Date From")
+    date_from = fields.Date(string = "Date From")
     date_to = fields.Date(string="Date To")
     bank_advice_id = fields.Many2one('hr.bank.advice', string="Bank Advice")
-
-# class EmployeeBankAcct(models.Model):
-#     _name = 'hr.employee.bank.acct'
-#
-#     emp_id = fields.Many2one('hr.employee', string="Employee")
-#     acct_no = fields.Many2one(string="Account Number", related='emp_id.bank_account_id', readonly=True)
-#     bank_name = fields.Many2one(string="Bank Name", related='emp_id.bank_account_id.bank_id', readonly=True)
-#     salary = fields.Integer(string="Salary")
-#     bank_id = fields.Many2one('hr.bank.advice', string="Bank Name")

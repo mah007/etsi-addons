@@ -89,7 +89,7 @@
                                             <t t-foreach="doc.lines_ids" t-as="lines">
                                                 <tr>
                                                     <td> <p> <span t-esc="lines.asset_name_id.name"/></p> </td>
-                                                    <td> <p> <span t-esc="lines.serial_number_id"/></p> </td>
+                                                    <td> <p> <span t-esc="lines.serial_number_id.name"/></p> </td>
                                                     <td> <p> <span t-esc="lines.model"/></p> </td>
                                                     <td> <p> <span t-esc="lines.condition_id.name"/> </p> </td>
                                                     <!--<td> <p> <span t-esc="lines.asset_pic"/> </p> </td>-->
