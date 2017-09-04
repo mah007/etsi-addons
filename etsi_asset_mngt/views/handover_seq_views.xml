@@ -3,7 +3,7 @@
       <record id="handover_seq" model="ir.sequence">
         <field name="name">Handover Sequence</field>
         <field name="code">handover.seq.views</field>
-        <field name="prefix">AT</field>
+        <field name="prefix">AH</field>
         <field name="padding">5</field>
         <field eval="1" name="number_increment"/>
       </record>

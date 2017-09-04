@@ -6,20 +6,20 @@ class AssetManagementHandover (models.Model):
     _name = 'asset.management.handover'
 
     name = fields.Char(string = " ", readonly = True)
-    issuer_company_id = fields.Many2one ('res.partner', string = "Issuer's Company", required = True)
-    issuer_id = fields.Many2one ('hr.employee', string = "Issuer's Name", required = True)
-    source_loc = fields.Many2one ('stock.warehouse', string = "Source Location", required = True)
+    # , required = True
+    issuer_company_id = fields.Many2one ('res.partner', string = "Issuer's Company")
+    issuer_id = fields.Many2one ('hr.employee', string = "Issuer's Name")
+    source_loc = fields.Many2one ('stock.warehouse', string = "Source Location")
 
-    recipient_company_id = fields.Many2one ('res.partner', string = "Recipient's Company", required = True)
-    recipient_id = fields.Many2one ('hr.employee', string = "Recipient's Name", required = True)
+    recipient_company_id = fields.Many2one ('res.partner', string = "Recipient's Company")
+    recipient_id = fields.Many2one ('hr.employee', string = "Recipient's Name")
     recipient_email = fields.Char(string="Email", readonly=True, related='recipient_id.user_id.login', store=True)
-    destination_loc = fields.Many2one ('stock.warehouse', string = "Destination Location", required = True)
+    destination_loc = fields.Many2one ('stock.warehouse', string = "Destination Location")
 
     remarks = fields.Text (string = "Remarks")
 
     date = fields.Date (string = "Date", default = lambda *a: datetime.today())
     transfer_type = fields.Char (string = "Transfer type", default = "Asset Handover", readonly = True)
-    # custodian_id = fields.Many2one ('res.users', string = "Custodian", readonly = True, default=lambda self: self.env.uid)
     processed_by = fields.Many2one ('hr.employee', string = "Processed by", readonly = True)
     lines_ids = fields.One2many('asset.management.handover.lines', 'lines_id', string = " ")
 
@@ -65,11 +65,13 @@ class AssetManagementHandover (models.Model):
     def button_transfer(self):
         self.state = 'transfer'
         self.processed_by = self.env['hr.employee'].browse(self.env.uid)
+        # self.lines_ids.serial_number_id.asset_serial_state = 'False'
 
     @api.multi
     def button_cancel(self):
         self.state = 'cancel'
         self.processed_by = ''
+        # self.lines_ids.serial_number_id.asset_serial_state = 'True'
 
 class AssetManagementHandoverLine (models.Model):
     _name = 'asset.management.handover.lines'
@@ -77,20 +79,36 @@ class AssetManagementHandoverLine (models.Model):
     lines_id = fields.Many2one('asset.management.handover')
     asset_name_id = fields.Many2one('account.asset.asset', string = "Asset", required = True)
     serial_number_id = fields.Many2one('account.asset.asset.line', string = "Serial number", required = True)
+    # serial_no_id = fields.Char('account.asset.asset.line', related = 'serial_number_id.name')
     model = fields.Char (string = "Model", related = 'asset_name_id.model_id', store = True, readonly = True)
-    condition_id = fields.Many2one ('asset.condition', string = "Asset Condition", required = True)
+    condition_id = fields.Many2one ('asset.condition', string = "Asset Condition")
     state = fields.Char (string = "State")
     asset_pic = fields.Many2many('ir.attachment', string = "Asset picture")
-    total = fields.Integer(string = "Total", default = "1")
+    total = fields.Integer(string = "Total", default = "1", readonly = True)
 
     @api.onchange('asset_name_id')
     def on_change_asset_name(self):
         self.serial_number_id = ''
+
+    # @api.constrains('serial_number_id')
+    # def check_serial_num(self):
     #
-    # @api.onchange('serial_number_id')
-    # def on_change_serial(self):
-    #     ser_id = self.serial_number_id
-    #     # if ser_id == self.serial_number_id:
-    #     #     raise ValidationError ('Error')
+    #     print 'flag 1', self.serial_number_id.asset_serial_state
     #
-    #     return {'domain': {'asset_name_id': [('id', 'not in', ser_id)]}}
+    #     for r in self:
+    #         if r.serial_number_id.asset_serial_state == 'False':
+    #             raise ValidationError('error')
+    #             print 'flag 2', self.serial_number_id.asset_serial_state
+    #
+    #
+    # @api.onchange ('serial_number_id')
+    # def on_change_serial_no(self):
+    #     print 'flag 1', self.serial_number_id.asset_serial_state
+    #
+    #     if self.serial_number_id.asset_serial_state == 'False':
+    #         raise ValidationError('error')
+    #         print 'flag 2', self.serial_number_id.asset_serial_state
+    #
+    #     self.serial_number_id.asset_serial_State = 'False'
+    #     print 'flag 3', self.serial_number_id.asset_serial_state
+
