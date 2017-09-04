@@ -29,7 +29,7 @@
                         <group>
                             <field name="serial_no_ids">
                                 <tree editable="top">
-                                    <field name="serial_no" required = "1"/>
+                                    <field name="name" required = "1"/>
                                 </tree>
                             </field>
                         </group>
