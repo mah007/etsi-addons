@@ -1,34 +1,65 @@
 from odoo import api, fields, models
 from datetime import datetime
+from odoo.exceptions import ValidationError
 
 class AssetManagementHandover (models.Model):
     _name = 'asset.management.handover'
 
-    company_id = fields.Many2one ('res.partner', string = "Company", required = True)
-    name = fields.Many2one ('hr.employee', string = "Employee", required = True)
-    emp_email = fields.Char (string = "Email", readonly = True, related = 'name.user_id.login')
-    source_loc = fields.Char (string = "Source Location", required = True)
-    destination_loc = fields.Char (string = "Destination Location", required = True)
+    name = fields.Char(string = " ", readonly = True)
+    issuer_company_id = fields.Many2one ('res.partner', string = "Issuer's Company", required = True)
+    issuer_id = fields.Many2one ('hr.employee', string = "Issuer's Name", required = True)
+    source_loc = fields.Many2one ('stock.warehouse', string = "Source Location", required = True)
+
+    recipient_company_id = fields.Many2one ('res.partner', string = "Recipient's Company", required = True)
+    recipient_id = fields.Many2one ('hr.employee', string = "Recipient's Name", required = True)
+    recipient_email = fields.Char(string="Email", readonly=True, related='recipient_id.user_id.login', store=True)
+    destination_loc = fields.Many2one ('stock.warehouse', string = "Destination Location", required = True)
+
+    remarks = fields.Text (string = "Remarks")
+
     date = fields.Date (string = "Date", default = lambda *a: datetime.today())
     transfer_type = fields.Char (string = "Transfer type", default = "Asset Handover", readonly = True)
-    custodian_id = fields.Many2one ('res.users', string = "Custodian", readonly = True, default=lambda self: self.env.uid)
+    # custodian_id = fields.Many2one ('res.users', string = "Custodian", readonly = True, default=lambda self: self.env.uid)
     processed_by = fields.Many2one ('hr.employee', string = "Processed by", readonly = True)
-    internal_trans = fields.Char (string = "Internal Transfer", readonly = True)
-    line_ids = fields.One2many('asset.handover.line', 'line_id')
+    lines_ids = fields.One2many('asset.management.handover.lines', 'lines_id', string = " ")
 
     state = fields.Selection ([
         ('draft', "Draft"),
+        ('confirm', 'Waiting for approval'),
+        ('approve', 'Approved'),
         ('transfer', "Transferred"),
         ('cancel', "Cancelled"),
     ], string = "State", default = 'draft')
 
-    @api.multi
-    def button_print(self):
-        print 'print'
+    @api.model
+    def create(self, vals):
+        vals['name'] = self.env['ir.sequence'].next_by_code('handover.seq.views')
+        return super(AssetManagementHandover, self).create(vals)
+
+    @api.onchange('issuer_company_id')
+    def onchange_issuer_company(self):
+        self.issuer_id = ''
+        self.emp_email = ''
+        self.source_loc = ''
+
+    @api.onchange('recipient_company_id')
+    def onchange_recipient_company(self):
+        self.recipient_id = ''
+        self.destination_loc = ''
 
     @api.multi
-    def button_email(self):
-        print 'email'
+    def button_draft(self):
+        self.state = 'draft'
+
+    @api.multi
+    def button_confirm(self):
+        self.state = 'confirm'
+        if not self.lines_ids:
+            raise ValidationError ('Please select your asset before the confirmation of your transaction')
+
+    @api.multi
+    def button_approve(self):
+        self.state = 'approve'
 
     @api.multi
     def button_transfer(self):
@@ -40,14 +71,26 @@ class AssetManagementHandover (models.Model):
         self.state = 'cancel'
         self.processed_by = ''
 
-class AssetHandoverLine (models.Model):
-    _name = 'asset.handover.line'
+class AssetManagementHandoverLine (models.Model):
+    _name = 'asset.management.handover.lines'
 
-    line_id = fields.Many2one ('asset.management.handover')
-    change_location_id = fields.Many2one('asset.location.change')
-    name = fields.Many2one('asset.asset', string = "Asset", required = True)
-    asset_number = fields.Char(string = "Asset number", related = 'name.asset_number', readonly = True)
-    model = fields.Many2one ('asset.model', string = "Model", required = True)
-    purchase_date = fields.Date(string = "Purchase date", related = 'name.purchase_date', readonly = True)
-    condition = fields.Many2one ('asset.condition', string = "Asset Condition", required = True)
-    quantity = fields.Char (string = "Quantity", default = "1", required = True)
+    lines_id = fields.Many2one('asset.management.handover')
+    asset_name_id = fields.Many2one('account.asset.asset', string = "Asset", required = True)
+    serial_number_id = fields.Many2one('account.asset.asset.line', string = "Serial number", required = True)
+    model = fields.Char (string = "Model", related = 'asset_name_id.model_id', store = True, readonly = True)
+    condition_id = fields.Many2one ('asset.condition', string = "Asset Condition", required = True)
+    state = fields.Char (string = "State")
+    asset_pic = fields.Many2many('ir.attachment', string = "Asset picture")
+    total = fields.Integer(string = "Total", default = "1")
+
+    @api.onchange('asset_name_id')
+    def on_change_asset_name(self):
+        self.serial_number_id = ''
+    #
+    # @api.onchange('serial_number_id')
+    # def on_change_serial(self):
+    #     ser_id = self.serial_number_id
+    #     # if ser_id == self.serial_number_id:
+    #     #     raise ValidationError ('Error')
+    #
+    #     return {'domain': {'asset_name_id': [('id', 'not in', ser_id)]}}

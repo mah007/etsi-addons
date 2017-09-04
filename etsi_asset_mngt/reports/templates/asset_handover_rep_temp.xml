@@ -41,20 +41,62 @@
                                         <title>
                                             Handover Information
                                         </title>
-                                        <!--<link rel = "stylesheet" href = "/stud_course/static/src/css/student_info_styles.css"/>-->
+                                        <link rel = "stylesheet" href = "/etsi_asset_mngt/static/src/css/asset_handover_style.css"/>
                                     </head>
 
                                     <body>
-                                        <p><b>Printed on: &#160; </b> <span t-esc = "doc.date"/></p>
-                                        <center><h1>ASSET HANDOVER</h1></center>
-                                        <table>
-                                            <tr>
-                                                <th>Employee</th>
-                                                <th>Custodian</th>
-                                                <th></th>
-                                            </tr>
-                                        </table>
+                                        <div>
+                                            <p><b>Printed on: &#160; </b> <span t-esc = "doc.date"/></p>
+                                            <center><h1>ASSET HANDOVER</h1></center>
+                                            <table style = "style1">
+                                                <tr>
+                                                    <th>Issuer</th>
+                                                    <th>Recipient</th>
+                                                    <th>Handover order number</th>
+                                                </tr>
 
+                                                <tr>
+                                                    <td>
+                                                        <p><b>Company:&#160;</b><span t-esc="doc.issuer_company_id.name"/></p>
+                                                        <p><b>Name:&#160;</b><span t-esc="doc.issuer_id.name"/></p>
+                                                        <p><b>Source Location:&#160;</b><span t-esc="doc.source_loc.name"/></p>
+                                                    </td>
+
+                                                    <td>
+                                                        <p><b>Company:&#160;</b><span t-esc="doc.recipient_company_id.name"/></p>
+                                                        <p><b>Name:&#160;</b><span t-esc="doc.recipient_id.name"/></p>
+                                                        <p><b>Email:&#160;</b><span t-esc="doc.recipient_email"/></p>
+                                                        <p><b>Destination Location:&#160;</b><span t-esc="doc.destination_loc.name"/></p>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="doc.name"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+
+                                        <div>
+                                            <table style = "style1">
+                                                <tr>
+                                                    <th>Item type</th>
+                                                    <th>Model</th>
+                                                    <th>Serial Number</th>
+                                                    <th>Condition</th>
+                                                    <!--<th>Quantity</th>-->
+                                                </tr>
+
+                                                <br/>
+                                            <t t-foreach="doc.lines_ids" t-as="lines">
+                                                <tr>
+                                                    <td> <p> <span t-esc="lines.asset_name_id.name"/></p> </td>
+                                                    <td> <p> <span t-esc="lines.serial_number_id"/></p> </td>
+                                                    <td> <p> <span t-esc="lines.model"/></p> </td>
+                                                    <td> <p> <span t-esc="lines.condition_id.name"/> </p> </td>
+                                                    <!--<td> <p> <span t-esc="lines.asset_pic"/> </p> </td>-->
+                                                </tr>
+                                            </t>
+                                            </table>
+                                        </div>
                                     </body>
                                 </html>
                             </div>
