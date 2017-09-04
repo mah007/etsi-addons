@@ -27,12 +27,14 @@
     'data': [
         # 'security/ir.model.access.csv',
         'views/handover_seq_views.xml',
+        'views/return_seq_views.xml',
         'views/asset_handover_views.xml',
         'reports/templates/asset_handover_rep_temp.xml',
-        'views/asset_return_views.xml',
-        'views/asset_condition_views.xml',
+        'reports/templates/asset_return_rep_temp.xml',
         'views/asset_return_views.xml',
         'views/asset_asset_views.xml',
+        'views/asset_condition_views.xml',
+        'views/asset_return_views.xml',
         'views/asset_warehouse_views.xml',
     ],
     # only loaded in demonstration mode

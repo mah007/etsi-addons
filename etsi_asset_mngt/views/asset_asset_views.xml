@@ -56,7 +56,6 @@
 
         <menuitem
             id = "custom_asset_asset_menu"
-            name = "Assets"
             parent = "asset_config_main_menu"
             action = "account_asset_asset_action"
             />

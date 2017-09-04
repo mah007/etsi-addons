@@ -1,5 +1,5 @@
 <odoo>
-     <data noupdate="1">
+    <data noupdate="1">
       <record id="handover_seq" model="ir.sequence">
         <field name="name">Handover Sequence</field>
         <field name="code">handover.seq.views</field>

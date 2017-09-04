@@ -6,6 +6,7 @@ class AccountAssetAssetLine(models.Model):
 
     serial_no_id = fields.Many2one('account.asset.asset',string="Serial Number")
     serial_no = fields.Char(string="Serial Number")
+    asset_serial_state = fields.Boolean(string="Asset State")
 
 class AccountAssetAsset(models.Model):
     _inherit = 'account.asset.asset'
@@ -14,6 +15,7 @@ class AccountAssetAsset(models.Model):
     serial_no_ids = fields.One2many('account.asset.asset.line', 'serial_no_id', string="Serial Number")
     asset_name = fields.Char (sting = "Asset Name", required = True)
     model_id = fields.Char(string="Model", required = True)
+
 
     @api.model
     def create(self, vals):

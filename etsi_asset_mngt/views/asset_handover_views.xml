@@ -73,9 +73,9 @@
                                     <field name="serial_number_id" domain = "[('serial_no_id', '=', asset_name_id)]"/>
                                     <field name="model"/>
                                     <field name="condition_id"/>
-                                    <field name="state"/>
                                     <field name="asset_pic" widget="many2many_binary"/>
                                     <field name="total" sum="total" string = " Quantity"/>
+                                    <field name="ret_line_id"/>
                                 </tree>
 
                                 <form>
