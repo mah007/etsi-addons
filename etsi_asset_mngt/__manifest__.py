@@ -36,7 +36,7 @@
         'views/asset_return_views.xml',
         # 'views/asset_config_views.xml',
         # 'security/ir.model.access.csv',
-        'views/asset_location_change.xml',
+        # 'views/asset_location_change.xml',
         'views/asset_asset_views.xml',
         'views/asset_warehouse_views.xml',
     ],
