@@ -201,6 +201,6 @@ class HrBankAdviceLine(models.Model):
     bank_account = fields.Many2one('res.partner.bank', string="Bank Account", store=True)
     # bank = fields.Many2one('res.bank', string="Bank", store=True)
     salary = fields.Float(string="Salary")
-    date_from = fields.Date(string="Date From")
+    date_from = fields.Date(string = "Date From")
     date_to = fields.Date(string="Date To")
     bank_advice_id = fields.Many2one('hr.bank.advice', string="Bank Advice")
