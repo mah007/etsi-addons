@@ -8,7 +8,7 @@ class AssetManagementReturn(models.Model):
     name = fields.Char(string=" ", readonly=True)
     ret_emp = fields.Many2one('hr.employee', string="Employee", required=True)
     ret_src_doc = fields.Many2one('asset.management.handover', string="Handover Order #", required=True)
-    ret_email = fields.Char(string="Email", readonly=True)
+    ret_email = fields.Char(string="Email")
     ret_src_loc = fields.Char(string="Source Location")
     ret_des_loc = fields.Char(string="Destination Location")
     ret_date = fields.Date(string="Date Return", default=lambda *a: datetime.today(), readonly=True)
@@ -27,6 +27,7 @@ class AssetManagementReturn(models.Model):
             self.ret_src_loc = source.source_loc.name
             self.ret_des_loc = source.destination_loc.name
             self.ret_custodian = source.issuer_id.name
+            self.ret_email = source.recipient_email
 
     #Generate button to create a copy of handover lines
     @api.multi
@@ -66,6 +67,9 @@ class AssetManagementReturn(models.Model):
                 vals.get('ret_src_doc')).destination_loc.name})
             vals.update({'ret_custodian': self.env['asset.management.handover'].browse(
                 vals.get('ret_src_doc')).issuer_id.name})
+            vals.update({'ret_email': self.env['asset.management.handover'].browse(
+                vals.get('ret_src_doc')).recipient_email})
+
 
         vals['name'] = self.env['ir.sequence'].next_by_code('return.seq.views')
 
@@ -81,6 +85,8 @@ class AssetManagementReturn(models.Model):
     @api.multi
     def button_confirmed(self):
         self.state = 'confirmed'
+        if not self.return_ids:
+            raise ValidationError('Generate Assets first. No assets to be return.')
 
     #Button to compare created return lines to handover lines
     @api.multi
@@ -94,9 +100,6 @@ class AssetManagementReturn(models.Model):
         ret_handover_line = self.env['asset.management.handover.lines'].search([('lines_id', '=', self.ret_src_doc.id)])
         ret_return_line = self.env['asset.management.return.lines'].search([('ret_line_id', '=', self.id)])
 
-        for asset in ret_handover_line:
-            asset.serial_number_id.asset_serial_state = True
-
         for a in ret_handover_line:
             ret_handover.append(a.id)
 
@@ -106,12 +109,24 @@ class AssetManagementReturn(models.Model):
         total = set(ret_handover).intersection(ret_return)
 
         for c in ret_handover_line:
-            if c.id in total:
-                c.ret_line_id = self.id
+
+            if c.serial_number_id.asset_serial_state == True:
+                raise ValidationError('Error')
+            else:
+                if c.id in total:
+                    c.ret_line_id = self.id
+                    c.serial_number_id.asset_serial_state = True
+
+
 
     @api.multi
     def button_email(self):
-        print 'email'
+        template = self.env.ref('etsi_asset_mngt.example_email_template1')
+        # You can also find the e-mail template like this:
+        # template = self.env['ir.model.data'].get_object('mail_template_demo', 'example_email_template')
+
+        # Send out the e-mail template to the user
+        self.env['mail.template'].browse(template.id).send_mail(self.id)
 
     @api.multi
     def button_cancel(self):

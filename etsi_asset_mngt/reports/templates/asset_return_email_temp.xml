@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+
+        <record id="example_email_template1" model="mail.template">
+          <field name="name">asset return email</field>
+          <field name="email_from">${object.ret_emp.address_id and object.ret_emp.address_id.email or ''}</field>
+          <field name="subject">Asset Return</field>
+          <field name="email_to">${object.ret_email|safe}</field>
+          <field name="lang">${object.lang}</field>
+          <field name="model_id" ref="etsi_asset_mngt.model_asset_management_return"/>
+          <field name="auto_delete" eval="True"/>
+          <field name="report_template" ref="etsi_asset_mngt.return_info_rep"/>
+          <field name="report_name">Asset Return</field>
+          <field name="body_html">
+                <![CDATA[
+                Hello World!
+	      ]]>
+          </field>
+       </record>
+    </data>
+</odoo>

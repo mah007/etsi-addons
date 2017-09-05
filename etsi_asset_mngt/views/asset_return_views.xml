@@ -40,8 +40,8 @@
                             <group>
                                 <field name = "ret_date"/>
                                 <field name = "ret_emp" options="{'no_create': True}"/>
-                                <field name = "ret_src_doc" domain="[('recipient_id', '=', ret_emp)]"/>
-                                <field name = "ret_email"/>
+                                <field name = "ret_src_doc" domain="[('recipient_id', '=', ret_emp), ('state', '=', 'transfer')]"/>
+                                <field name = "ret_email" readonly="1"/>
                                 <field name = "ret_src_loc" readonly="1"/>
                                 <field name = "ret_des_loc" readonly="1"/>
                             </group>
