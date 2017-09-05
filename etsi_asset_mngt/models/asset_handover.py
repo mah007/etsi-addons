@@ -19,9 +19,9 @@ class AssetManagementHandover (models.Model):
 
     date = fields.Date (string = "Date", default = lambda *a: datetime.today())
     transfer_type = fields.Char (string = "Transfer type", default = "Asset Handover", readonly = True)
-    # custodian_id = fields.Many2one ('res.users', string = "Custodian", readonly = True, default=lambda self: self.env.uid)
     processed_by = fields.Many2one ('hr.employee', string = "Processed by", readonly = True)
     lines_ids = fields.One2many('asset.management.handover.lines', 'lines_id', string = " ")
+
 
     state = fields.Selection ([
         ('draft', "Draft"),
@@ -66,6 +66,12 @@ class AssetManagementHandover (models.Model):
         self.state = 'transfer'
         self.processed_by = self.env['hr.employee'].browse(self.env.uid)
 
+        asset_line = self.env['asset.management.handover.lines'].search([('lines_id', '=', self.id)])
+        print '>', asset_line
+
+        for asset in asset_line:
+            asset.serial_number_id.asset_serial_state = False
+
     @api.multi
     def button_cancel(self):
         self.state = 'cancel'
@@ -79,18 +85,11 @@ class AssetManagementHandoverLine (models.Model):
     serial_number_id = fields.Many2one('account.asset.asset.line', string = "Serial number", required = True)
     model = fields.Char (string = "Model", related = 'asset_name_id.model_id', store = True, readonly = True)
     condition_id = fields.Many2one ('asset.condition', string = "Asset Condition", required = True)
-    state = fields.Char (string = "State")
     asset_pic = fields.Many2many('ir.attachment', string = "Asset picture")
     total = fields.Integer(string = "Total", default = "1")
+    ret_line_id = fields.Many2one('asset.management.return', string="Return ID", readonly=True)
 
     @api.onchange('asset_name_id')
     def on_change_asset_name(self):
         self.serial_number_id = ''
-    #
-    # @api.onchange('serial_number_id')
-    # def on_change_serial(self):
-    #     ser_id = self.serial_number_id
-    #     # if ser_id == self.serial_number_id:
-    #     #     raise ValidationError ('Error')
-    #
-    #     return {'domain': {'asset_name_id': [('id', 'not in', ser_id)]}}
+
