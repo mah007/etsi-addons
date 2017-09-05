@@ -19,6 +19,10 @@ class AssetManagementReturn(models.Model):
 
     return_ids = fields.One2many('asset.management.return.lines', 'ret_line_id', string="Asset")
 
+    @api.onchange('ret_emp')
+    def onchange_employee(self):
+        self.ret_src_doc = 0
+
     @api.onchange('ret_src_doc')
     def onchange_ret_src_doc(self):
 

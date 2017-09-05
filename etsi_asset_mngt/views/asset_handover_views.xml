@@ -22,6 +22,7 @@
                     <field name="recipient_id"/>
                     <field name="destination_loc"/>
                     <field name="processed_by"/>
+                    <field name="state"/>
                 </tree>
             </field>
         </record>
@@ -38,7 +39,8 @@
                         <button name="button_confirm" string="Confirm" states="draft" type="object" class="oe_highlight"/>
                         <button name="button_approve" string="Approve" type="object" states="confirm" class="oe_highlight"/>
                         <button name="button_transfer" string="Transfer" type="object" states="approve" class="oe_highlight"/>
-                        <button name="button_cancel" string="Cancel" type="object" states="confirm,approve,transfer" class="oe_highlight"/>
+                        <button name="button_email" string="Send Email" type="object" states="transfer" class="oe_highlight"/>
+                        <button name="button_cancel" string="Cancel" type="object" states="confirm,approve,transfer"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
@@ -116,6 +118,10 @@
                 </search>
             </field>
         </record>
+
+        <!--send email-->
+
+
 
         <!--Handover action-->
         <record model="ir.actions.act_window" id="handover_action">

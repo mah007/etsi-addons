@@ -73,6 +73,10 @@ class AssetManagementHandover (models.Model):
             asset.serial_number_id.asset_serial_state = False
 
     @api.multi
+    def button_email(self):
+        print 'hehe'
+
+    @api.multi
     def button_cancel(self):
         self.state = 'cancel'
         self.processed_by = ''
