@@ -93,8 +93,8 @@ class BankAdvice(models.Model):
         except ValueError:
             compose_form_id = False
 
-        # user = self.env['res.bank'].browse(self.bank.id)
-
+        # user = self.env['res.partner'].browse(1)
+        # print user
         ctx = dict()
         ctx.update({
             'default_model': 'hr.bank.advice',
@@ -102,7 +102,7 @@ class BankAdvice(models.Model):
             'default_use_template': bool(template_id),
             'default_template_id': template_id,
             'default_composition_mode': 'comment',
-            'default_partner_id': 1,
+            'default_partner_id':1,
         })
         return {
             'type': 'ir.actions.act_window',
@@ -123,6 +123,7 @@ class BankAdvice(models.Model):
                                 port="5432")
 
         # naming/placing/opening of file
+        print 'conn', conn
         a = random.randint(1, 9999)
         name = 'filename' + str(a * 7) + '.csv'
         print '>>', a
@@ -132,19 +133,18 @@ class BankAdvice(models.Model):
         cur = conn.cursor()
 
         cur.execute(
-            "SELECT hr_employee.name_related, res_partner_bank.acc_number, res_bank.name, salary FROM hr_employee, hr_bank_advice_line, res_partner_bank, res_bank WHERE hr_employee.id = hr_bank_advice_line.emp_id AND res_partner_bank.id = hr_bank_advice_line.bank_account AND res_bank.id = hr_bank_advice_line.bank AND bank_advice_id = %s" % self.id)
+            "SELECT hr_employee.name_related, res_partner_bank.acc_number, salary FROM hr_employee, hr_bank_advice_line, res_partner_bank WHERE hr_employee.id = hr_bank_advice_line.emp_id AND res_partner_bank.id = hr_bank_advice_line.bank_account AND bank_advice_id = %s" % self.id)
         rows = cur.fetchall()
-        file.write("emp id,bank account id,bank,salary\n")
+        file.write("emp id,bank account id,salary\n")
         rows_count = 0
         total_salary = 0
 
         for row in rows:
             file.write('"%s",' % row[0])
             file.write("%s," % row[1])
-            file.write("%s," % row[2])
-            file.write("%s\n" % row[3])
+            file.write("%s\n" % row[2])
             rows_count += 1
-            total_salary += row[3]
+            total_salary += row[2]
 
         file.write("Total Accounts,")
         file.write("%s," % rows_count)

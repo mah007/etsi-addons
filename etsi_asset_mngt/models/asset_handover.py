@@ -19,7 +19,7 @@ class AssetManagementHandover (models.Model):
 
     date = fields.Date (string = "Date", default = lambda *a: datetime.today())
     transfer_type = fields.Char (string = "Transfer type", default = "Asset Handover", readonly = True)
-    processed_by = fields.Many2one ('hr.employee', string = "Processed by", readonly = True)
+    processed_by = fields.Many2one ('hr.employee', string = "Approved by", readonly = True)
     lines_ids = fields.One2many('asset.management.handover.lines', 'lines_id', string = " ")
 
 
@@ -60,6 +60,10 @@ class AssetManagementHandover (models.Model):
     @api.multi
     def button_approve(self):
         self.state = 'approve'
+        for assets in self.lines_ids:
+            if assets.serial_number_id.asset_serial_state == False:
+                raise ValidationError ('Error')
+
 
     @api.multi
     def button_transfer(self):
@@ -80,6 +84,9 @@ class AssetManagementHandover (models.Model):
     def button_cancel(self):
         self.state = 'cancel'
         self.processed_by = ''
+
+        for assets in self.lines_ids:
+            assets.serial_number_id.asset_serial_state = True
 
 class AssetManagementHandoverLine (models.Model):
     _name = 'asset.management.handover.lines'
