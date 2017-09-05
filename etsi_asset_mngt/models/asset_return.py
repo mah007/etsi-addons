@@ -49,7 +49,7 @@ class AssetManagementReturn(models.Model):
                         'ret_line_id': self.id,
                         'handover_line_id': c.id,
                         'ret_asset_name_id': c.asset_name_id.name,
-                        'ret_serial_number_id': c.serial_number_id.serial_no,
+                        'ret_serial_number_id': c.serial_number_id.name,
                         'ret_model': c.model,
                         'ret_condition_id': c.condition_id.name,
                     })

@@ -22,7 +22,6 @@
                     <field name="recipient_id"/>
                     <field name="destination_loc"/>
                     <field name="processed_by"/>
-                    <field name="state"/>
                 </tree>
             </field>
         </record>
@@ -94,7 +93,6 @@
                                                 <field name="condition_id"/>
                                             </group>
                                             <group>
-                                                <field name="state"/>
                                                 <field name="asset_pic"/>
                                             </group>
                                         </group>

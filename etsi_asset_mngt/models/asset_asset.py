@@ -6,7 +6,7 @@ class AccountAssetAssetLine(models.Model):
 
     serial_no_id = fields.Many2one('account.asset.asset',string="Serial Number")
     name = fields.Char(string="Serial Number")
-    asset_serial_state = fields.Char('True')
+    asset_serial_state = fields.Boolean(string="Asset State") #<<
 
     _sql_constraints = [
         ('name', 'unique(name)', "Serial number already exists with this asset!"),
