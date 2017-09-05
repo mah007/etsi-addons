@@ -29,7 +29,7 @@
                         <group>
                             <field name="serial_no_ids">
                                 <tree editable="top">
-                                    <field name="serial_no" required = "1"/>
+                                    <field name="name" required = "1"/>
                                 </tree>
                             </field>
                         </group>
@@ -56,7 +56,6 @@
 
         <menuitem
             id = "custom_asset_asset_menu"
-            name = "Assets"
             parent = "asset_config_main_menu"
             action = "account_asset_asset_action"
             />
