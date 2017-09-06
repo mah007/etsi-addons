@@ -15,6 +15,7 @@
             </field>
         </record>
 
+
         <!--Bank Advice Form View-->
         <record id="bank_advice_form_views" model="ir.ui.view">
             <field name="name">bank.advice.form.view</field>
