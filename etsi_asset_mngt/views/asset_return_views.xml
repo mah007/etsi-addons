@@ -8,12 +8,10 @@
                 <tree>
                     <field name = "ret_date"/>
                     <field name = "ret_emp"/>
-                    <field name = "ret_company"/>
                     <field name = "ret_src_loc"/>
                     <field name = "ret_des_loc"/>
                     <field name = "ret_custodian"/>
-                    <field name = "ret_process_by"/>
-                    <field name = "ret_transfer_type"/>
+                    <field name = "state"/>
                 </tree>
             </field>
         </record>
@@ -23,32 +21,45 @@
             <field name="model">asset.management.return</field>
             <field name="arch" type="xml">
                 <form>
+                    <header>
+                        <button name="generate_asset" string="Generate Assets" class="oe_highlight" type="object" states="draft"/>
+                        <button name="button_confirmed" string="Confirm" type="object" states="draft"/>
+                        <button name="button_received" string="Receive" class="oe_highlight" type="object" states="confirmed"/>
+                        <button name="button_email" string="Send by Mail" class="oe_highlight" type="object" states="received"/>
+                        <button name="button_cancel" string="Cancel" type="object" states="confirmed"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
                     <sheet>
+                        <div>
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
                         <group>
                             <group>
-                                <field name = "ret_company" domain="[('is_company','=',True)]"/>
-                                <field name = "ret_emp" domain="[('address_id', '=', ret_company)]"/>
-                                <field name = "ret_email"/>
-                                <field name = "ret_src_loc"/>
-                                <field name = "ret_des_loc"/>
+                                <field name = "ret_date"/>
+                                <field name = "ret_emp" options="{'no_create': True}"/>
+                                <field name = "ret_src_doc" domain="[('recipient_id', '=', ret_emp), ('state', '=', 'transfer')]"/>
+                                <field name = "ret_email" readonly="1"/>
+                                <field name = "ret_src_loc" readonly="1"/>
+                                <field name = "ret_des_loc" readonly="1"/>
                             </group>
                             <group>
-                                <field name = "ret_date"/>
                                 <field name = "ret_transfer_type"/>
                                 <field name = "ret_custodian"/>
-                                <field name = "ret_process_by"/>
-                                <field name = "ret_internal_trans"/>
+                                <field name = "ret_receive_by"/>
+                                <field name = "ret_remarks"/>
                             </group>
-                            <!--<field name="ret_config_ids">-->
-                                <!--<tree editable="bottom">-->
-                                    <!--<field name="ret_serial_num"/>-->
-                                    <!--<field name="ret_asset_id"/>-->
-                                    <!--<field name="ret_model"/>-->
-                                    <!--<field name="ret_asset_year"/>-->
-                                    <!--<field name="ret_condition"/>-->
-                                    <!--<field name="ret_quantity"/>-->
-                                <!--</tree>-->
-                            <!--</field>-->
+                            <field name="return_ids" widget="many2many">
+                                <tree>
+                                    <field name = "ret_asset_name_id"/>
+                                    <field name = "ret_serial_number_id"/>
+                                    <field name = "ret_model"/>
+                                    <field name = "ret_condition_id"/>
+                                    <field name = "ret_asset_pic"/>
+                                </tree>
+                            </field>
                         </group>
                     </sheet>
                 </form>
@@ -60,7 +71,6 @@
             <field name="model">asset.management.return</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name = "ret_company"/>
                     <field name = "ret_emp"/>
                     <field name = "ret_email"/>
                     <field name = "ret_src_loc"/>
@@ -68,8 +78,7 @@
                     <field name = "ret_date"/>
                     <field name = "ret_transfer_type"/>
                     <field name = "ret_custodian"/>
-                    <field name = "ret_process_by"/>
-                    <field name = "ret_internal_trans"/>
+                    <field name = "ret_receive_by"/>
                 </search>
             </field>
         </record>

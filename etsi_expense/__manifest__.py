@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "ETSI Asset Management",
+    'name': "etsi_expense",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -20,23 +20,13 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    # 'depends': ['base','hr'],
-    'depends': ['base', 'hr', 'stock','account_asset', 'mail', 'contacts'],
+    'depends': ['base','hr_expense'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/handover_seq_views.xml',
-        'views/return_seq_views.xml',
-        'views/asset_handover_views.xml',
-        'reports/templates/asset_handover_rep_temp.xml',
-        'reports/templates/asset_return_rep_temp.xml',
-        'reports/templates/asset_return_email_temp.xml',
-        'views/asset_return_views.xml',
-        'views/asset_asset_views.xml',
-        'views/asset_condition_views.xml',
-        'views/asset_return_views.xml',
-        'views/asset_warehouse_views.xml',
+        'views/views.xml',
+        'views/templates.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

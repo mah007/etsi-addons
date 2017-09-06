@@ -5,3 +5,16 @@ style1, table, td, th {
     width: 800px;
     text-align: center;
 }
+
+style2, table, td, th {
+    text-align: left;
+    border: 1px solid black;
+    width: 800px;
+
+}
+
+style3 {
+   display: block;
+   text-decoration: overline;
+
+}

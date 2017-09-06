@@ -1,0 +1,100 @@
+<odoo>
+    <data>
+
+        <report
+            id="return_info_rep"
+            model="asset.management.return"
+            string="Asset Return Report"
+            name="etsi_asset_mngt.return_info_temp"
+            file="etsi_asset_mngt.return_info_temp"
+            report_type="qweb-pdf"
+            paperformat = "paperformat_handover"/>
+
+        <template id = "return_info_temp">
+            <t t-call = "report.html_container">
+                <t t-foreach = "docs" t-as="doc">
+                    <!--<t t-call = "report.external_layout">-->
+                        <div class = "page">
+                            <div>
+                                <t t-if="res_company.logo">
+                                    <img t-att-src="'data:image/png;base64,%s' % res_company.logo" style="max-height: 50px;max-width: 200px;"/>
+                                </t>
+                                <html style = "100%">
+                                    <head>
+                                        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+                                        <meta http-equiv="content-type" content="text/html, charset=utf-8" />
+                                        <title>
+                                            Handover Information
+                                        </title>
+                                        <link rel = "stylesheet" href = "/etsi_asset_mngt/static/src/css/asset_handover_style.css"/>
+                                    </head>
+
+                                    <body>
+                                        <div>
+                                            <p><b>Printed on: &#160; </b> <span t-esc = "doc.ret_date"/></p>
+                                            <center><h1>ASSET RETURN</h1></center>
+                                            <table style = "style2">
+                                                <tr>
+                                                    <th>&#160;Return Order Number</th>
+                                                    <th>&#160;Receiver</th>
+                                                    <th>&#160;Employee</th>
+                                                    <th>&#160;Handover Order Number</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        &#160;<span t-esc="doc.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <p>&#160;<b>Received by:&#160;</b><span t-esc="doc.ret_receive_by.name"/></p>
+                                                        <p>&#160;<b>Company:&#160;</b><span t-esc="doc.ret_receive_by.address_id.name"/></p>
+                                                    </td>
+                                                    <td>
+                                                        <p>&#160;<b>Name:&#160;</b><span t-esc="doc.ret_emp.name"/></p>
+                                                        <p>&#160;<b>Company:&#160;</b><span t-esc="doc.ret_emp.address_id.name"/></p>
+                                                        <p>&#160;<b>Email:&#160;</b><span t-esc="doc.ret_email"/></p>
+                                                    </td>
+                                                    <td>
+                                                        &#160;<span t-esc="doc.ret_src_doc.name"/>
+                                                        <p>&#160;<b>Issued by:&#160;</b><span t-esc="doc.ret_src_doc.issuer_id.name"/></p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+
+                                        <div>
+                                            <table style="style2">
+                                                <tr>
+                                                    <th>&#160;Item type</th>
+                                                    <th>&#160;Model</th>
+                                                    <th>&#160;Serial Number</th>
+                                                    <th>&#160;Condition</th>
+                                                </tr>
+
+                                                <br/>
+                                                <t t-foreach="doc.return_ids" t-as="lines">
+                                                    <tr>
+                                                        <td> <p>&#160;<span t-esc="lines.ret_asset_name_id"/></p> </td>
+                                                        <td> <p>&#160;<span t-esc="lines.ret_model"/></p> </td>
+                                                        <td> <p>&#160;<span t-esc="lines.ret_serial_number_id"/></p> </td>
+                                                        <td> <p>&#160;<span t-esc="lines.ret_condition_id"/> </p> </td>
+                                                    </tr>
+                                                </t>
+                                            </table>
+
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <style3 style="text-align: left">Signature Over Printed Name</style3>
+                                        </div>
+                                    </body>
+                                </html>
+                            </div>
+                        </div>
+                </t>
+            </t>
+        </template>
+
+
+    </data>
+</odoo>
