@@ -118,6 +118,11 @@ class AssetManagementReturn(models.Model):
                     c.serial_number_id.asset_serial_state = True
 
 
+        asset_history = self.env['asset.management.history'].search([('handover_no','=',self.ret_src_doc.name)])
+
+        for a in asset_history:
+            a.date_return = self.ret_date
+            a.received_by_name_id = self.ret_receive_by
 
     @api.multi
     def button_email(self):
