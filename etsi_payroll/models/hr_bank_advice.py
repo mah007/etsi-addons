@@ -76,11 +76,11 @@ class BankAdvice(models.Model):
         # Find the e-mail template
         # template = self.env.ref('etsi_payroll.bank_advice_template')
         # You can also find the e-mail template like this:
-        #  template = self.env['ir.model.data'].get_object('etsi_payroll', 'bank_advice_template')
+        template = self.env['ir.model.data'].get_object('etsi_payroll', 'bank_advice_template')
 
         # Send out the e-mail template to the user
-        #  self.env['mail.template'].browse(template.id).send_mail(self.id)
-        # self.state = 'closed'
+        self.env['mail.template'].browse(template.id).send_mail(self.id)
+        self.state = 'closed'
 
         self.ensure_one()
         ir_model_data = self.env['ir.model.data']
@@ -109,7 +109,7 @@ class BankAdvice(models.Model):
             'view_type': 'form',
             'view_mode': 'form',
             'res_model': 'mail.compose.message',
-            'views': [(compose_form_id, 'form')] ,
+            'views': [(compose_form_id, 'form')],
             'view_id': compose_form_id,
             'target': 'new',
             'context': ctx,
@@ -118,46 +118,77 @@ class BankAdvice(models.Model):
     def main_gen(self):
         self.state = 'draft'
         print 'enter success'
-        # connection to databaseasfasdfafdasdfasdfasdfasdfadfadfasdfadfasfd
+
+        # connection to database
         conn = p.connect(database="Flexerp", user="flexerp", password="flexerp", host="localhost",
-                                port="5432")
+                         port="5432")
 
         # naming/placing/opening of file
-        print 'conn', conn
         a = random.randint(1, 9999)
-        name = 'filename' + str(a * 7) + '.csv'
-        print '>>', a
-        completeName = os.path.join('/home/flexerp/Downloads', name)
-        file = open(completeName, 'w')
-
+        name = 'filename' + str(a * 7) + '.txt'
+        textfile = open(name, 'w')
+        # message = "HELLO WORLD"
+        # textfile.write(message)
         cur = conn.cursor()
 
         cur.execute(
-            "SELECT hr_employee.name_related, res_partner_bank.acc_number, salary FROM hr_employee, hr_bank_advice_line, res_partner_bank WHERE hr_employee.id = hr_bank_advice_line.emp_id AND res_partner_bank.id = hr_bank_advice_line.bank_account AND bank_advice_id = %s" % self.id)
+            "SELECT hr_employee.name_related, res_partner_bank.acc_number, salary "
+            "FROM hr_employee, hr_bank_advice_line, res_partner_bank "
+            "WHERE hr_employee.id = hr_bank_advice_line.emp_id "
+            "AND res_partner_bank.id = hr_bank_advice_line.bank_account "
+            "AND bank_advice_id = %s" % self.id)
+
+
         rows = cur.fetchall()
-        file.write("emp id,bank account id,salary\n")
+        textfile.write("emp id\tbank account id\tsalary" + '\n')
         rows_count = 0
         total_salary = 0
 
         for row in rows:
-            file.write('"%s",' % row[0])
-            file.write("%s," % row[1])
-            file.write("%s\n" % row[2])
+            textfile.write("%s\t" % row[0])
+            textfile.write("%s\t" % row[1])
+            textfile.write("%s\n" % row[2])
             rows_count += 1
             total_salary += row[2]
 
-        file.write("Total Accounts,")
-        file.write("%s," % rows_count)
-        file.write("Total Salary,")
-        file.write("%s" % total_salary)
+        textfile.write("Total Accounts\t")
+        textfile.write("%s\t" % rows_count)
+        textfile.write("Total Salary\t")
+        textfile.write("%s" % total_salary)
 
         print ">", rows_count
         print ">>", total_salary
         conn.close()
 
-        file = open(completeName, 'r')
-        print file.read()
-        file.close()
+        textfile.close()
+
+        with open(name, 'r') as f_read:
+            file_data = f_read.read()
+
+            print 'file_data', file_data
+
+        values = {
+            'name': name,
+            'datas_fname': name,
+            'res_model': 'ir.ui.view',
+            'res_id': False,
+            'type': 'binary',
+            'public': True,
+            'datas': file_data.encode('utf8').encode('base64'),
+        }
+
+        attachment_id = self.env['ir.attachment'].sudo().create(values)
+
+        # Prepare your download URL
+        download_url = '/web/content/' + str(attachment_id.id) + '?download=True'
+        base_url = self.env['ir.config_parameter'].get_param('web.base.url')
+
+        return {
+            "type": "ir.actions.act_url",
+            "url": str(base_url) + str(download_url),
+            "target": "new",
+        }
+
 
 class HrBankAdviceReport(models.AbstractModel):
     _name = 'report.etsi_payroll.bank_advice_line_report_temp'
@@ -201,6 +232,15 @@ class HrBankAdviceLine(models.Model):
     bank_account = fields.Many2one('res.partner.bank', string="Bank Account", store=True)
     # bank = fields.Many2one('res.bank', string="Bank", store=True)
     salary = fields.Float(string="Salary")
-    date_from = fields.Date(string = "Date From")
+    date_from = fields.Date(string="Date From")
     date_to = fields.Date(string="Date To")
     bank_advice_id = fields.Many2one('hr.bank.advice', string="Bank Advice")
+
+# class EmployeeBankAcct(models.Model):
+#     _name = 'hr.employee.bank.acct'
+#
+#     emp_id = fields.Many2one('hr.employee', string="Employee")
+#     acct_no = fields.Many2one(string="Account Number", related='emp_id.bank_account_id', readonly=True)
+#     bank_name = fields.Many2one(string="Bank Name", related='emp_id.bank_account_id.bank_id', readonly=True)
+#     salary = fields.Integer(string="Salary")
+#     bank_id = fields.Many2one('hr.bank.advice', string="Bank Name")

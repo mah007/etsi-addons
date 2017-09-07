@@ -50,52 +50,64 @@
                                             <center><h1>ASSET HANDOVER</h1></center>
                                             <table style = "style1">
                                                 <tr>
-                                                    <th>Issuer</th>
-                                                    <th>Recipient</th>
-                                                    <th>Handover order number</th>
+                                                    <th>&#160;Issuer</th>
+                                                    <th>&#160;Recipient</th>
+                                                    <th>&#160;Handover order number</th>
                                                 </tr>
 
                                                 <tr>
                                                     <td>
-                                                        <p><b>Company:&#160;</b><span t-esc="doc.issuer_company_id.name"/></p>
-                                                        <p><b>Name:&#160;</b><span t-esc="doc.issuer_id.name"/></p>
-                                                        <p><b>Source Location:&#160;</b><span t-esc="doc.source_loc.name"/></p>
+                                                        <p><b>&#160;Company:&#160;</b><span t-esc="doc.issuer_company_id.name"/></p>
+                                                        <p><b>&#160;Name:&#160;</b><span t-esc="doc.issuer_id.name"/></p>
+                                                        <p><b>&#160;Source Location:&#160;</b><span t-esc="doc.source_loc.name"/></p>
                                                     </td>
 
                                                     <td>
-                                                        <p><b>Company:&#160;</b><span t-esc="doc.recipient_company_id.name"/></p>
-                                                        <p><b>Name:&#160;</b><span t-esc="doc.recipient_id.name"/></p>
-                                                        <p><b>Email:&#160;</b><span t-esc="doc.recipient_email"/></p>
-                                                        <p><b>Destination Location:&#160;</b><span t-esc="doc.destination_loc.name"/></p>
+                                                        <p><b>&#160;Company:&#160;</b><span t-esc="doc.recipient_company_id.name"/></p>
+                                                        <p><b>&#160;Name:&#160;</b><span t-esc="doc.recipient_id.name"/></p>
+                                                        <p><b>&#160;Email:&#160;</b><span t-esc="doc.recipient_email"/></p>
+                                                        <p><b>&#160;Destination Location:&#160;</b><span t-esc="doc.destination_loc.name"/></p>
                                                     </td>
                                                     <td>
-                                                        <span t-esc="doc.name"/>
+                                                        &#160;<span t-esc="doc.name"/>
                                                     </td>
                                                 </tr>
                                             </table>
                                         </div>
 
                                         <div>
-                                            <table style = "style1">
+                                            <table style="style1">
                                                 <tr>
-                                                    <th>Item type</th>
-                                                    <th>Model</th>
-                                                    <th>Serial Number</th>
-                                                    <th>Condition</th>
+                                                    <th>&#160;Item type</th>
+                                                    <th>&#160;Model</th>
+                                                    <th>&#160;Serial Number</th>
+                                                    <th>&#160;Condition</th>
                                                     <!--<th>Quantity</th>-->
                                                 </tr>
 
                                                 <br/>
                                             <t t-foreach="doc.lines_ids" t-as="lines">
                                                 <tr>
-                                                    <td> <p> <span t-esc="lines.asset_name_id.name"/></p> </td>
-                                                    <td> <p> <span t-esc="lines.serial_number_id.name"/></p> </td>
-                                                    <td> <p> <span t-esc="lines.model"/></p> </td>
-                                                    <td> <p> <span t-esc="lines.condition_id.name"/> </p> </td>
-                                                    <!--<td> <p> <span t-esc="lines.asset_pic"/> </p> </td>-->
+                                                    <td> <p>&#160;<span t-esc="lines.asset_name_id.name"/></p> </td>
+                                                    <td> <p>&#160;<span t-esc="lines.serial_number_id.name"/></p> </td>
+                                                    <td> <p>&#160;<span t-esc="lines.model"/></p> </td>
+                                                    <td> <p>&#160;<span t-esc="lines.condition_id.name"/> </p> </td>
                                                 </tr>
                                             </t>
                                             </table>
+
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <p style="text-align:left">Issuer:</p>
+                                            <br/>
+                                            <style2 style="text-align:left">Signature Over Printed Name</style2>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <p style="text-align:right">Receipient:</p>
+                                            <br/>
+                                            <style2 style="text-align:right">Signature Over Printed Name</style2>
                                         </div>
                                     </body>
                                 </html>

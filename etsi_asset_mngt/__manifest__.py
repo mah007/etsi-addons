@@ -30,6 +30,7 @@
         'views/return_seq_views.xml',
         'views/asset_handover_views.xml',
         'reports/templates/asset_handover_rep_temp.xml',
+        'reports/templates/asset_handover_email_temp.xml',
         'reports/templates/asset_return_rep_temp.xml',
         'reports/templates/asset_return_email_temp.xml',
         'views/asset_return_views.xml',
