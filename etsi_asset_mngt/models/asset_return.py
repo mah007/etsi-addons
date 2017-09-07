@@ -88,6 +88,10 @@ class AssetManagementReturn(models.Model):
     ], string="State", default='draft')
 
     @api.multi
+    def button_draft(self):
+        self.state = 'draft'
+
+    @api.multi
     def button_confirmed(self):
         self.state = 'confirmed'
         if not self.return_ids:
@@ -148,6 +152,28 @@ class AssetManagementReturn(models.Model):
     def button_cancel(self):
         self.state = 'cancel'
         self.ret_receive_by = ''
+
+        ret_handover = []
+        ret_return = []
+
+        ret_handover_line = self.env['asset.management.handover.lines'].search([('lines_id', '=', self.ret_src_doc.id)])
+        ret_return_line = self.env['asset.management.return.lines'].search([('ret_line_id', '=', self.id)])
+
+        for a in ret_handover_line:
+            ret_handover.append(a.id)
+
+        for b in ret_return_line:
+            ret_return.append(b.handover_line_id)
+
+        total = set(ret_handover).intersection(ret_return)
+        print 'total', total
+
+        for c in ret_handover_line:
+            if c.id in total:
+                c.ret_line_id = ''
+                c.serial_number_id.asset_serial_state = False
+                print '>: nabago na sya'
+
 
 class AssetHandoverLine(models.Model):
     _name = 'asset.management.return.lines'

@@ -103,7 +103,8 @@ class AssetManagementHandover (models.Model):
     def button_cancel(self):
         self.state = 'cancel'
         self.processed_by = ''
-
+        #
+        # if self.state == 'transfer':
         for assets in self.lines_ids:
             assets.serial_number_id.asset_serial_state = True
 

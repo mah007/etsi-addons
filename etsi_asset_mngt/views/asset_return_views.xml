@@ -23,10 +23,11 @@
                 <form>
                     <header>
                         <button name="generate_asset" string="Generate Assets" class="oe_highlight" type="object" states="draft"/>
+                        <button name="button_draft" string="Send to Draft" class="oe_highlight" type="object" states="cancel,confirmed"/>
                         <button name="button_confirmed" string="Confirm" type="object" states="draft"/>
                         <button name="button_received" string="Receive" class="oe_highlight" type="object" states="confirmed"/>
                         <button name="button_email" string="Send by Mail" class="oe_highlight" type="object" states="received"/>
-                        <button name="button_cancel" string="Cancel" type="object" states="confirmed"/>
+                        <button name="button_cancel" string="Cancel" type="object" states="received"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
