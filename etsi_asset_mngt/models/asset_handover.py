@@ -76,7 +76,7 @@ class AssetManagementHandover (models.Model):
             print 'flag 3', compare_vals
 
             if compare_vals == True:
-                raise ValidationError('Error: Same serial number on your asset')
+                raise ValidationError('Error: Same serial number on your asset!')
 
     @api.multi
     def button_approve(self, vals):

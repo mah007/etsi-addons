@@ -29,6 +29,10 @@ class AssetManagementReturn(models.Model):
             self.ret_custodian = source.issuer_id.name
             self.ret_email = source.recipient_email
 
+    @api.onchange('ret_emp')
+    def onchange_employee(self):
+        self.ret_src_doc = 0
+
     #Generate button to create a copy of handover lines
     @api.multi
     def generate_asset(self):

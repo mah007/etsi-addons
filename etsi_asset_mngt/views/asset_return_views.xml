@@ -51,7 +51,7 @@
                                 <field name = "ret_receive_by"/>
                             </group>
                             <field name="return_ids" widget="many2many" attrs="{'readonly':['|',('state', 'in', ['received', 'cancel'])]}">
-                                <tree>
+                                <tree create="false">
                                     <field name = "ret_asset_name_id"/>
                                     <field name = "ret_serial_number_id"/>
                                     <field name = "ret_model"/>
