@@ -12,7 +12,7 @@ class AssetManagementHandover (models.Model):
 
     recipient_company_id = fields.Many2one ('res.partner', string = "Recipient's Company", required = True)
     recipient_id = fields.Many2one ('hr.employee', string = "Recipient's Name", required = True)
-    recipient_email = fields.Char(string="Email", readonly=True, related='recipient_id.user_id.login', store=True)
+    recipient_email = fields.Char(string="Email", readonly=True, related='recipient_id.work_email', store=True)
     destination_loc = fields.Many2one ('stock.warehouse', string = "Destination Location", required = True)
 
     remarks = fields.Text (string = "Remarks")
@@ -57,13 +57,30 @@ class AssetManagementHandover (models.Model):
         if not self.lines_ids:
             raise ValidationError ('Please select your asset before the confirmation of your transaction')
 
-    @api.multi
-    def button_approve(self):
-        self.state = 'approve'
-        for assets in self.lines_ids:
-            if assets.serial_number_id.asset_serial_state == False:
-                raise ValidationError ('Error')
+        hold_vals = []
 
+        for vals in self.lines_ids:
+
+            print 'vals', vals
+            print 'flag 2', vals['serial_number_id']
+
+            x = vals['serial_number_id']
+
+            hold_vals.append(x)
+
+            print 'hold vals', hold_vals
+
+            compare_vals = len(hold_vals) != len(set(hold_vals))
+            print '>', len(hold_vals)
+            print '>>', len(set(hold_vals))
+            print 'flag 3', compare_vals
+
+            if compare_vals == True:
+                raise ValidationError('Error: Same serial number on your asset')
+
+    @api.multi
+    def button_approve(self, vals):
+        self.state = 'approve'
 
     @api.multi
     def button_transfer(self):
@@ -78,7 +95,9 @@ class AssetManagementHandover (models.Model):
 
     @api.multi
     def button_email(self):
-        print 'hehe'
+        template = self.env.ref('etsi_asset_mngt.handover_email_template')
+        # Send out the e-mail template to the user
+        self.env['mail.template'].browse(template.id).send_mail(self.id)
 
     @api.multi
     def button_cancel(self):
@@ -103,4 +122,5 @@ class AssetManagementHandoverLine (models.Model):
     @api.onchange('asset_name_id')
     def on_change_asset_name(self):
         self.serial_number_id = ''
+        print 'flag a', self.serial_number_id
 

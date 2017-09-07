@@ -38,9 +38,9 @@
                         </div>
                         <group>
                             <group>
-                                <field name = "ret_date"/>
-                                <field name = "ret_emp" options="{'no_create': True}"/>
-                                <field name = "ret_src_doc" domain="[('recipient_id', '=', ret_emp), ('state', '=', 'transfer')]"/>
+                                <field name = "ret_date" attrs="{'readonly':['|',('state', 'in', ['received', 'cancel'])]}"/>
+                                <field name = "ret_emp" options="{'no_create': True}" attrs="{'readonly':['|',('state', 'in', ['received', 'cancel'])]}"/>
+                                <field name = "ret_src_doc" domain="[('recipient_id', '=', ret_emp), ('state', '=', 'transfer')]" attrs="{'readonly':['|',('state', 'in', ['received', 'cancel'])]}"/>
                                 <field name = "ret_email" readonly="1"/>
                                 <field name = "ret_src_loc" readonly="1"/>
                                 <field name = "ret_des_loc" readonly="1"/>
@@ -49,9 +49,8 @@
                                 <field name = "ret_transfer_type"/>
                                 <field name = "ret_custodian"/>
                                 <field name = "ret_receive_by"/>
-                                <field name = "ret_remarks"/>
                             </group>
-                            <field name="return_ids" widget="many2many">
+                            <field name="return_ids" widget="many2many" attrs="{'readonly':['|',('state', 'in', ['received', 'cancel'])]}">
                                 <tree>
                                     <field name = "ret_asset_name_id"/>
                                     <field name = "ret_serial_number_id"/>

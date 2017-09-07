@@ -53,28 +53,28 @@
 
                         <group>
                             <group>
-                                <field name="date" attrs="{'readonly':['|',('state', '=', 'approve'),('state', '=', 'transfer')]}"/>
+                                <field name="date" attrs="{'readonly':['|',('state', 'in', ['approve','transfer','cancel'])]}"/>
                                 <field name="issuer_company_id" placeholder="Company name" domain="[('is_company','=',True)]"
-                                       attrs="{'readonly':['|',('state', '=', 'approve'),('state', '=', 'transfer')]}"/>
+                                       attrs="{'readonly':['|',('state', 'in', ['approve','transfer','cancel'])]}"/>
                                 <field name="issuer_id" placeholder="Employee's Name" domain = "[('address_id', '=', issuer_company_id)]"
-                                       attrs="{'readonly':['|',('state', '=', 'approve'),('state', '=', 'transfer')]}"/>
+                                       attrs="{'readonly':['|',('state', 'in', ['approve','transfer','cancel'])]}"/>
                                 <field name="source_loc" domain = "[('partner_id', '=', issuer_company_id)]"
-                                        attrs="{'readonly':['|',('state', '=', 'approve'),('state', '=', 'transfer')]}"/>
+                                        attrs="{'readonly':['|',('state', 'in', ['approve','transfer','cancel'])]}"/>
                                 <field name="processed_by"/>
                             </group>
                             <group>
                                 <field name="transfer_type"/>
                                 <field name="recipient_company_id" placeholder="Company name" domain="[('is_company','=',True)]"
-                                       attrs="{'readonly':['|',('state', '=', 'approve'),('state', '=', 'transfer')]}"/>
+                                       attrs="{'readonly':['|',('state', 'in', ['approve','transfer','cancel'])]}"/>
                                 <field name="recipient_id" placeholder="Employee's Name" domain = "[('address_id', '=', recipient_company_id)]"
-                                       attrs="{'readonly':['|',('state', '=', 'approve'),('state', '=', 'transfer')]}"/>
+                                       attrs="{'readonly':['|',('state', 'in', ['approve','transfer','cancel'])]}"/>
                                 <field name="destination_loc" domain = "[('partner_id', '=', recipient_company_id)]"
-                                       attrs="{'readonly':['|',('state', '=', 'approve'),('state', '=', 'transfer')]}"/>
+                                       attrs="{'readonly':['|',('state', 'in', ['approve','transfer','cancel'])]}"/>
                                 <field name="recipient_email"/>
-                                <field name="remarks" attrs="{'readonly':['|',('state', '=', 'approve'),('state', '=', 'transfer')]}"/>
+                                <field name="remarks" attrs="{'readonly':['|',('state', 'in', ['approve','transfer','cancel'])]}"/>
                             </group>
 
-                            <field name="lines_ids" attrs="{'readonly':['|',('state', '=', 'approve'),('state', '=', 'transfer')]}">
+                            <field name="lines_ids" attrs="{'readonly':['|',('state', 'in', ['approve','transfer','cancel'])]}">
                                 <tree editable="bottom">
                                     <field name="asset_name_id"/>
                                     <field name="serial_number_id" domain = "[('serial_no_id', '=', asset_name_id), ('asset_serial_state', '=', True)]"/>

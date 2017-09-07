@@ -15,7 +15,6 @@ class AssetManagementReturn(models.Model):
     ret_transfer_type = fields.Char(string="Transfer type", default="Asset Return", readonly=True)
     ret_custodian = fields.Char(string="Issuer", readonly=True)
     ret_receive_by = fields.Many2one('hr.employee', string="Received by", readonly=True)
-    ret_remarks = fields.Text(string="Remarks")
 
     return_ids = fields.One2many('asset.management.return.lines', 'ret_line_id', string="Asset")
 
@@ -103,6 +102,8 @@ class AssetManagementReturn(models.Model):
 
         ret_handover_line = self.env['asset.management.handover.lines'].search([('lines_id', '=', self.ret_src_doc.id)])
         ret_return_line = self.env['asset.management.return.lines'].search([('ret_line_id', '=', self.id)])
+        print 'flag 1', ret_handover_line
+        print  'flag 2', ret_return_line
 
         for a in ret_handover_line:
             ret_handover.append(a.id)
@@ -110,16 +111,40 @@ class AssetManagementReturn(models.Model):
         for b in ret_return_line:
             ret_return.append(b.handover_line_id)
 
+        print 'ret_handover', ret_handover
+        print 'ret_return', ret_return
+
         total = set(ret_handover).intersection(ret_return)
+
+        # for c in ret_handover_line:
+        #
+        #     holder = True
+        #     while holder:
+        #         print 'flag 1', holder
+        #
+        #         if c.id in total:
+        #             c.ret_line_id = self.id
+        #             c.serial_number_id.asset_serial_state = True
+        #             print 'flag 2', c.serial_number_id.asset_serial_state
+        #             holder = True
+        #             print 'flag 3', holder
+        #
+        #         elif c.serial_number_id.asset_serial_state:
+        #             print '>', c.serial_number_id.asset_serial_state
+        #             # holder = False
+        #             # print '>>>', c.serial_number_id.asset_serial_state
+        #             # break
+        #             raise ValidationError('Error')
+
 
         for c in ret_handover_line:
 
-            if c.serial_number_id.asset_serial_state == True:
-                raise ValidationError('Error')
-            else:
-                if c.id in total:
-                    c.ret_line_id = self.id
-                    c.serial_number_id.asset_serial_state = True
+            # if c.serial_number_id.asset_serial_state == True:
+            #     raise ValidationError('Error')
+            # else:
+            if c.id in total:
+                c.ret_line_id = self.id
+                c.serial_number_id.asset_serial_state = True
 
 
 
