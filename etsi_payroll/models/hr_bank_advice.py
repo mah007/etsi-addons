@@ -118,7 +118,7 @@ class BankAdvice(models.Model):
     def main_gen(self):
         self.state = 'draft'
         print 'enter success'
-        # connection to database
+        # connection to databaseasfasdfafdasdfasdfasdfasdfadfadfasdfadfasfd
         conn = p.connect(database="Flexerp", user="flexerp", password="flexerp", host="localhost",
                                 port="5432")
 
