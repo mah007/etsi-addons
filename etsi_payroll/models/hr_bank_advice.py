@@ -4,6 +4,7 @@ import random,os
 
 class BankAdvice(models.Model):
     _name = 'hr.bank.advice'
+    _inherit = 'mail.thread'
 
     name = fields.Many2one('res.partner', string="Company", required=True)
     bank = fields.Many2one('res.bank', string="Bank", required=True)
@@ -117,20 +118,53 @@ class BankAdvice(models.Model):
     def main_gen(self):
         self.state = 'draft'
         print 'enter success'
+
         # connection to database
         conn = p.connect(database="Flexerp", user="flexerp", password="flexerp", host="localhost",
-                                port="5432")
+                         port="5432")
 
         # naming/placing/opening of file
         a = random.randint(1, 9999)
         name = 'filename' + str(a * 7) + '.txt'
         textfile = open(name, 'w')
-        message = "HELLO WORLD"
-        textfile.write(message)
+        # message = "HELLO WORLD"
+        # textfile.write(message)
+        cur = conn.cursor()
+
+        cur.execute(
+            "SELECT hr_employee.name_related, res_partner_bank.acc_number, salary "
+            "FROM hr_employee, hr_bank_advice_line, res_partner_bank "
+            "WHERE hr_employee.id = hr_bank_advice_line.emp_id "
+            "AND res_partner_bank.id = hr_bank_advice_line.bank_account "
+            "AND bank_advice_id = %s" % self.id)
+
+
+        rows = cur.fetchall()
+        textfile.write("emp id\tbank account id\tsalary" + '\n')
+        rows_count = 0
+        total_salary = 0
+
+        for row in rows:
+            textfile.write("%s\t" % row[0])
+            textfile.write("%s\t" % row[1])
+            textfile.write("%s\n" % row[2])
+            rows_count += 1
+            total_salary += row[2]
+
+        textfile.write("Total Accounts\t")
+        textfile.write("%s\t" % rows_count)
+        textfile.write("Total Salary\t")
+        textfile.write("%s" % total_salary)
+
+        print ">", rows_count
+        print ">>", total_salary
+        conn.close()
+
         textfile.close()
 
         with open(name, 'r') as f_read:
             file_data = f_read.read()
+
             print 'file_data', file_data
 
         values = {
@@ -142,20 +176,8 @@ class BankAdvice(models.Model):
             'public': True,
             'datas': file_data.encode('utf8').encode('base64'),
         }
-        cur.execute(
-            "SELECT hr_employee.name_related, res_partner_bank.acc_number, salary FROM hr_employee, hr_bank_advice_line, res_partner_bank WHERE hr_employee.id = hr_bank_advice_line.emp_id AND res_partner_bank.id = hr_bank_advice_line.bank_account AND bank_advice_id = %s" % self.id)
-        rows = cur.fetchall()
-        file.write("emp id,bank account id,salary\n")
-        rows_count = 0
-        total_salary = 0
 
         attachment_id = self.env['ir.attachment'].sudo().create(values)
-        for row in rows:
-            file.write('"%s",' % row[0])
-            file.write("%s," % row[1])
-            file.write("%s\n" % row[2])
-            rows_count += 1
-            total_salary += row[2]
 
         # Prepare your download URL
         download_url = '/web/content/' + str(attachment_id.id) + '?download=True'
@@ -167,9 +189,6 @@ class BankAdvice(models.Model):
             "target": "new",
         }
 
-        file = open(completeName, 'r')
-        print file.read()
-        file.close()
 
 class HrBankAdviceReport(models.AbstractModel):
     _name = 'report.etsi_payroll.bank_advice_line_report_temp'
