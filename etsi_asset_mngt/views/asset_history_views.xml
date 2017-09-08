@@ -9,6 +9,7 @@
                     <page string="Asset History">
                         <group>
                             <group>
+                                <!--<field name="serial_no_id"/>-->
                                 <field name="serial_no_id" domain="[('serial_no_id','=',id)]"/>
                             </group>
                             <group>
