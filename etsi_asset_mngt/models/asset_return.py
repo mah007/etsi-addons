@@ -29,6 +29,10 @@ class AssetManagementReturn(models.Model):
             self.ret_custodian = source.issuer_id.name
             self.ret_email = source.recipient_email
 
+    @api.onchange('ret_emp')
+    def onchange_employee(self):
+        self.ret_src_doc = 0
+
     #Generate button to create a copy of handover lines
     @api.multi
     def generate_asset(self):
@@ -51,6 +55,7 @@ class AssetManagementReturn(models.Model):
                         'handover_line_id': c.id,
                         'ret_asset_name_id': c.asset_name_id.name,
                         'ret_serial_number_id': c.serial_number_id.name,
+                        'ret_asset_serial_id': c.serial_number_id.id,
                         'ret_model': c.model,
                         'ret_condition_id': c.condition_id.name,
                     })
@@ -83,6 +88,10 @@ class AssetManagementReturn(models.Model):
     ], string="State", default='draft')
 
     @api.multi
+    def button_draft(self):
+        self.state = 'draft'
+
+    @api.multi
     def button_confirmed(self):
         self.state = 'confirmed'
         if not self.return_ids:
@@ -95,10 +104,12 @@ class AssetManagementReturn(models.Model):
         self.ret_receive_by = self.env['hr.employee'].browse(self.env.uid)
 
         ret_handover = []
-        ret_return =[0,]
+        ret_return =[]
+        ret_return_filter = []
 
         ret_handover_line = self.env['asset.management.handover.lines'].search([('lines_id', '=', self.ret_src_doc.id)])
         ret_return_line = self.env['asset.management.return.lines'].search([('ret_line_id', '=', self.id)])
+        ret_filter = self.env['asset.management.return.lines'].search([('id', '>', 0)])
 
         for a in ret_handover_line:
             ret_handover.append(a.id)
@@ -106,18 +117,27 @@ class AssetManagementReturn(models.Model):
         for b in ret_return_line:
             ret_return.append(b.handover_line_id)
 
+        for d in ret_filter:
+            ret_return_filter.append(d.handover_line_id)
+
         total = set(ret_handover).intersection(ret_return)
+
+        ret_filter_value = len(ret_return_filter) != len(set(ret_return_filter))
+
+        print '>', ret_return_filter
+        print '>>', len(ret_return_filter) != len(set(ret_return_filter))
+        print '>>>', ret_return
+        print '>>>>', ret_handover
 
         for c in ret_handover_line:
 
-            if c.serial_number_id.asset_serial_state == True:
-                raise ValidationError('Error')
+            if ret_filter_value == True:
+                raise ValidationError('Two Return Sequence have the same assets to be return. Please delete the other one.')
             else:
                 if c.id in total:
                     c.ret_line_id = self.id
                     c.serial_number_id.asset_serial_state = True
-
-
+                    print '>: nareturn na sya'
 
     @api.multi
     def button_email(self):
@@ -133,6 +153,28 @@ class AssetManagementReturn(models.Model):
         self.state = 'cancel'
         self.ret_receive_by = ''
 
+        ret_handover = []
+        ret_return = []
+
+        ret_handover_line = self.env['asset.management.handover.lines'].search([('lines_id', '=', self.ret_src_doc.id)])
+        ret_return_line = self.env['asset.management.return.lines'].search([('ret_line_id', '=', self.id)])
+
+        for a in ret_handover_line:
+            ret_handover.append(a.id)
+
+        for b in ret_return_line:
+            ret_return.append(b.handover_line_id)
+
+        total = set(ret_handover).intersection(ret_return)
+        print 'total', total
+
+        for c in ret_handover_line:
+            if c.id in total:
+                c.ret_line_id = ''
+                c.serial_number_id.asset_serial_state = False
+                print '>: nabago na sya'
+
+
 class AssetHandoverLine(models.Model):
     _name = 'asset.management.return.lines'
 
@@ -140,6 +182,7 @@ class AssetHandoverLine(models.Model):
     handover_line_id = fields.Integer(string="Handover ID")
     ret_asset_name_id = fields.Char(string="Asset")
     ret_serial_number_id = fields.Char(string="Serial number")
+    ret_asset_serial_id = fields.Char(string="Asset Serial ID")
     ret_model = fields.Char(string="Model")
     ret_condition_id = fields.Char(string="Asset Condition")
     ret_asset_pic = fields.Char(string="Asset picture")
