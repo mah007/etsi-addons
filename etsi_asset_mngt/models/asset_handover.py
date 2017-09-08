@@ -21,6 +21,7 @@ class AssetManagementHandover (models.Model):
     transfer_type = fields.Char (string = "Transfer type", default = "Asset Handover", readonly = True)
     processed_by = fields.Many2one ('hr.employee', string = "Approved by", readonly = True)
     lines_ids = fields.One2many('asset.management.handover.lines', 'lines_id', string = " ")
+    history_lines_ids = fields.One2many('asset.management.history','asset_handover_id', string="History")
 
 
     state = fields.Selection ([
@@ -90,8 +91,23 @@ class AssetManagementHandover (models.Model):
         asset_line = self.env['asset.management.handover.lines'].search([('lines_id', '=', self.id)])
         print '>', asset_line
 
+        assets_id = self.env['asset.management.handover'].search([('id', '=', self.id)])
+        asset_lines = self.env['asset.management.handover.lines'].search([('lines_id', '=', self.id)])
+
         for asset in asset_line:
             asset.serial_number_id.asset_serial_state = False
+
+        for l in asset_lines:
+            self.history_lines_ids.create({
+                'asset_handover_id':self.id,
+                'asset_id':l.asset_name_id.id,
+                'handover_no':assets_id.name,
+                'serial_number_id':l.serial_number_id.id,
+                'date_handover':assets_id.date,
+                'issuer_name':assets_id.issuer_id.id,
+                'recipient_name':assets_id.recipient_id.id,
+                'approved_by':assets_id.processed_by.id,
+            })
 
     @api.multi
     def button_transfer(self):

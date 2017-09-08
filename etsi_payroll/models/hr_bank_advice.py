@@ -125,8 +125,8 @@ class BankAdvice(models.Model):
 
         # naming/placing/opening of file
         a = random.randint(1, 9999)
-        name = 'filename' + str(a * 7) + '.txt'
-        textfile = open(name, 'w')
+        fname = 'TextFile' + str(a * 7) + '.txt'
+        textfile = open(fname, 'w')
         # message = "HELLO WORLD"
         # textfile.write(message)
         cur = conn.cursor()
@@ -162,14 +162,12 @@ class BankAdvice(models.Model):
 
         textfile.close()
 
-        with open(name, 'r') as f_read:
+        with open(fname, 'r') as f_read:
             file_data = f_read.read()
 
-            print 'file_data', file_data
-
         values = {
-            'name': name,
-            'datas_fname': name,
+            'name': fname,
+            'datas_fname': fname,
             'res_model': 'ir.ui.view',
             'res_id': False,
             'type': 'binary',

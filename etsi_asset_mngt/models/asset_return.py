@@ -147,6 +147,17 @@ class AssetManagementReturn(models.Model):
                     c.serial_number_id.asset_serial_state = True
                     print '>: nareturn na sya'
 
+        asset_history = self.env['asset.management.history'].search([('handover_no', '=', self.ret_src_doc.name)])
+        # asset_serial = self.return_ids.ret_serial_number_id
+        asset_serial_list = []
+        # asset_serial_list.append(self.return_ids.ret_serial_number_id)
+        for i in self.return_ids:
+            asset_serial_list.append(i.ret_serial_number_id)
+        for a in asset_history:
+            if a.serial_number_id.name in asset_serial_list:
+                a.date_return = self.ret_date
+                a.received_by_name_id = self.ret_receive_by
+
     @api.multi
     def button_email(self):
         template = self.env.ref('etsi_asset_mngt.example_email_template1')
@@ -181,7 +192,6 @@ class AssetManagementReturn(models.Model):
                 c.ret_line_id = ''
                 c.serial_number_id.asset_serial_state = False
                 print '>: nabago na sya'
-
 
 class AssetHandoverLine(models.Model):
     _name = 'asset.management.return.lines'
