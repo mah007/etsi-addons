@@ -113,14 +113,22 @@ class AssetManagementReturn(models.Model):
 
         for a in ret_handover_line:
             ret_handover.append(a.id)
+            print 'a', a
 
         for b in ret_return_line:
             ret_return.append(b.handover_line_id)
+            print 'b', b
 
         for d in ret_filter:
             ret_return_filter.append(d.handover_line_id)
+            print 'd', d
+
+        print 'hand over line', ret_handover_line
+        print 'return line, ', ret_return_line
+        print 'ret filter', ret_filter
 
         total = set(ret_handover).intersection(ret_return)
+        print 'total', total
 
         ret_filter_value = len(ret_return_filter) != len(set(ret_return_filter))
 

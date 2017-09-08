@@ -35,12 +35,12 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <button name="button_draft" string="Send to Draft" type="object" states="confirm,cancel"/>
+                        <button name="button_draft" string="Send to Draft" type="object" states="confirm"/>
                         <button name="button_confirm" string="Confirm" states="draft" type="object" class="oe_highlight"/>
                         <button name="button_approve" string="Approve" type="object" states="confirm" class="oe_highlight"/>
                         <button name="button_transfer" string="Transfer" type="object" states="approve" class="oe_highlight"/>
                         <button name="button_email" string="Send Email" type="object" states="transfer" class="oe_highlight"/>
-                        <button name="button_cancel" string="Cancel" type="object" states="confirm,approve,transfer"/>
+                        <button name="button_cancel" string="Cancel" type="object" states="confirm,approve"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>

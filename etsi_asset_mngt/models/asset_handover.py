@@ -82,16 +82,21 @@ class AssetManagementHandover (models.Model):
     def button_approve(self, vals):
         self.state = 'approve'
 
-    @api.multi
-    def button_transfer(self):
-        self.state = 'transfer'
-        self.processed_by = self.env['hr.employee'].browse(self.env.uid)
+        print 'state', self.lines_ids.serial_number_id.asset_serial_state
+        if self.lines_ids.serial_number_id.asset_serial_state == False:
+
+            raise ValidationError('This asset already approved.')
 
         asset_line = self.env['asset.management.handover.lines'].search([('lines_id', '=', self.id)])
         print '>', asset_line
 
         for asset in asset_line:
             asset.serial_number_id.asset_serial_state = False
+
+    @api.multi
+    def button_transfer(self):
+        self.state = 'transfer'
+        self.processed_by = self.env['hr.employee'].browse(self.env.uid)
 
     @api.multi
     def button_email(self):
@@ -101,17 +106,28 @@ class AssetManagementHandover (models.Model):
 
     @api.multi
     def button_cancel(self):
-        self.state = 'cancel'
-        self.processed_by = ''
-        #
-        # if self.state == 'transfer':
-        for assets in self.lines_ids:
-            assets.serial_number_id.asset_serial_state = True
+
+        if self.state == 'confirm':
+            self.lines_ids.serial_number_id.asset_serial_state = False
+            self.state = 'cancel'
+            self.processed_by = ''
+            print 'if', self.lines_ids.serial_number_id.asset_serial_state
+
+        else:
+            self.state = 'cancel'
+            self.processed_by = ''
+            for assets in self.lines_ids:
+                print 'assettttts', assets.serial_number_id.asset_serial_state
+                # if assets.serial_number_id.asset_serial_state == False:
+                #     assets.serial_number_id.asset_serial_state = False
+                #     print 'if', assets.serial_number_id.asset_serial_state
+                # else:
+                assets.serial_number_id.asset_serial_state = True
 
 class AssetManagementHandoverLine (models.Model):
     _name = 'asset.management.handover.lines'
 
-    lines_id = fields.Many2one('asset.management.handover')
+    lines_id = fields.Many2one('asset.management.handover', ondelete='cascade')
     asset_name_id = fields.Many2one('account.asset.asset', string = "Asset", required = True)
     serial_number_id = fields.Many2one('account.asset.asset.line', string = "Serial number", required = True)
     model = fields.Char (string = "Model", related = 'asset_name_id.model_id', store = True, readonly = True)
