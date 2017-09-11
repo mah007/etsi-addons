@@ -82,11 +82,12 @@ class AssetManagementHandover (models.Model):
     @api.multi
     def button_approve(self, vals):
         self.state = 'approve'
+        for i in self.lines_ids:
 
-        print 'state', self.lines_ids.serial_number_id.asset_serial_state
-        if self.lines_ids.serial_number_id.asset_serial_state == False:
+            print 'state', i.serial_number_id.asset_serial_state
+            if i.serial_number_id.asset_serial_state == False:
 
-            raise ValidationError('This asset already approved.')
+                raise ValidationError('Some of your asset/s have already approved.')
 
         asset_line = self.env['asset.management.handover.lines'].search([('lines_id', '=', self.id)])
         print '>', asset_line
@@ -124,10 +125,11 @@ class AssetManagementHandover (models.Model):
     def button_cancel(self):
 
         if self.state == 'confirm':
-            self.lines_ids.serial_number_id.asset_serial_state = False
-            self.state = 'cancel'
-            self.processed_by = ''
-            print 'if', self.lines_ids.serial_number_id.asset_serial_state
+            for a in self.lines_ids:
+                a.serial_number_id.asset_serial_state = False
+                self.state = 'cancel'
+                self.processed_by = ''
+                print 'if', a.serial_number_id.asset_serial_state
 
         else:
             self.state = 'cancel'
