@@ -25,6 +25,7 @@
                                 <field name="approved_by"/>
                                 <field name="date_return"/>
                                 <field name="received_by_name_id"/>
+                                <field name="state"/>
                             </tree>
                         </field>
                     </page>

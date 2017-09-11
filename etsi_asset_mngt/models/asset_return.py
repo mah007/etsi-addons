@@ -149,6 +149,7 @@ class AssetManagementReturn(models.Model):
             if a.serial_number_id.name in asset_serial_list:
                 a.date_return = self.ret_date
                 a.received_by_name_id = self.ret_receive_by
+                a.state = "Returned"
 
     @api.multi
     def button_email(self):
@@ -184,6 +185,14 @@ class AssetManagementReturn(models.Model):
                 c.ret_line_id = ''
                 c.serial_number_id.asset_serial_state = False
                 print '>: nabago na sya'
+
+        asset_history = self.env['asset.management.history'].search([('handover_no', '=', self.ret_src_doc.name)])
+        asset_serial_list = []
+        for i in self.return_ids:
+            asset_serial_list.append(i.ret_serial_number_id)
+        for a in asset_history:
+            if a.serial_number_id.name in asset_serial_list:
+                a.state = "Cancelled"
 
 class AssetHandoverLine(models.Model):
     _name = 'asset.management.return.lines'
