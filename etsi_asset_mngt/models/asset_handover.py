@@ -12,17 +12,16 @@ class AssetManagementHandover (models.Model):
 
     recipient_company_id = fields.Many2one ('res.partner', string = "Recipient's Company", required = True)
     recipient_id = fields.Many2one ('hr.employee', string = "Recipient's Name", required = True)
-    recipient_email = fields.Char(string="Email", readonly=True, related='recipient_id.work_email', store=True)
+    recipient_email = fields.Char(string="Email", readonly=True, related='recipient_id.work_email', store = True)
     destination_loc = fields.Many2one ('stock.warehouse', string = "Destination Location", required = True)
 
     remarks = fields.Text (string = "Remarks")
 
     date = fields.Date (string = "Date", default = lambda *a: datetime.today())
     transfer_type = fields.Char (string = "Transfer type", default = "Asset Handover", readonly = True)
-    processed_by = fields.Many2one ('hr.employee', string = "Approved by", readonly = True)
-    lines_ids = fields.One2many('asset.management.handover.lines', 'lines_id', string = " ")
+    processed_by = fields.Many2one ('hr.employee', string = "Transfer by", readonly = True)
+    lines_ids = fields.One2many('asset.management.handover.lines', 'lines_id', string = "")
     history_lines_ids = fields.One2many('asset.management.history','asset_handover_id', string="History")
-
 
     state = fields.Selection ([
         ('draft', "Draft"),
@@ -100,7 +99,7 @@ class AssetManagementHandover (models.Model):
 
         for l in asset_lines:
             self.history_lines_ids.create({
-                'asset_handover_id':self.id,
+                'asset0_handover_id':self.id,
                 'asset_id':l.asset_name_id.id,
                 'handover_no':assets_id.name,
                 'serial_number_id':l.serial_number_id.id,
@@ -136,22 +135,18 @@ class AssetManagementHandover (models.Model):
             self.processed_by = ''
             for assets in self.lines_ids:
                 print 'assettttts', assets.serial_number_id.asset_serial_state
-                # if assets.serial_number_id.asset_serial_state == False:
-                #     assets.serial_number_id.asset_serial_state = False
-                #     print 'if', assets.serial_number_id.asset_serial_state
-                # else:
                 assets.serial_number_id.asset_serial_state = True
 
 class AssetManagementHandoverLine (models.Model):
     _name = 'asset.management.handover.lines'
 
-    lines_id = fields.Many2one('asset.management.handover', ondelete='cascade')
+    lines_id = fields.Many2one('asset.management.handover', ondelete = 'cascade')
     asset_name_id = fields.Many2one('account.asset.asset', string = "Asset", required = True)
     serial_number_id = fields.Many2one('account.asset.asset.line', string = "Serial number", required = True)
     model = fields.Char (string = "Model", related = 'asset_name_id.model_id', store = True, readonly = True)
     condition_id = fields.Many2one ('asset.condition', string = "Asset Condition", required = True)
     asset_pic = fields.Many2many('ir.attachment', string = "Asset picture")
-    total = fields.Integer(string = "Total", default = "1")
+    total = fields.Integer(string = "Total", default = "1", readonly = True)
     ret_line_id = fields.Many2one('asset.management.return', string="Return ID", readonly=True)
 
     @api.onchange('asset_name_id')

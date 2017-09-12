@@ -15,10 +15,8 @@
                 <tree>
                     <field name="name" string="Transaction number"/>
                     <field name="date"/>
-                    <!--<field name="issuer_company_id"/>-->
                     <field name="issuer_id"/>
                     <field name="source_loc"/>
-                    <!--<field name="recipient_company_id"/>-->
                     <field name="recipient_id"/>
                     <field name="destination_loc"/>
                     <field name="processed_by"/>
@@ -26,7 +24,6 @@
                 </tree>
             </field>
         </record>
-
 
         <!--Hand over form view-->
         <record model="ir.ui.view" id="handover_form_view">
@@ -60,7 +57,7 @@
                                        attrs="{'readonly':['|',('state', 'in', ['approve','transfer','cancel'])]}"/>
                                 <field name="source_loc" domain = "[('partner_id', '=', issuer_company_id)]"
                                         attrs="{'readonly':['|',('state', 'in', ['approve','transfer','cancel'])]}"/>
-                                <field name="processed_by"/>
+                                <field name="processed_by" attrs="{'invisible':['|', ('state', 'in', ['draft', 'confirm','approve'])]}"/>
                             </group>
                             <group>
                                 <field name="transfer_type"/>
@@ -113,15 +110,13 @@
             <field name="model">asset.management.handover</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name = "issuer_id"/>
-                    <field name = "issuer_company_id"/>
+                    <field name="issuer_id"/>
+                    <field name="issuer_company_id"/>
+                    <field name="recipient_id"/>
+                    <field name="recipient_company_id"/>
                 </search>
             </field>
         </record>
-
-        <!--send email-->
-
-
 
         <!--Handover action-->
         <record model="ir.actions.act_window" id="handover_action">
