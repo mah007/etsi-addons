@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_etsi_bank_advices_etsi_bank_advices,etsi_bank_advices.etsi_bank_advices,model_etsi_bank_advices_etsi_bank_advices,,1,0,0,0
