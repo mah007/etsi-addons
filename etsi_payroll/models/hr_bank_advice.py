@@ -17,7 +17,8 @@ class BankAdvice(models.Model):
         ('confirmed', "Confirmed"),
         ('closed', "Closed")], default='draft')
 
-    @api.onchange('name')
+    @api.onchange(''
+                  '')
     def onchange_name(self):
         self.payslip_ids = ''
         self.bank_acct = ''
@@ -45,7 +46,17 @@ class BankAdvice(models.Model):
         bank_account = 0
         bank = 0
         id_num = 0
+        all_emp_net = 0
 
+
+        textfile = open('WHOUSE.txt', 'w')
+
+        for cc in contract:
+            for pl in payslip_lines:
+                if pl.code == 'NET' and pl.employee_id == cc.employee_id:
+                    all_emp_net += pl.amount
+
+        self.header_textfile(textfile, self.bank_acct, all_emp_net)
         res = self.env['hr.bank.advice.line'].search([('id', '>', 0)])
         for r in res:
             if r.id > id_num:
@@ -68,8 +79,34 @@ class BankAdvice(models.Model):
                         'date_from': self.date_from,
                         'date_to': self.date_to,
                     })
+                    b_acc = p.employee_id.bank_account_id.acc_number
+                    branch_code = str(b_acc[:4])
+                    self.details_textfile(textfile, branch_code, b_acc, net)
+
         res2 = self.env['hr.bank.advice.line'].search([('id', '>', id_num)])
         self.bank_advice_line_ids = res2
+
+        textfile.close()
+
+    @api.multi
+    def header_textfile(self, textfile, bank_acct ,  all_emp_net):
+        textfile.write('PHP')
+        textfile.write('01')
+        textfile.write('%s' % bank_acct.acc_number)
+        textfile.write('090817')
+        textfile.write('200')
+        textfile.write('%s' % all_emp_net + "\n")
+
+    def details_textfile(self,textfile,branch_code,b_acc,net):
+        textfile.write('PHP')
+        textfile.write('10')
+        textfile.write('%s' % b_acc)
+        textfile.write('%s' % branch_code)
+        textfile.write('00')
+        textfile.write('700')
+        textfile.write('%s' % net + "\n")
+
+
 
     @api.multi
     def send_email(self):
@@ -93,8 +130,6 @@ class BankAdvice(models.Model):
         except ValueError:
             compose_form_id = False
 
-        # user = self.env['res.partner'].browse(1)
-        # print user
         ctx = dict()
         ctx.update({
             'default_model': 'hr.bank.advice',
@@ -119,55 +154,12 @@ class BankAdvice(models.Model):
         self.state = 'draft'
         print 'enter success'
 
-        # connection to database
-        conn = p.connect(database="Flexerp", user="flexerp", password="flexerp", host="localhost",
-                         port="5432")
-
-        # naming/placing/opening of file
-        a = random.randint(1, 9999)
-        fname = 'TextFile' + str(a * 7) + '.txt'
-        textfile = open(fname, 'w')
-        # message = "HELLO WORLD"
-        # textfile.write(message)
-        cur = conn.cursor()
-
-        cur.execute(
-            "SELECT hr_employee.name_related, res_partner_bank.acc_number, salary "
-            "FROM hr_employee, hr_bank_advice_line, res_partner_bank "
-            "WHERE hr_employee.id = hr_bank_advice_line.emp_id "
-            "AND res_partner_bank.id = hr_bank_advice_line.bank_account "
-            "AND bank_advice_id = %s" % self.id)
-
-
-        rows = cur.fetchall()
-        textfile.write("emp id\tbank account id\tsalary" + '\n')
-        rows_count = 0
-        total_salary = 0
-
-        for row in rows:
-            textfile.write("%s\t" % row[0])
-            textfile.write("%s\t" % row[1])
-            textfile.write("%s\n" % row[2])
-            rows_count += 1
-            total_salary += row[2]
-
-        textfile.write("Total Accounts\t")
-        textfile.write("%s\t" % rows_count)
-        textfile.write("Total Salary\t")
-        textfile.write("%s" % total_salary)
-
-        print ">", rows_count
-        print ">>", total_salary
-        conn.close()
-
-        textfile.close()
-
-        with open(fname, 'r') as f_read:
+        with open('WHOUSE.txt', 'r') as f_read:
             file_data = f_read.read()
 
         values = {
-            'name': fname,
-            'datas_fname': fname,
+            'name': 'WHOUSE.txt',
+            'datas_fname': 'WHOUSE.txt',
             'res_model': 'ir.ui.view',
             'res_id': False,
             'type': 'binary',
