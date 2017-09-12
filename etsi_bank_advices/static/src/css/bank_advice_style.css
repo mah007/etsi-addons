@@ -1,0 +1,14 @@
+th,td{
+    border:1px solid black;
+}
+table {
+    text-align:center;
+    width:100%;
+}
+th{
+    text-align:center;
+}
+.employee_name{
+    text-align:left;
+    padding-left:10px;
+}

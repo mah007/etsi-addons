@@ -15,10 +15,8 @@
                 <tree>
                     <field name="name" string="Transaction number"/>
                     <field name="date"/>
-                    <!--<field name="issuer_company_id"/>-->
                     <field name="issuer_id"/>
                     <field name="source_loc"/>
-                    <!--<field name="recipient_company_id"/>-->
                     <field name="recipient_id"/>
                     <field name="destination_loc"/>
                     <field name="processed_by"/>
@@ -27,7 +25,6 @@
             </field>
         </record>
 
-
         <!--Hand over form view-->
         <record model="ir.ui.view" id="handover_form_view">
             <field name="name">handover.form.view</field>
@@ -35,12 +32,12 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <button name="button_draft" string="Send to Draft" type="object" states="confirm,cancel"/>
+                        <button name="button_draft" string="Send to Draft" type="object" states="confirm"/>
                         <button name="button_confirm" string="Confirm" states="draft" type="object" class="oe_highlight"/>
                         <button name="button_approve" string="Approve" type="object" states="confirm" class="oe_highlight"/>
                         <button name="button_transfer" string="Transfer" type="object" states="approve" class="oe_highlight"/>
                         <button name="button_email" string="Send Email" type="object" states="transfer" class="oe_highlight"/>
-                        <button name="button_cancel" string="Cancel" type="object" states="confirm,approve,transfer"/>
+                        <button name="button_cancel" string="Cancel" type="object" states="confirm,approve"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
@@ -60,7 +57,7 @@
                                        attrs="{'readonly':['|',('state', 'in', ['approve','transfer','cancel'])]}"/>
                                 <field name="source_loc" domain = "[('partner_id', '=', issuer_company_id)]"
                                         attrs="{'readonly':['|',('state', 'in', ['approve','transfer','cancel'])]}"/>
-                                <field name="processed_by"/>
+                                <field name="processed_by" attrs="{'invisible':['|', ('state', 'in', ['draft', 'confirm','approve'])]}"/>
                             </group>
                             <group>
                                 <field name="transfer_type"/>
@@ -113,15 +110,13 @@
             <field name="model">asset.management.handover</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name = "issuer_id"/>
-                    <field name = "issuer_company_id"/>
+                    <field name="issuer_id"/>
+                    <field name="issuer_company_id"/>
+                    <field name="recipient_id"/>
+                    <field name="recipient_company_id"/>
                 </search>
             </field>
         </record>
-
-        <!--send email-->
-
-
 
         <!--Handover action-->
         <record model="ir.actions.act_window" id="handover_action">

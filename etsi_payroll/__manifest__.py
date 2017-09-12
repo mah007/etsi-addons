@@ -51,10 +51,10 @@
         # 'data/payroll.ot.day.type.xml',
         'data/payroll.contribution.register.xml',
         'data/payroll.salary.rule.xml',
-        'template/report/bank_advice_report_template.xml',
-        'views/hr_bank_advice_views.xml',
-        'views/sample_template.xml',
-        'template/bank_advice_template.xml',
+        # 'template/report/bank_advice_report_template.xml',
+        # 'views/hr_bank_advice_views.xml',
+        # 'views/sample_template.xml',
+        # 'template/bank_advice_template.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

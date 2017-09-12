@@ -33,6 +33,12 @@ class AssetManagementReturn(models.Model):
     def onchange_employee(self):
         self.ret_src_doc = 0
 
+    @api.multi
+    def clear_asset_return_lines(self):
+        print 'cleared'
+        for assets in self.return_ids:
+            assets.unlink()
+
     #Generate button to create a copy of handover lines
     @api.multi
     def generate_asset(self):
@@ -55,12 +61,15 @@ class AssetManagementReturn(models.Model):
                         'handover_line_id': c.id,
                         'ret_asset_name_id': c.asset_name_id.name,
                         'ret_serial_number_id': c.serial_number_id.name,
+                        'ret_serial_state': c.serial_number_id.asset_serial_state,
                         'ret_asset_serial_id': c.serial_number_id.id,
                         'ret_model': c.model,
                         'ret_condition_id': c.condition_id.name,
                     })
                 else:
-                    raise ValidationError("Error")
+                    raise ValidationError("Assets have been generated. Clear asset line first to Generate")
+            # else:
+            #     raise ValidationError("No more assets to be return in this sequence.")
 
     #Create func for onchange values
     @api.model
@@ -105,39 +114,61 @@ class AssetManagementReturn(models.Model):
 
         ret_handover = []
         ret_return =[]
-        ret_return_filter = []
+        ret_handover_states = []
+        ret_return_states = []
 
         ret_handover_line = self.env['asset.management.handover.lines'].search([('lines_id', '=', self.ret_src_doc.id)])
         ret_return_line = self.env['asset.management.return.lines'].search([('ret_line_id', '=', self.id)])
-        ret_filter = self.env['asset.management.return.lines'].search([('id', '>', 0)])
 
-        for a in ret_handover_line:
-            ret_handover.append(a.id)
+        for line in ret_handover_line:
+            ret_handover.append(line.id)
 
-        for b in ret_return_line:
-            ret_return.append(b.handover_line_id)
+        for line in ret_return_line:
+            ret_return.append(line.handover_line_id)
 
-        for d in ret_filter:
-            ret_return_filter.append(d.handover_line_id)
+        for state in ret_handover_line:
+            ret_handover_states.append(state.serial_number_id.asset_serial_state)
+
+        for state in ret_return_line:
+            ret_return_states.append(state.ret_serial_state)
+
+        print 'hand over line', ret_handover_line
+        print 'return line, ', ret_return_line
+        print 'handover states', ret_handover_states
+        print 'return state', ret_return_states
 
         total = set(ret_handover).intersection(ret_return)
 
-        ret_filter_value = len(ret_return_filter) != len(set(ret_return_filter))
-
-        print '>', ret_return_filter
-        print '>>', len(ret_return_filter) != len(set(ret_return_filter))
+        # ret_filter_value = len(ret_return_filter) != len(set(ret_return_filter))
+        #
+        # print '>', ret_return_filter
+        # print '>>', len(ret_return_filter) != len(set(ret_return_filter))
         print '>>>', ret_return
         print '>>>>', ret_handover
 
         for c in ret_handover_line:
 
-            if ret_filter_value == True:
-                raise ValidationError('Two Return Sequence have the same assets to be return. Please delete the other one.')
-            else:
-                if c.id in total:
-                    c.ret_line_id = self.id
-                    c.serial_number_id.asset_serial_state = True
-                    print '>: nareturn na sya'
+            for rec in ret_return_states:
+                if rec in ret_handover_states:
+                    if c.id in total:
+                        c.ret_line_id = self.id
+                        c.serial_number_id.asset_serial_state = True
+                        print '>: nareturn na sya'
+
+                else:
+                    raise ValidationError('Error: Asset/s have been returned.')
+
+        asset_history = self.env['asset.management.history'].search([('handover_no', '=', self.ret_src_doc.name)])
+        # asset_serial = self.return_ids.ret_serial_number_id
+        asset_serial_list = []
+        # asset_serial_list.append(self.return_ids.ret_serial_number_id)
+        for i in self.return_ids:
+            asset_serial_list.append(i.ret_serial_number_id)
+        for a in asset_history:
+            if a.serial_number_id.name in asset_serial_list:
+                a.date_return = self.ret_date
+                a.received_by_name_id = self.ret_receive_by
+                a.state = "Returned"
 
     @api.multi
     def button_email(self):
@@ -153,29 +184,18 @@ class AssetManagementReturn(models.Model):
         self.state = 'cancel'
         self.ret_receive_by = ''
 
-        ret_handover = []
-        ret_return = []
+        # if self.return_ids:
+        #     for assets in self.return_ids:
+        #         assets.unlink()
+        asset_history = self.env['asset.management.history'].search([('handover_no', '=', self.ret_src_doc.name)])
+        asset_serial_list = []
+        for i in self.return_ids:
+            asset_serial_list.append(i.ret_serial_number_id)
+        for a in asset_history:
+            if a.serial_number_id.name in asset_serial_list:
+                a.state = "Cancelled"
 
-        ret_handover_line = self.env['asset.management.handover.lines'].search([('lines_id', '=', self.ret_src_doc.id)])
-        ret_return_line = self.env['asset.management.return.lines'].search([('ret_line_id', '=', self.id)])
-
-        for a in ret_handover_line:
-            ret_handover.append(a.id)
-
-        for b in ret_return_line:
-            ret_return.append(b.handover_line_id)
-
-        total = set(ret_handover).intersection(ret_return)
-        print 'total', total
-
-        for c in ret_handover_line:
-            if c.id in total:
-                c.ret_line_id = ''
-                c.serial_number_id.asset_serial_state = False
-                print '>: nabago na sya'
-
-
-class AssetHandoverLine(models.Model):
+class AssetManagementReturnLine(models.Model):
     _name = 'asset.management.return.lines'
 
     ret_line_id = fields.Many2one('asset.management.return', ondelete='cascade')
@@ -186,3 +206,4 @@ class AssetHandoverLine(models.Model):
     ret_model = fields.Char(string="Model")
     ret_condition_id = fields.Char(string="Asset Condition")
     ret_asset_pic = fields.Char(string="Asset picture")
+    ret_serial_state = fields.Boolean(string="Asset Serial State")
