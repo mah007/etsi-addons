@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','hr_payroll', 'etsi_hrms','hr_payroll_timesheet', 'payroll_period','send_email_payslips','mail', 'contacts','report'],
+    'depends': ['base','hr_payroll', 'etsi_hrms','hr_payroll_timesheet', 'payroll_period','send_email_payslips','mail', 'contacts','report','etsi_bank_advices'],
 
     # always loaded
     'data': [
