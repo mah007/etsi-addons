@@ -17,8 +17,7 @@ class BankAdvice(models.Model):
         ('confirmed', "Confirmed"),
         ('closed', "Closed")], default='draft')
 
-    @api.onchange(''
-                  '')
+    @api.onchange('name')
     def onchange_name(self):
         self.payslip_ids = ''
         self.bank_acct = ''
@@ -47,9 +46,8 @@ class BankAdvice(models.Model):
         bank = 0
         id_num = 0
         all_emp_net = 0
-
-
         textfile = open('WHOUSE.txt', 'w')
+
 
         for cc in contract:
             for pl in payslip_lines:
@@ -57,6 +55,7 @@ class BankAdvice(models.Model):
                     all_emp_net += pl.amount
 
         self.header_textfile(textfile, self.bank_acct, all_emp_net)
+
         res = self.env['hr.bank.advice.line'].search([('id', '>', 0)])
         for r in res:
             if r.id > id_num:
@@ -79,6 +78,7 @@ class BankAdvice(models.Model):
                         'date_from': self.date_from,
                         'date_to': self.date_to,
                     })
+
                     b_acc = p.employee_id.bank_account_id.acc_number
                     branch_code = str(b_acc[:4])
                     self.details_textfile(textfile, branch_code, b_acc, net)
@@ -88,8 +88,9 @@ class BankAdvice(models.Model):
 
         textfile.close()
 
+
     @api.multi
-    def header_textfile(self, textfile, bank_acct ,  all_emp_net):
+    def header_textfile(self, textfile, bank_acct, all_emp_net):
         textfile.write('PHP')
         textfile.write('01')
         textfile.write('%s' % bank_acct.acc_number)
@@ -97,7 +98,7 @@ class BankAdvice(models.Model):
         textfile.write('200')
         textfile.write('%s' % all_emp_net + "\n")
 
-    def details_textfile(self,textfile,branch_code,b_acc,net):
+    def details_textfile(self, textfile, branch_code, b_acc, net):
         textfile.write('PHP')
         textfile.write('10')
         textfile.write('%s' % b_acc)
@@ -113,7 +114,7 @@ class BankAdvice(models.Model):
         # Find the e-mail template
         # template = self.env.ref('etsi_payroll.bank_advice_template')
         # You can also find the e-mail template like this:
-        template = self.env['ir.model.data'].get_object('etsi_payroll', 'bank_advice_template')
+        template = self.env['ir.model.data'].get_object('etsi_bank_advices', 'bank_advice_template')
 
         # Send out the e-mail template to the user
         self.env['mail.template'].browse(template.id).send_mail(self.id)
@@ -122,7 +123,7 @@ class BankAdvice(models.Model):
         self.ensure_one()
         ir_model_data = self.env['ir.model.data']
         try:
-            template_id = ir_model_data.get_object_reference('etsi_payroll', 'bank_advice_template')[1]
+            template_id = ir_model_data.get_object_reference('etsi_bank_advices', 'bank_advice_template')[1]
         except ValueError:
             template_id = False
         try:
@@ -130,6 +131,8 @@ class BankAdvice(models.Model):
         except ValueError:
             compose_form_id = False
 
+        # user = self.env['res.partner'].browse(1)
+        # print user
         ctx = dict()
         ctx.update({
             'default_model': 'hr.bank.advice',
@@ -153,6 +156,7 @@ class BankAdvice(models.Model):
     def main_gen(self):
         self.state = 'draft'
         print 'enter success'
+
 
         with open('WHOUSE.txt', 'r') as f_read:
             file_data = f_read.read()
@@ -181,7 +185,7 @@ class BankAdvice(models.Model):
 
 
 class HrBankAdviceReport(models.AbstractModel):
-    _name = 'report.etsi_payroll.bank_advice_line_report_temp'
+    _name = 'report.etsi_bank_advices.bank_advice_line_report_temp'
 
     @api.multi
     def render_html(self, docids, data={}):
@@ -199,20 +203,7 @@ class HrBankAdviceReport(models.AbstractModel):
             'docs': docs,
             'total_salary': salary,
         }
-        return self.env['report'].render('etsi_payroll.bank_advice_line_report_temp', docargs)
-
-class res_partner(models.Model):
-    _inherit = 'res.partner'
-
-    @api.multi
-    def send_mail_template(self):
-        # Find the e-mail template
-        template = self.env.ref('etsi_payroll.example_email_template')
-        # You can also find the e-mail template like this:
-        # template = self.env['ir.model.data'].get_object('mail_template_demo', 'example_email_template')
-
-        # Send out the e-mail template to the user
-        self.env['mail.template'].browse(template.id).send_mail(self.id)
+        return self.env['report'].render('etsi_bank_advices.bank_advice_line_report_temp', docargs)
 
 class HrBankAdviceLine(models.Model):
     _name = 'hr.bank.advice.line'

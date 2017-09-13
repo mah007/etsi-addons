@@ -32,8 +32,8 @@
                                     <body>
                                         <div>
                                             <p><b>Printed on: &#160; </b> <span t-esc = "doc.ret_date"/></p>
-                                            <center><h1>ASSET HANDOVER</h1></center>
-                                            <table style = "style2">
+                                            <center><h1>ASSET RETURN</h1></center>
+                                            <table style = "style1">
                                                 <tr>
                                                     <th>&#160;Return Order Number</th>
                                                     <th>&#160;Receiver</th>
@@ -62,7 +62,7 @@
                                         </div>
 
                                         <div>
-                                            <table style="style2">
+                                            <table style="style1">
                                                 <tr>
                                                     <th>&#160;Item type</th>
                                                     <th>&#160;Model</th>
@@ -80,6 +80,12 @@
                                                     </tr>
                                                 </t>
                                             </table>
+
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <style2 style="text-align: left">Signature Over Printed Name</style2>
                                         </div>
                                     </body>
                                 </html>
