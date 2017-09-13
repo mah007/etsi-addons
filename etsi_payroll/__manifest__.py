@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','hr_payroll', 'etsi_hrms','hr_payroll_timesheet', 'payroll_period','send_email_payslips','mail', 'contacts','report','etsi_bank_advices'],
+    'depends': ['base', 'hr_payroll', 'etsi_hrms', 'hr_payroll_timesheet', 'payroll_period', 'send_email_payslips', 'mail', 'contacts', 'report', 'etsi_bank_advices'],
 
     # always loaded
     'data': [
@@ -51,10 +51,7 @@
         # 'data/payroll.ot.day.type.xml',
         'data/payroll.contribution.register.xml',
         'data/payroll.salary.rule.xml',
-        # 'template/report/bank_advice_report_template.xml',
-        # 'views/hr_bank_advice_views.xml',
-        # 'views/sample_template.xml',
-        # 'template/bank_advice_template.xml',
+
     ],
     # only loaded in demonstration mode
     'demo': [
