@@ -20,7 +20,10 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','website','website_sale','point_of_sale','website_sale','account_accountant','purchase','website_customer','mrp','report'],
+    'depends': ['base','website','website_sale','point_of_sale','website_sale','account_accountant','purchase','website_customer','mrp','report',
+                'odoo_web_login','point_of_sale_products_date_expiration','pos_stock_avail','web_responsive','web_site_sale_exten',
+                'website_animate','website_customer_order_delivery_date','website_multi_image_zoom','website_sale_product_quick_view',
+                'website_sale_stock_status','website_transparent_header',],
 
     # always loaded
     'data': [
