@@ -35,6 +35,7 @@
         'hr_employee_time_clock',
         'hr_public_holidays',
         'timesheets_by_employee',
+        'report',
     ],
 
     # always loaded
@@ -62,6 +63,8 @@
         'views/hr_policy_absence_views.xml',
         'views/hr_policy_overtime_views.xml',
         'reports/templates/job_offer_temp.xml',
+        'views/leaves_summary_report_wizard.xml',
+        'reports/templates/report_leaves_summary.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

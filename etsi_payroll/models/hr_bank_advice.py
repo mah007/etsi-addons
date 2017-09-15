@@ -4,6 +4,7 @@ import random,os
 
 class BankAdvice(models.Model):
     _name = 'hr.bank.advice'
+    _inherit = 'mail.thread'
 
     name = fields.Many2one('res.partner', string="Company", required=True)
     bank = fields.Many2one('res.bank', string="Bank", required=True)
@@ -16,7 +17,8 @@ class BankAdvice(models.Model):
         ('confirmed', "Confirmed"),
         ('closed', "Closed")], default='draft')
 
-    @api.onchange('name')
+    @api.onchange(''
+                  '')
     def onchange_name(self):
         self.payslip_ids = ''
         self.bank_acct = ''
@@ -44,7 +46,17 @@ class BankAdvice(models.Model):
         bank_account = 0
         bank = 0
         id_num = 0
+        all_emp_net = 0
 
+
+        textfile = open('WHOUSE.txt', 'w')
+
+        for cc in contract:
+            for pl in payslip_lines:
+                if pl.code == 'NET' and pl.employee_id == cc.employee_id:
+                    all_emp_net += pl.amount
+
+        self.header_textfile(textfile, self.bank_acct, all_emp_net)
         res = self.env['hr.bank.advice.line'].search([('id', '>', 0)])
         for r in res:
             if r.id > id_num:
@@ -67,8 +79,34 @@ class BankAdvice(models.Model):
                         'date_from': self.date_from,
                         'date_to': self.date_to,
                     })
+                    b_acc = p.employee_id.bank_account_id.acc_number
+                    branch_code = str(b_acc[:4])
+                    self.details_textfile(textfile, branch_code, b_acc, net)
+
         res2 = self.env['hr.bank.advice.line'].search([('id', '>', id_num)])
         self.bank_advice_line_ids = res2
+
+        textfile.close()
+
+    @api.multi
+    def header_textfile(self, textfile, bank_acct ,  all_emp_net):
+        textfile.write('PHP')
+        textfile.write('01')
+        textfile.write('%s' % bank_acct.acc_number)
+        textfile.write('090817')
+        textfile.write('200')
+        textfile.write('%s' % all_emp_net + "\n")
+
+    def details_textfile(self,textfile,branch_code,b_acc,net):
+        textfile.write('PHP')
+        textfile.write('10')
+        textfile.write('%s' % b_acc)
+        textfile.write('%s' % branch_code)
+        textfile.write('00')
+        textfile.write('700')
+        textfile.write('%s' % net + "\n")
+
+
 
     @api.multi
     def send_email(self):
@@ -81,81 +119,66 @@ class BankAdvice(models.Model):
         self.env['mail.template'].browse(template.id).send_mail(self.id)
         self.state = 'closed'
 
-        # self.ensure_one()
-        # ir_model_data = self.env['ir.model.data']
-        # try:
-        #     template_id = ir_model_data.get_object_reference('etsi_payroll', 'bank_advice_template')[1]
-        # except ValueError:
-        #     template_id = False
-        # try:
-        #     compose_form_id = ir_model_data.get_object_reference('mail', 'email_compose_message_wizard_form')[1]
-        # except ValueError:
-        #     compose_form_id = False
-        #
-        # # user = self.env['res.bank'].browse(self.bank.id)
-        #
-        # ctx = dict()
-        # ctx.update({
-        #     'default_model': 'hr.bank.advice',
-        #     'default_res_id': self.ids[0],
-        #     'default_use_template': bool(template_id),
-        #     'default_template_id': template_id,
-        #     'default_composition_mode': 'comment',
-        #     # 'default_partner_id': user.id,
-        # })
-        # return {
-        #     'type': 'ir.actions.act_window',
-        #     'view_type': 'form',
-        #     'view_mode': 'form',
-        #     'res_model': 'mail.compose.message',
-        #     'views': [(compose_form_id, 'form')],
-        #     'view_id': compose_form_id,
-        #     'target': 'new',
-        #     'context': ctx,
-        # }
+        self.ensure_one()
+        ir_model_data = self.env['ir.model.data']
+        try:
+            template_id = ir_model_data.get_object_reference('etsi_payroll', 'bank_advice_template')[1]
+        except ValueError:
+            template_id = False
+        try:
+            compose_form_id = ir_model_data.get_object_reference('mail', 'email_compose_message_wizard_form')[1]
+        except ValueError:
+            compose_form_id = False
+
+        ctx = dict()
+        ctx.update({
+            'default_model': 'hr.bank.advice',
+            'default_res_id': self.ids[0],
+            'default_use_template': bool(template_id),
+            'default_template_id': template_id,
+            'default_composition_mode': 'comment',
+            'default_partner_id':1,
+        })
+        return {
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'mail.compose.message',
+            'views': [(compose_form_id, 'form')],
+            'view_id': compose_form_id,
+            'target': 'new',
+            'context': ctx,
+        }
+
     def main_gen(self):
         self.state = 'draft'
         print 'enter success'
-        # connection to database
-        conn = p.connect(database="Flexerp", user="flexerp", password="flexerp", host="localhost",
-                                port="5432")
 
-        # naming/placing/opening of file
-        a = random.randint(1, 9999)
-        name = 'filename' + str(a * 7) + '.csv'
-        print '>>', a
-        completeName = os.path.join('/home/flexerp/Downloads', name)
-        file = open(completeName, 'w')
+        with open('WHOUSE.txt', 'r') as f_read:
+            file_data = f_read.read()
 
-        cur = conn.cursor()
+        values = {
+            'name': 'WHOUSE.txt',
+            'datas_fname': 'WHOUSE.txt',
+            'res_model': 'ir.ui.view',
+            'res_id': False,
+            'type': 'binary',
+            'public': True,
+            'datas': file_data.encode('utf8').encode('base64'),
+        }
 
-        cur.execute(
-            "SELECT hr_employee.name_related, res_partner_bank.acc_number, res_bank.name, salary FROM hr_employee, hr_bank_advice_line, res_partner_bank, res_bank WHERE hr_employee.id = hr_bank_advice_line.emp_id AND res_partner_bank.id = hr_bank_advice_line.bank_account AND res_bank.id = hr_bank_advice_line.bank AND bank_advice_id = %s" % self.id)
-        rows = cur.fetchall()
-        file.write("emp id,bank account id,bank,salary\n")
-        rows_count = 0
-        total_salary = 0
+        attachment_id = self.env['ir.attachment'].sudo().create(values)
 
-        for row in rows:
-            file.write('"%s",' % row[0])
-            file.write("%s," % row[1])
-            file.write("%s," % row[2])
-            file.write("%s\n" % row[3])
-            rows_count += 1
-            total_salary += row[3]
+        # Prepare your download URL
+        download_url = '/web/content/' + str(attachment_id.id) + '?download=True'
+        base_url = self.env['ir.config_parameter'].get_param('web.base.url')
 
-        file.write("Total Accounts,")
-        file.write("%s," % rows_count)
-        file.write("Total Salary,")
-        file.write("%s" % total_salary)
+        return {
+            "type": "ir.actions.act_url",
+            "url": str(base_url) + str(download_url),
+            "target": "new",
+        }
 
-        print ">", rows_count
-        print ">>", total_salary
-        conn.close()
-
-        file = open(completeName, 'r')
-        print file.read()
-        file.close()
 
 class HrBankAdviceReport(models.AbstractModel):
     _name = 'report.etsi_payroll.bank_advice_line_report_temp'

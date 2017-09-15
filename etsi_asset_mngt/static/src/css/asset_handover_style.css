@@ -1,7 +1,16 @@
 @charset "UTF-8";
 
+
 style1, table, td, th {
+    text-align: left;
     border: 1px solid black;
     width: 800px;
-    text-align: center;
+    border-spacing: 100px;
+
+}
+
+style2 {
+   display: block;
+   text-decoration: overline;
+
 }

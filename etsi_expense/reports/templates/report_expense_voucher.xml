@@ -1,0 +1,130 @@
+<odoo>
+    <data>
+        <report
+            id="report_expense_voucher"
+            model="hr.expense.sheet"
+            string="Expense voucher report"
+            name="etsi_expense.expense_voucher_report"
+            file="etsi_expense.expense_voucher_report"
+            report_type="qweb-pdf"
+            menu="True"/>
+
+        <template id="expense_voucher_report">
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+                        <div class="page">
+                            <link rel="stylesheet" href="/flexerp_hrms/static/src/css/employee_info_style.css"/>
+                            <h3 style="vertical-align:middle;text-align:center"><b>Expense Voucher</b></h3>
+
+                            <p><b>Voucher:</b>&#160;&#160;<span t-esc="o.doc_num"/></p>
+                            <p><b>Date:</b>&#160;&#160;<span t-esc="o.accounting_date"/></p>
+                            <b>Pay to:</b>&#160;&#160;<span t-esc="o.employee_id.name"/>
+                            <!--<table style="width:50%">-->
+                                <!--<tr>-->
+                                    <!--<th>Voucher #</th>-->
+                                    <!--<th>Date</th>-->
+                                    <!--<th>Pay to</th>-->
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td><span t-esc="o.doc_num"/></td>-->
+                                    <!--<td><span t-esc="o.accounting_date"/></td>-->
+                                    <!--<td><span t-esc="o.employee_id.name"/></td>-->
+                                <!--</tr>-->
+                            <!--</table>-->
+
+                            <br></br>
+
+                            <table style="width:100%">
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Amount</th>
+                                </tr>
+
+                                <!--<t t-foreach="o.expense_line_ids" t-as="doc">-->
+                                <!--<tr>-->
+                                    <!--<td><span t-esc="doc.account_id.name"/></td>-->
+                                    <!--<td><t t-if = "doc.account_id.name == doc.account_id.name"><span t-esc="sum(doc.unit_amount)"/></t></td>-->
+                                <!--</tr>-->
+                                <!--</t>-->
+
+                                <!--<t t-set="get_expense_acct" t-value="[]"/>-->
+                                <!--<t t-foreach="o.expense_line_ids" t-as="expense_line">-->
+                                    <!--<t t-set="get_expense_acct" t-value="get_expense_acct+[expense_line.account_id]"/>-->
+                                <!--</t>-->
+
+
+                                <!--<t t-foreach="set(get_expense_acct)" t-as="expense">-->
+                                    <!--<p t-esc="expense.name"/>-->
+                                    <!--<t t-set="total" t-value="0"/>-->
+                                    <!--<t t-foreach="o.expense_line_ids" t-as="expense_line">-->
+
+                                        <!--<t t-if="expense.id == expense_line.account_id.id">-->
+                                            <!--&lt;!&ndash;total1<p t-esc="total"/>&ndash;&gt;-->
+                                            <!--<t t-set="total" t-value="total+ expense_line.total_amount" />-->
+
+
+                                        <!--</t>-->
+
+
+
+                                    <!--</t>-->
+                                    <!--<p t-esc="total"/>-->
+                                <!--</t>-->
+
+                                <tr>
+                                    <t t-set="get_expense_acct" t-value="[]"/>
+                                        <t t-foreach="o.expense_line_ids" t-as="expense_line">
+                                        <t t-set="get_expense_acct" t-value="get_expense_acct+[expense_line.account_id]"/>
+                                    </t>
+                                    <td>
+                                        <t t-foreach="set(get_expense_acct)" t-as="expense">
+                                            <p t-esc="expense.name"/>
+                                            <t t-set="total" t-value="0"/>
+                                            <t t-foreach="o.expense_line_ids" t-as="expense_line">
+
+                                                <t t-if="expense.id == expense_line.account_id.id">
+                                                    <!--total1<p t-esc="total"/>-->
+                                                    <t t-set="total" t-value="total+ expense_line.total_amount" />
+
+
+                                                </t>
+
+
+
+                                            </t>
+                                            <!--<p t-esc="total"/>-->
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <t t-foreach="set(get_expense_acct)" t-as="expense">
+                                            <!--<p t-esc="expense.name"/>-->
+                                            <t t-set="total" t-value="0"/>
+                                            <t t-foreach="o.expense_line_ids" t-as="expense_line">
+
+                                                <t t-if="expense.id == expense_line.account_id.id">
+                                                    <!--total1<p t-esc="total"/>-->
+                                                    <t t-set="total" t-value="total+ expense_line.total_amount" />
+
+
+                                                </t>
+
+
+
+                                            </t>
+                                            <p t-esc="total"/>
+                                        </t>
+                                    </td>
+                                </tr>
+
+
+
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>
