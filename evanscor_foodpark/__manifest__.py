@@ -28,6 +28,7 @@
         'views/product_template.xml',
         'views/accounts_receivable_wizard_view.xml',
         'views/accounts_receivable_wizard_temp.xml',
+        'views/custom_stock_picking_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
