@@ -88,6 +88,15 @@ class AssetManagementHandover (models.Model):
 
                 raise ValidationError('Some of your asset/s have already approved.')
 
+
+
+
+
+    @api.multi
+    def button_transfer(self):
+        self.state = 'transfer'
+        self.processed_by = self.env['hr.employee'].browse(self.env.uid)
+
         asset_line = self.env['asset.management.handover.lines'].search([('lines_id', '=', self.id)])
         print '>', asset_line
 
@@ -99,20 +108,15 @@ class AssetManagementHandover (models.Model):
 
         for l in asset_lines:
             self.history_lines_ids.create({
-                'asset0_handover_id':self.id,
-                'asset_id':l.asset_name_id.id,
-                'handover_no':assets_id.name,
-                'serial_number_id':l.serial_number_id.id,
-                'date_handover':assets_id.date,
-                'issuer_name':assets_id.issuer_id.id,
-                'recipient_name':assets_id.recipient_id.id,
-                'approved_by':assets_id.processed_by.id,
+                'asset_handover_id': self.id,
+                'asset_id': l.asset_name_id.id,
+                'handover_no': assets_id.name,
+                'serial_number_id': l.serial_number_id.id,
+                'date_handover': assets_id.date,
+                'issuer_name': assets_id.issuer_id.id,
+                'recipient_name': assets_id.recipient_id.id,
+                'approved_by': assets_id.processed_by.id,
             })
-
-    @api.multi
-    def button_transfer(self):
-        self.state = 'transfer'
-        self.processed_by = self.env['hr.employee'].browse(self.env.uid)
 
     @api.multi
     def button_email(self):
