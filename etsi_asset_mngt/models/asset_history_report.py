@@ -8,7 +8,10 @@ class AssetHistoryReport(models.AbstractModel):
         data = data if data is not None else {}
         docs = self.env['account.asset.asset'].browse(docids)
         # print self.asset_name
-        asset_history_id = self.env['asset.management.history'].search([('serial_number_id', '=', docs.serial_no_id.id)])
+        if docs.serial_no_id:
+            asset_history_id = self.env['asset.management.history'].search([('serial_number_id', '=', docs.serial_no_id.id)])
+        else:
+            asset_history_id = self.env['asset.management.history'].search([('asset_id', '=', docs.id)])
 
 
         docargs = {
