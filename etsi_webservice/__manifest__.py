@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "evanscor_foodpark",
+    'name': "etsi_webservice",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -20,18 +20,14 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','website','website_sale','point_of_sale','website_sale','account_accountant','purchase','website_customer','mrp','report',
-                'odoo_web_login','point_of_sale_products_date_expiration','pos_stock_avail','web_responsive','web_site_sale_exten',
-                'website_animate','website_customer_order_delivery_date','website_multi_image_zoom','website_sale_product_quick_view',
-                'website_sale_stock_status','website_transparent_header',],
+    'depends': ['base'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/product_template.xml',
-        'views/accounts_receivable_wizard_view.xml',
-        'views/accounts_receivable_wizard_temp.xml',
-        'views/custom_stock_picking_views.xml',
+        'views/client_website_views.xml',
+        'views/item_views.xml',
+
     ],
     # only loaded in demonstration mode
     'demo': [
