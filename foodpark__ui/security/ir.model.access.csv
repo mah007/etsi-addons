@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_foodpark__ui_foodpark__ui,foodpark__ui.foodpark__ui,model_foodpark__ui_foodpark__ui,,1,0,0,0
