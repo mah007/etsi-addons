@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="wizard_leave_form_view">
+            <field name="name">wizard.leave.form.view</field>
+            <field name="model">summary_leave_report.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group string="Select Employee">
+                                <field name="employee"/>
+                        </group>
+                       <group string="Select Date">
+                                <field name="from_date"/>
+                                <field name="to_date"/>
+                        </group>
+                        <footer>
+                            <button string="Print" name="print_leaves" type="object" class="btn-primary"/>
+                            <button string="Discard" class="btn-default" special="cancel"/>
+                        </footer>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_print_leaves_summary_wizard" model="ir.actions.act_window">
+            <field name="name">Leaves Summary Report</field>
+            <field name="res_model">summary_leave_report.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_leave_form_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+            id="menu_leave_summary_wizard"
+            name="Leaves Summary Report"
+            parent="hr_holidays.menu_hr_holidays_report"
+            action="action_print_leaves_summary_wizard"
+        />
+
+    </data>
+</odoo>

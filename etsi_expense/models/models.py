@@ -2,14 +2,16 @@
 
 from odoo import models, fields, api
 
-# class etsi_expense(models.Model):
-#     _name = 'etsi_expense.etsi_expense'
+class expense_sheet(models.Model):
+    _inherit = 'hr.expense.sheet'
 
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         self.value2 = float(self.value) / 100
+    doc_num = fields.Char()
+
+    @api.multi
+    def approve_expense_sheets(self):
+        res_seq = self.env['ir.sequence'].search([('code', '=', 'exp.seq')])
+        if res_seq:
+            code = res_seq.code
+            sequence = self.env['ir.sequence'].next_by_code(code)
+
+        self.write({'state': 'approve', 'responsible_id': self.env.user.id, 'doc_num':sequence})

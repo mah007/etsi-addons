@@ -16,6 +16,7 @@ class AssetManagementHistory(models.Model):
     asset_id = fields.Many2one('account.asset.asset', string="Asset")
     # asset_handover_id = fields.Many2one('asset.management.handover')
     asset_handover_id = fields.Many2one('asset.management.handover',ondelete="cascade")
+    state = fields.Char(string="State")
 
 class AccountAssetAsset(models.Model):
     _inherit = 'account.asset.asset'
@@ -23,14 +24,6 @@ class AccountAssetAsset(models.Model):
     # serial_no_id = fields.Char(string="asfd")
     serial_no_id = fields.Many2one('account.asset.asset.line',string="Choose Serial Number")
     asset_history_ids = fields.One2many('asset.management.history', 'asset_id', string="Asset History")
-
-    # @api.onchange('serial_no_id')
-    # def onchange_serial_no_id(self):
-    #     # serial_no_line = self.env['account.asset.asset.line'].search([('name', '=', self.serial_no_id.id)])
-    #     # print serial_no_line.id
-    #     history = self.env['asset.management.history'].search([('serial_number_id', '=', self.serial_no_id.id)])
-    #     print history
-    #     self.asset_history_ids = history
 
     def select_serial(self):
         history = self.env['asset.management.history'].search([('serial_number_id', '=', self.serial_no_id.id)])

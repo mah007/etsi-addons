@@ -1,0 +1,80 @@
+<odoo>
+    <data>
+        <record id="paperformat_history" model="report.paperformat">
+            <field name="name">Handover</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">30</field>
+            <field name="margin_bottom">23</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+            id="asset_history_report"
+            model="account.asset.asset"
+            string="Print Asset History"
+            name="etsi_asset_mngt.asset_history_temp"
+            file="etsi_asset_mngt.asset_history_temp"
+            report_type="qweb-pdf"
+            paperformat = "paperformat_history"/>
+
+        <template id = "asset_history_temp">
+            <t t-call = "report.html_container">
+                <t t-foreach = "docs" t-as="doc">
+                    <t t-call="report.external_layout">
+                        <div class = "page">
+                            <div>
+                                <html style = "100%">
+                                    <head>
+                                        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+                                        <meta http-equiv="content-type" content="text/html, charset=utf-8" />
+                                        <title>
+                                            Asset History
+                                        </title>
+                                        <link rel = "stylesheet" href = "/etsi_asset_mngt/static/src/css/asset_history_style.css"/>
+                                    </head>
+                                    <body>
+                                        <div>
+                                            <br/><br/>History of Asset: <t t-esc="doc.serial_no_id.name"/><br/><br/>
+                                            <table>
+                                                <tr>
+                                                    <th>Date Handover</th>
+                                                    <th>Serial Number</th>
+                                                    <th>Issuer Name</th>
+                                                    <th>Recipient Name</th>
+                                                    <th>Approved By</th>
+                                                    <th>Date Return</th>
+                                                    <th>Received By</th>
+                                                    <th>State</th>
+                                                </tr>
+                                                <t t-foreach="asset_history_id" t-as="asset">
+                                                    <tr>
+                                                        <td><p t-esc="asset.date_handover"/></td>
+                                                        <td><p t-esc="asset.serial_number_id.name"/></td>
+                                                        <td><p t-esc="asset.issuer_name.name"/></td>
+                                                        <td><p t-esc="asset.recipient_name.name"/></td>
+                                                        <td><p t-esc="asset.approved_by.name"/></td>
+                                                        <td><p t-esc="asset.date_return"/></td>
+                                                        <td><p t-esc="asset.received_by_name_id.name"/></td>
+                                                        <td><p t-esc="asset.state"/></td>
+                                                    </tr>
+                                                </t>
+                                            </table>
+                                        </div>
+                                    </body>
+                                </html>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
