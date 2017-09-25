@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_etsi_inventory_etsi_inventory,etsi_inventory.etsi_inventory,model_etsi_inventory_etsi_inventory,,1,0,0,0

@@ -39,6 +39,7 @@
         'views/asset_return_views.xml',
         'views/asset_warehouse_views.xml',
         'views/asset_history_views.xml',
+        'reports/templates/asset_history_report_template.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

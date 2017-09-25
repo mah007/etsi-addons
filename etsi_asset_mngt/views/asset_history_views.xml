@@ -14,6 +14,7 @@
                             </group>
                             <group>
                                 <button name="select_serial" string="View" class="oe_highlight" type="object"/>
+                                <button name="%(asset_history_report)d" string="Print History" type="action" class="gtk-print"/>
                             </group>
                         </group>
                         <field name="asset_history_ids" widget="many2many">
