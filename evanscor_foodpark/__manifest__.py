@@ -21,9 +21,10 @@
 
     # any module necessary for this one to work correctly
     'depends': ['base','website','website_sale','point_of_sale','website_sale','account_accountant','purchase','website_customer','mrp','report',
-                'odoo_web_login','point_of_sale_products_date_expiration','pos_stock_avail','web_responsive','web_site_sale_exten',
+                'point_of_sale_products_date_expiration','pos_stock_avail','web_site_sale_exten',
                 'website_animate','website_customer_order_delivery_date','website_multi_image_zoom','website_sale_product_quick_view',
-                'website_sale_stock_status','website_transparent_header',],
+                'website_sale_stock_status','odoo_web_login','chart_of_account_hierarchy','account_asset','l10n_generic_coa'],
+# web_responsive
 
     # always loaded
     'data': [
@@ -31,7 +32,7 @@
         'views/product_template.xml',
         'views/accounts_receivable_wizard_view.xml',
         'views/accounts_receivable_wizard_temp.xml',
-        'views/custom_stock_picking_views.xml',
+        # 'views/custom_stock_picking_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
