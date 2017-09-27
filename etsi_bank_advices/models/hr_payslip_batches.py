@@ -18,7 +18,6 @@ class HrPayslip(models.Model):
 
         for rec in check_emp:
             self.env['mail.template'].browse(template.id).send_mail(rec.id)
-            print '>', rec.employee_id.work_email
 
         # print 'in', test
         # Send out the e-mail template to the user
