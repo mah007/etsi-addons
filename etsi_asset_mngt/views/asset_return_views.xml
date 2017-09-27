@@ -1,0 +1,102 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="return_tree_view">
+            <field name="name">return.tree.view</field>
+            <field name="model">asset.management.return</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name = "ret_date"/>
+                    <field name = "ret_emp"/>
+                    <field name = "ret_src_loc"/>
+                    <field name = "ret_des_loc"/>
+                    <field name = "ret_custodian"/>
+                    <field name = "state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="return_form_view">
+            <field name="name">return.form.view</field>
+            <field name="model">asset.management.return</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="generate_asset" string="Generate Assets" class="oe_highlight" type="object" states="draft"/>
+                        <button name="clear_asset_return_lines" string="Clear Assets" type="object" states="draft"/>
+                        <button name="button_draft" string="Send to Draft" class="oe_highlight" type="object" states="confirmed"/>
+                        <button name="button_confirmed" string="Confirm" type="object" states="draft"/>
+                        <button name="button_received" string="Receive" class="oe_highlight" type="object" states="confirmed"/>
+                        <button name="button_email" string="Send by Mail" class="oe_highlight" type="object" states="received"/>
+                        <button name="button_cancel" string="Cancel" type="object" states="confirmed"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div>
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name = "ret_date" attrs="{'readonly':['|',('state', 'in', ['received', 'cancel'])]}"/>
+                                <field name = "ret_emp" options="{'no_create': True}" attrs="{'readonly':['|',('state', 'in', ['received', 'cancel'])]}"/>
+                                <field name = "ret_src_doc" domain="[('recipient_id', '=', ret_emp), ('state', '=', 'transfer')]" attrs="{'readonly':['|',('state', 'in', ['received', 'cancel'])]}"/>
+                                <field name = "ret_email" readonly="1"/>
+                                <field name = "ret_src_loc" readonly="1"/>
+                                <field name = "ret_des_loc" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name = "ret_transfer_type"/>
+                                <field name = "ret_custodian"/>
+                                <field name = "ret_receive_by"/>
+                            </group>
+                            <field name="return_ids" widget="many2many" attrs="{'readonly':['|',('state', 'in', ['received', 'cancel'])]}">
+                                <tree create="false">
+                                    <field name = "ret_asset_name_id"/>
+                                    <field name = "ret_serial_number_id"/>
+                                    <field name = "ret_model"/>
+                                    <field name = "ret_condition_id"/>
+                                    <field name = "ret_asset_pic"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="return_search_view">
+            <field name="name">return.search.view</field>
+            <field name="model">asset.management.return</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name = "ret_emp"/>
+                    <field name = "ret_email"/>
+                    <field name = "ret_src_loc"/>
+                    <field name = "ret_des_loc"/>
+                    <field name = "ret_date"/>
+                    <field name = "ret_transfer_type"/>
+                    <field name = "ret_custodian"/>
+                    <field name = "ret_receive_by"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="return_action">
+            <field name="name">Asset Return</field>
+            <field name="res_model">asset.management.return</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+            id = "asset_return_menu"
+            name = "Asset Return"
+            parent = "asset_mngt_menu"
+            action = "return_action"
+            />
+
+    </data>
+</odoo>

@@ -1,0 +1,53 @@
+<odoo>
+    <data>
+
+        <template id="custom_website_sale_product" inherit_id="website_sale.product">
+            <xpath expr="//div/div[@id='product_details']/p[@class='text-muted']" position="replace"  inherit_id="product.product">
+                <!--<p>-->
+                    <!--On hand: <span t-field="product.qty_available"/> <span t-field="product.uom_id"/>-->
+                <!--</p>-->
+            </xpath>
+        </template>
+ <!--inherit_id="product.product_template_search_view"-->
+
+        <record id="view_event_form_dsa" model="ir.ui.view">
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="account.product_template_form_view"/>
+            <field name="arch" type="xml">
+
+                <field name="supplier_taxes_id" position="attributes">
+                     <attribute name="String">Sales Taxes</attribute>
+                </field>
+
+            </field>
+        </record>
+
+        <record id="view_event_form_dsa1" model="ir.ui.view">
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+
+                <field name="default_code" position="attributes">
+                    <attribute name="String">Product Code</attribute>
+                </field>
+
+            </field>
+        </record>
+
+        <record id="view_event_form_dsa2" model="ir.ui.view">
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+
+                <field name="default_code" position="attributes">
+                    <attribute name="String">Product Code</attribute>
+                </field>
+
+            </field>
+        </record>
+
+<!--&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+
+
+    </data>
+</odoo>

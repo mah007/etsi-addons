@@ -84,8 +84,6 @@
             <tree string="Tax Status" editable="True">
                 <field name="stat_code"/>
                 <field name="name"/>
-                <field name="personal_exemp"/>
-                <field name="additional_exemp"/>
             </tree>
         </field>
     </record>
@@ -127,6 +125,18 @@
                 <field name="tax_due_amount"/>
                 <field name="rate"/>
                 <field name="excess"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="tax_due_status_tree_view" model="ir.ui.view">
+        <field name="name">tax_due_status.tree</field>
+        <field name="model">payroll.tax.due.status</field>
+        <field name="arch" type="xml">
+            <tree string="Tax Due Status" editable="True">
+                <field name="tax_stat_code"/>
+                <field name="personal_exemp"/>
+                <field name="additional_exemp"/>
             </tree>
         </field>
     </record>
@@ -221,6 +231,17 @@
         </field>
     </record>
 
+    <record id="action_hr_payroll_tax_due_status" model="ir.actions.act_window">
+        <field name="name">Tax Due Status</field>
+        <field name="res_model">payroll.tax.due.status</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create"> Create Tax Due Status...
+            </p>
+        </field>
+    </record>
+
      <record id="action_payroll_config_company" model="ir.actions.act_window">
             <field name="name">Payroll Company</field>
             <field name="type">ir.actions.act_window</field>
@@ -278,6 +299,7 @@
               parent="menu_hr_payroll_config_tax"
               action="action_hr_payroll_config_tax_status"/>
 
+
     <menuitem id="menu_hr_payroll_config_tax_exemption"
               name="Exemption"
               sequence="2"
@@ -295,6 +317,15 @@
               sequence="4"
               parent="menu_hr_payroll_config_tax"
               action="action_hr_payroll_config_annual_tax_due"/>
+
+    <menuitem id="menu_hr_payroll_tax_due_status"
+              name="Tax Due Status"
+              sequence="5"
+              parent="menu_hr_payroll_config_tax"
+              action="action_hr_payroll_tax_due_status"/>
+
+
+
 
 
     <!--<menuitem id="menu_hr_payroll_config_sss_matrix"-->

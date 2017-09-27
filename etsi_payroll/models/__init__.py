@@ -8,4 +8,8 @@ from . import payroll_advance_salary
 from . import hr_attendance
 from . import hr_payroll_register
 from . import hr_annual_tax_report
-from . import hr_payslip_batches
+
+# from . import hr_payslip_batches
+
+# from . import hr_bank_advice
+

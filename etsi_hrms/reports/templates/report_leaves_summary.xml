@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+
+        <report
+            id="leaves_summary_report"
+            model="summary_leave_report.wizard"
+            string="Leaves Summary Report"
+            name="etsi_hrms.report_leaves_summary"
+            file="etsi_hrms.report_leaves_summary"
+            report_type="qweb-pdf"
+        />
+
+        <template id="report_leaves_summary">
+            <t t-call="report.html_container">
+                <t t-call="timesheets_by_employee.external_layout_custom_timesheet">
+                    <t t-foreach="docs" t-as="o">
+                        <div class="page">
+                            <!--<br/><br/><br/>-->
+                            <h3 style="vertical-align:middle;text-align:center">Leaves Summary Report</h3>
+                            <p style="vertical-align:middle;text-align:center">From <span t-esc="o.from_date"/> to <span t-esc="o.to_date"/></p>
+                            <p><b>Name:&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span t-esc="o.employee.name"/></b></p>
+                            <p><b>Company:&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span t-esc="o.employee.address_id.name"/></b></p>
+
+                            <br></br>
+                            <table style="width:100%">
+                                <tr style="border:1px solid">
+                                    <th style="vertical-align:middle;text-align:center;border:1px solid">Total Leaves</th>
+                                    <th style="vertical-align:middle;text-align:center;border:1px solid">Used Leaves</th>
+                                    <th style="vertical-align:middle;text-align:center;border:1px solid">Leaves Remaining</th>
+                                </tr>
+                                <tr style="border:1px solid">
+                                    <td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="tot_leaves"/></td>
+                                    <td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="tot_removes"/></td>
+                                    <td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="tot_remaining"/></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

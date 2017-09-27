@@ -1,0 +1,34 @@
+<odoo>
+    <data>
+
+        <!--<record model="ir.ui.view" id="account_asset_warehouse_form_view">-->
+            <!--<field name="name">account.asset.warehouse.form.view</field>-->
+            <!--<field name="model">stock.warehouse</field>-->
+            <!--<field name="inherit_id" ref="stock.view_warehouse"></field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form>-->
+                    <!--<field name = "partner_id" position="attributes">-->
+                        <!--<attribute name="String">Company</attribute>-->
+                    <!--</field>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <record model="ir.actions.act_window" id="account_asset_warehouse_action">
+          <field name="name">Warehouse</field>
+          <field name="res_model">stock.warehouse</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">tree,form,search</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocomment_create">Warehouse</p>
+            </field>
+        </record>
+
+        <menuitem
+            id = "custom_asset_warehouse_menu"
+            name = "Asset Warehouse"
+            parent = "asset_config_main_menu"
+            action = "account_asset_warehouse_action"
+            />
+    </data>
+</odoo>

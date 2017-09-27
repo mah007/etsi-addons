@@ -1,0 +1,120 @@
+<odoo>
+    <data>
+        <record id="paperformat_handover" model="report.paperformat">
+            <field name="name">Handover</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">30</field>
+            <field name="margin_bottom">23</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+            id="handover_info_rep"
+            model="asset.management.handover"
+            string="Handover report"
+            name="etsi_asset_mngt.handover_info_temp"
+            file="etsi_asset_mngt.handover_info_temp"
+            report_type="qweb-pdf"
+            paperformat = "paperformat_handover"/>
+
+        <template id = "handover_info_temp">
+            <t t-call = "report.html_container">
+                <t t-foreach = "docs" t-as="doc">
+
+                    <div class = "page">
+                        <div>
+                            <t t-if="res_company.logo">
+                                <img t-att-src="'data:image/png;base64,%s' % res_company.logo" style="max-height: 50px;max-width: 200px;"/>
+                            </t>
+                            <html style = "100%">
+                                <head>
+                                    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+                                    <meta http-equiv="content-type" content="text/html, charset=utf-8" />
+                                    <title>
+                                        Handover Information
+                                    </title>
+                                    <link rel = "stylesheet" href = "/etsi_asset_mngt/static/src/css/asset_handover_style.css"/>
+                                </head>
+
+                                <body>
+                                    <div>
+                                        <p><b>Printed on: &#160; </b> <span t-esc = "doc.date"/></p>
+                                        <center><h1>ASSET HANDOVER</h1></center>
+                                        <table style = "style1">
+                                            <tr>
+                                                <th>&#160;Issuer</th>
+                                                <th>&#160;Recipient</th>
+                                                <th>&#160;Handover number</th>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <p><b>&#160;Company:&#160;</b><span t-esc="doc.issuer_company_id.name"/></p>
+                                                    <p><b>&#160;Name:&#160;</b><span t-esc="doc.issuer_id.name"/></p>
+                                                    <p><b>&#160;Source Location:&#160;</b><span t-esc="doc.source_loc.name"/></p>
+                                                </td>
+
+                                                <td>
+                                                    <p><b>&#160;Company:&#160;</b><span t-esc="doc.recipient_company_id.name"/></p>
+                                                    <p><b>&#160;Name:&#160;</b><span t-esc="doc.recipient_id.name"/></p>
+                                                    <p><b>&#160;Email:&#160;</b><span t-esc="doc.recipient_email"/></p>
+                                                    <p><b>&#160;Destination Location:&#160;</b><span t-esc="doc.destination_loc.name"/></p>
+                                                </td>
+                                                <td>
+                                                    &#160;<span t-esc="doc.name"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <div>
+                                        <table style="style1">
+                                            <tr>
+                                                <th>&#160;Item type</th>
+                                                <th>&#160;Serial Number</th>
+                                                <th>&#160;Model</th>
+                                                <th>&#160;Condition</th>
+                                            </tr>
+
+                                            <br/>
+                                        <t t-foreach="doc.lines_ids" t-as="lines">
+                                            <tr>
+                                                <td> <p>&#160;<span t-esc="lines.asset_name_id.name"/></p> </td>
+                                                <td> <p>&#160;<span t-esc="lines.serial_number_id.name"/></p> </td>
+                                                <td> <p>&#160;<span t-esc="lines.model"/></p> </td>
+                                                <td> <p>&#160;<span t-esc="lines.condition_id.name"/> </p> </td>
+                                            </tr>
+                                        </t>
+                                        </table>
+
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <p style="text-align:left">Issuer:</p>
+                                        <br/>
+                                        <style2 style="text-align:left">Signature Over Printed Name</style2>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <p style="text-align:left">Recipient:</p>
+                                        <br/>
+                                        <style2 style="text-align:right">Signature Over Printed Name</style2>
+                                    </div>
+                                </body>
+                            </html>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

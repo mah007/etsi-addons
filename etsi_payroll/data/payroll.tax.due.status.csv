@@ -1,0 +1,6 @@
+id,tax_stat_code,personal_exemp,additional_exemp
+tax_due_code,S/ME,50000.00,0.00
+tax_due_code1,ME1/S1,50000.00,25000.00
+tax_due_code2,ME2/S2,50000.00,50000.00
+tax_due_code3,ME3/S3,50000.00,75000.00
+tax_due_code4,ME3/S3,50000.00,100000.00

@@ -1,0 +1,11 @@
+<odoo>
+     <data noupdate="1">
+      <record id="return_seq" model="ir.sequence">
+        <field name="name">Return Sequence</field>
+        <field name="code">return.seq.views</field>
+        <field name="prefix">RS</field>
+        <field name="padding">5</field>
+        <field eval="1" name="number_increment"/>
+      </record>
+    </data>
+</odoo>

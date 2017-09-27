@@ -129,7 +129,7 @@
                                                 <td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="t['auth_ot']"/></td>
                                                 <td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="t['actual_ot']"/></td>
                                                 <td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="t['actual_worked_hours']"/></td>
-                                                <!--<td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="t['remarks']"/></td>-->
+                                              <td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="t['remark']"/></td>
                                           </tr>
 
                                          <tr style="border:1px solid">

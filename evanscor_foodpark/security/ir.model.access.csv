@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_evanscor_foodpark_evanscor_foodpark,evanscor_foodpark.evanscor_foodpark,model_evanscor_foodpark_evanscor_foodpark,,1,0,0,0

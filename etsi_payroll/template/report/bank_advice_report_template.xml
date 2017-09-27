@@ -1,0 +1,88 @@
+<odoo>
+    <data>
+        <record id="paperformat_legal" model="report.paperformat">
+            <field name="name">legal</field>
+            <field name="default" eval="True"/>
+            <field name="format">Legal</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">80</field>
+        </record>
+
+
+        <report id="bank_advice_line"
+                model="hr.bank.advice"
+                string="Bank Advices"
+                name="etsi_payroll.bank_advice_line_report_temp"
+                file="etsi_payroll.bank_advice_line_report_temp"
+                report_type="qweb-pdf"
+                attachment_use="True"
+                paperformat="paperformat_legal"/>
+
+        <template id="bank_advice_line_report_temp">
+            <!--T call is To call existing template-->
+            <t t-call="report.html_container"> <!--report is module name and .html_container is module id-->
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="report.external_layout">
+                        <div class="page">
+                            <html style="100%">
+                                <head>
+                                    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+                                    <meta http-equiv="content-type" content="text/html; charset=utg-8"/>
+                                    <title>Bank Advices</title>
+                                    <link rel="stylesheet" href="/etsi_payroll/static/src/css/bank_advice_style.css" />
+                                </head>
+                                <body>
+                                    <br/><br/><br/><br/><br/>
+                                    <center><h3>Bank Advices</h3></center>
+                                    <b>Bank Name: </b><t t-esc="doc.bank.name"/><br/>
+                                    <b>Account Number: </b><t t-esc="doc.bank_acct.acc_number"/><br/>
+                                    <br/><br/>
+                                    <div>Dear Sir/Ma'am,</div>
+                                    <br/>
+                                    <div>Please debit our account number from <b><t t-esc="doc.bank_acct.acc_number"/></b> and credit the following accounts as payment for they're payroll
+                                    <br/>for the period from <b><t t-esc="doc.date_from"/></b> to <b><t t-esc="doc.date_to"/></b>.</div>
+                                    <br/>
+                                    <table>
+                                        <tr>
+                                            <th>Sr. No</th>
+                                            <th>Employee Name</th>
+                                            <th>Account Number</th>
+                                            <th>Salary</th>
+                                        </tr>
+                                        <t t-set="counter" t-value="0"/>
+                                        <t t-foreach="doc.bank_advice_line_ids" t-as="line">
+                                            <t t-set="counter" t-value="counter + 1"/>
+                                            <tr>
+                                                <td><t t-esc="counter"/> </td>
+                                                <td class="employee_name"><p t-esc="line.emp_id.name"/></td>
+                                                <td><p t-esc="line.bank_account.acc_number"/></td>
+                                                <td><p t-esc="line.salary"/></td>
+                                            </tr>
+                                        </t>
+                                        <tr style="border:1px solid black">
+                                            <td style="border:none"></td>
+                                            <td style="border:none"></td>
+                                            <td><b>Total</b></td>
+                                            <td><p t-esc="total_salary"/> </td>
+                                        </tr>
+                                    </table>
+                                    <br/><br/><br/><br/><br/>
+                                    <div>Yours Sincerely</div>
+                                    <t t-esc="doc.name.name"/><br/><br/>
+                                    <div>Authorized Signature</div>
+
+                                </body>
+                            </html>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

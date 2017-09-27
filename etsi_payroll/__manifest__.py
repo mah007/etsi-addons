@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','hr_payroll', 'etsi_hrms','hr_payroll_timesheet', 'payroll_period','send_email_payslips'],
+    'depends': ['base', 'hr_payroll', 'etsi_hrms', 'hr_payroll_timesheet', 'payroll_period', 'send_email_payslips', 'mail', 'contacts', 'report', 'etsi_bank_advices'],
 
     # always loaded
     'data': [
@@ -33,7 +33,7 @@
         # 'views/payroll_advance_salary_views.xml',
         'views/hr_attendance_view.xml',
         'views/hr_payroll_register_views.xml',
-        'views/hr_payslip_by_batches_view.xml',
+        # 'views/hr_payslip_by_batches_view.xml',
         # 'views/hr_payroll_report_views.xml',
         'views/report_contributionregister_templates.xml',
         'views/hr_annual_tax_views.xml',
@@ -48,10 +48,11 @@
         'data/payroll.tax.exemption.csv',
         'data/payroll.tax.income.range.csv',
         'data/payroll.tax.due.csv',
+        'data/payroll.tax.due.status.csv',
         # 'data/payroll.ot.day.type.xml',
         'data/payroll.contribution.register.xml',
         'data/payroll.salary.rule.xml',
-        'templates/template_send_email.xml',
+        # 'templates/template_send_email.xml',
 
     ],
     # only loaded in demonstration mode

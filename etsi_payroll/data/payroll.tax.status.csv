@@ -1,6 +1,6 @@
-id,stat_code,name,personal_exemp,additional_exemp
-hr_payroll_tax_s_me,S/ME,Single / Married,50000.00,0.00
-hr_payroll_tax_me1_s1,ME1/S1,Single / Married  w/ 1 Dependent,50000.00,25000.00
-hr_payroll_tax_me2_s2,ME2/S2,Single / Married w/ 2 Dependent,50000.00,50000.00
-hr_payroll_tax_me3_s3,ME3/S3,Single / Married w/ 3 Dependent,50000.00,75000.00
-hr_payroll_tax_me4_s4,ME4/S4,Single / Married w/ 4 Dependent,50000.00,100000.00
+id,stat_code,name
+hr_payroll_tax_s_me,S/ME,Single / Married
+hr_payroll_tax_me1_s1,ME1/S1,Single / Married  w/ 1 Dependent
+hr_payroll_tax_me2_s2,ME2/S2,Single / Married w/ 2 Dependent
+hr_payroll_tax_me3_s3,ME3/S3,Single / Married w/ 3 Dependent
+hr_payroll_tax_me4_s4,ME4/S4,Single / Married w/ 4 Dependent
