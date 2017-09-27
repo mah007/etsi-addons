@@ -225,3 +225,4 @@ class HrBankAdviceLine(models.Model):
 #     bank_name = fields.Many2one(string="Bank Name", related='emp_id.bank_account_id.bank_id', readonly=True)
 #     salary = fields.Integer(string="Salary")
 #     bank_id = fields.Many2one('hr.bank.advice', string="Bank Name")
+
