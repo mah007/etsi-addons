@@ -20,15 +20,14 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'mail', 'contacts', 'report', ],
+    'depends': ['base', 'hr_payroll', 'send_email_payslips', 'mail', 'contacts', 'report',],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
         'template/report/bank_advice_report_template.xml',
         'views/hr_bank_advice_views.xml',
-        # 'views/hr_payslip_by_batches_view.xml',
-        # 'template/example_email_template.xml',
+        'template/example_email_template.xml',
         'template/bank_advice_template.xml',
 
     ],
