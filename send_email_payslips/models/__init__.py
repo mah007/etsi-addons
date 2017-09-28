@@ -22,3 +22,4 @@
 ##############################################################################
 
 from . import send_payslip
+from . import send_payslip_batches

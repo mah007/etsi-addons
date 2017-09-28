@@ -33,7 +33,6 @@
         # 'views/payroll_advance_salary_views.xml',
         'views/hr_attendance_view.xml',
         'views/hr_payroll_register_views.xml',
-        'views/hr_payslip_by_batches_view.xml',
         # 'views/hr_payroll_report_views.xml',
         'views/report_contributionregister_templates.xml',
         'views/hr_annual_tax_views.xml',
@@ -52,7 +51,6 @@
         # 'data/payroll.ot.day.type.xml',
         'data/payroll.contribution.register.xml',
         'data/payroll.salary.rule.xml',
-        'templates/template_send_email.xml',
 
     ],
     # only loaded in demonstration mode

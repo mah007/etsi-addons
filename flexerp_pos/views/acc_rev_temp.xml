@@ -1,0 +1,153 @@
+<odoo>
+    <data>
+
+        <record id="paperformat_styles" model="report.paperformat">
+		    <field name="name">Accounts Receivable</field>
+		    <field name="default" eval="True"/>
+		    <field name="format">Legal</field>
+		    <field name="orientation">Landscape</field>
+		    <field name="margin_top">10</field>
+		    <field name="margin_bottom">10</field>
+		    <field name="margin_left">20</field>
+		    <field name="margin_right">20</field>
+		    <field name="header_line" eval="False"/>
+		    <field name="header_spacing">3</field>
+		    <field name="dpi">80</field>
+		</record>
+
+        <report
+            id="report_account_receivable"
+            model="accounts.receivable.report"
+            string="Accounts Receivable Report"
+            name="flexerp_pos.report_accounts_receivable_template"
+            file="flexerp_pos.report_accounts_receivable_template"
+            report_type="qweb-pdf"
+            paperformat="paperformat_styles"
+        />
+
+        <!--<template id="external_layout_annual_tax" inherit_id="report.external_layout" primary="True">-->
+            <!--<xpath expr="//t[@t-call='report.external_layout_header']" position="attributes">-->
+                <!--<attribute name="t-call">etsi_payroll.external_layout_header_annual_tax</attribute>-->
+            <!--</xpath>-->
+            <!--<xpath expr="//t[@t-call='report.external_layout_footer']" position="attributes">-->
+                <!--<attribute name="t-call">etsi_payroll.external_layout_footer_annual_tax</attribute>-->
+            <!--</xpath>-->
+        <!--</template>-->
+
+        <!--<template id="external_layout_header_annual_tax" inherit_id="report.external_layout_header" primary="True">-->
+            <!--<xpath expr="//div[@class='col-xs-9 text-right']" position="replace">-->
+                <!--<div class="col-xs-9 text-right"-->
+                      <!--t-field="company.partner_id"-->
+                      <!--t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;name&quot;], &quot;no_marker&quot;: true}"/>-->
+                <!--<div class="col-xs-9 text-right" t-field="company.rml_header1"/>-->
+            <!--</xpath>-->
+            <!--<xpath expr="//div[@name='company_address']" position="replace"/>-->
+        <!--</template>-->
+         <!--<template id="external_layout_footer_annual_tax" inherit_id="report.external_layout_footer" primary="True">-->
+             <!--<xpath expr="//div[@class='text-center']" position="attributes">-->
+                  <!--<attribute name="style">border-top: 1px dashed black;</attribute>-->
+             <!--</xpath>-->
+            <!--<xpath expr="//ul[1]" position="replace"/>-->
+            <!--<xpath expr="//ul[2]" position="replace"/>-->
+        <!--</template>-->
+
+        <template id="report_accounts_receivable_template">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <!--<t t-call="etsi_payroll.external_layout_annual_tax">-->
+                    <t t-call="report.external_layout">
+                        <div class="page">
+                            <html style="100%">
+                                <head>
+                                    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+                                    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+                                    <title>Accounts Receivable Report</title><br/><br/><br/>
+                                </head>
+                                <body>
+                                    <h3 class="text-center">Accounts Receivable Report</h3>
+                                    <p><b>Customer Name:  </b><span t-esc="cust_name"> </span></p>
+                                    <table style="border:1px solid;width:100%;">
+                                        <tr style="border:1px solid">
+
+                                            <th style="vertical-align:middle;text-align:center;border:1px solid">Invoice Number</th>
+                                            <th style="vertical-align:middle;text-align:center;border:1px solid">Invoice Date</th>
+                                            <th style="vertical-align:middle;text-align:center;border:1px solid">Due Date</th>
+                                            <th style="vertical-align:middle;text-align:center;border:1px solid">Original Invoice Amount</th>
+                                            <th style="vertical-align:middle;text-align:center;border:1px solid">Total Amount Paid</th>
+                                            <th style="vertical-align:middle;text-align:center;border:1px solid">Invoice Balance</th>
+                                            <th style="vertical-align:middle;text-align:center;border:1px solid">Remarks</th>
+                                        </tr>
+                                        <tr>
+                                            <p t-foreach="cus_invoice" t-as="cus">
+                                                <td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="cus[0]"/></td>
+                                                <td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="cus[1]"/></td>
+                                                <td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="cus[2]"/></td>
+                                                <td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="cus[3]"/></td>
+                                                <td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="cus[4]"/></td>
+                                                <td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="cus[5]"/></td>
+                                                <td style="vertical-align:middle;text-align:center;border:1px solid"><span t-esc="cus[6]"/></td>
+                                            </p>
+                                        </tr>
+
+
+                                    </table>
+
+                                    <!--<p t-foreach="cus_invoice" t-as="cus">-->
+                                        <!--<b>Invoice Number:  </b><span t-esc="cus[0]"/><br/>-->
+                                        <!--<b>Invoice Date:  </b><span t-esc="cus[1]"/><br/>-->
+                                        <!--<b>Due Date:  </b><span t-esc="cus[2]"/><br/>-->
+                                        <!--<b>Original Invoice Amount:  </b><span t-esc="cus[3]"/><br/>-->
+                                        <!--<b>Total Amount Paid:  </b><span t-esc="cus[4]"/><br/>-->
+                                        <!--<b>Invoice Balance:  </b><span t-esc="cus[5]"/><br/>-->
+                                        <!--<b>Remarks:  </b><span t-esc="cus[6]"/>-->
+                                    <!--</p>-->
+
+                                    <!--<br/>-->
+                                        <!--<table style="width:67%;">-->
+                                            <!--<tr style="height:20px">-->
+                                                <!--<th>Company:</th>-->
+                                                <!--<th>Year:</th>-->
+                                            <!--</tr >-->
+                                            <!--<tr>-->
+                                                <!--<td>-->
+                                                    <!--<t t-foreach="doc.annual_company_id" t-as="company">-->
+                                                        <!--<p> <span t-esc="company.name"> </span></p>-->
+                                                    <!--</t>-->
+                                                <!--</td>-->
+                                                <!--<td>-->
+                                                    <!--<p><span t-esc="company_date"> </span></p>-->
+                                                <!--</td>-->
+                                            <!--</tr>-->
+                                        <!--</table>-->
+                                    <!--<br/>-->
+                                        <!--<table style="border:1px solid;width:100%;">-->
+                                            <!--<tr style="height:50px">-->
+                                                <!--<th style="vertical-align:middle;text-align:center;border:1px solid">Employee Name</th>-->
+                                                <!--<th style="vertical-align:middle;text-align:center;border:1px solid">Tax Code</th>-->
+                                                <!--<th style="vertical-align:middle;text-align:center;border:1px solid">Tax Income</th>-->
+                                                <!--<th style="vertical-align:middle;text-align:center;border:1px solid">Net Taxable Compensation</th>-->
+                                                <!--<th style="vertical-align:middle;text-align:center;border:1px solid">Tax Withheld</th>-->
+                                                <!--<th style="vertical-align:middle;text-align:center;border:1px solid">Tax Due</th>-->
+                                                <!--<th style="vertical-align:middle;text-align:center;border:1px solid">Tax Refund</th>-->
+
+
+                                            <!--</tr >-->
+                                            <!--<tr t-foreach="company_employees" t-as="employees" style="height:35px;border:1px solid;">-->
+                                                <!--<td t-esc="employees[0]" style="vertical-align:middle;text-align:left;border:1px solid;padding:5px"/>-->
+                                                <!--<td t-esc="employees[1]" style="vertical-align:middle;text-align:center;border:1px solid;padding:5px"/>-->
+                                                <!--<td t-esc="employees[3]" style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"/>-->
+                                                <!--<td t-esc="employees[4]" style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"/>-->
+                                                <!--<td t-esc="employees[2]" style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"/>-->
+                                                <!--<td t-esc="employees[5]" style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"/>-->
+                                                <!--<td t-esc="employees[6]" style="vertical-align:middle;text-align:right;border:1px solid;padding:5px"/>-->
+                                            <!--</tr>-->
+                                    <!--</table>-->
+                                </body>
+                            </html>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

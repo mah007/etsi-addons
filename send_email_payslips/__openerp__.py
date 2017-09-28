@@ -33,6 +33,8 @@
     'data': [
         'views/send_payslip.xml',
         'views/payslip_mail_template.xml',
+        'views/send_payslip_batches.xml',
+        'templates/send_payslip_batches_template.xml',
     ],
     'images': ['static/description/banner.jpg'],
     'license': 'AGPL-3',
